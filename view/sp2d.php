@@ -3,7 +3,7 @@
  * @author freaksmj
  */
 include ("topbar.php");
-include_once ('../controller/arsipController.php');
+include_once ('../controller/sp2dController.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -111,8 +111,9 @@ include_once ('../controller/arsipController.php');
 						<li class="dropdown-submenu">
 						<a tabindex="-1" href="#">SP2D</a>
 							<ul class="dropdown-menu">
-							<li><a href="sp2d.php?">Daftar SP2D</a></li>							
-							<li><a href="sp2d.php?modul=tambah">Rekam Surat Masuk</a></li>							
+							<li><a href="sp2d.php">Daftar SP2D</a></li>							
+							<li><a href="sp2d.php?modul=load_sp2d">Load SP2D</a></li>
+							<li><a href="sp2d.php?modul=view_sp2d">Rekam SP2D</a></li>							
 							</ul>
 						</li>
 						<li class="dropdown-submenu">
@@ -140,9 +141,9 @@ include_once ('../controller/arsipController.php');
 					</a>	
 				
 					<ul class="dropdown-menu">							
-						<li><a href="pinjam.php">Daftar Peminjaman Arsip</a></li>
-						<li><a href="pinjam.php?modul=tambah">Pinjam</a></li>
-					</ul>    				
+						<li><a href="pinjam.php">Peminjaman Arsip</a></li>
+						<li><a href="pinjam.php?modul=kembali">Pengembalian Arsip</a></li>
+					</ul>     				
 				</li>
 				
 				<li class="dropdown">					
@@ -161,13 +162,13 @@ include_once ('../controller/arsipController.php');
 					</a>	
 				
 					<ul class="dropdown-menu">
-						<li><a href="#">Peminjaman Arsip</a></li>
+						<li><a href="laporan.php">Peminjaman Arsip</a></li>
 						<li class="dropdown-submenu">
 							<a tabindex="-1" href="#">Status Arsip</a>
 							<ul class="dropdown-menu">
-							<li><a href="./laporanstatusarsip.php">Arsip Aktif</a></li>
-							<li><a href="#">Arsip Inaktif</a></li>
-							<li><a href="#">Arsip Musnah</a></li>
+							<li><a href="laporan.php?modul=arsipAktif">Arsip Aktif</a></li>
+							<li><a href="laporan.php?modul=arsipInAktif">Arsip Inaktif</a></li>
+							<li><a href="laporan.php?modul=arsipMusnah">Arsip Musnah</a></li>
 							</ul>
 						</li>
 					</ul>    				
@@ -190,8 +191,8 @@ include_once ('../controller/arsipController.php');
 		<div class="masthead-pad">
 			
 			<div class="masthead-text">
-				<h2>RUH Arsip</h2>
-				<p>Pada menu ini User dapat melihat, merekam, merubah dan menghapus Arsip.</p>
+				<h2>RUH Arsip SP2D</h2>
+				<p>Pada menu ini User dapat melihat, merekam, merubah dan menghapus Arsip SP2D.</p>
 			</div> <!-- /.masthead-text -->
 			
 		</div>
@@ -214,16 +215,12 @@ switch($modul){
 
 	<div class="container">
 	<div id="legend">
-	  <legend class=""><a href="arsip.php">Daftar Arsip</a></legend>
+		<legend class=""><a href="sp2d.php">Daftar Arsip SP2D</a> | <a href="sp2d.php?modul=view_sp2d">Rekam Arsip SP2D</a></legend>
 	</div>
-
-<?php
-	if($all!=0){
-?>				
+				
 	<table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="example">
 	<thead>
 		<tr>
-			<th rowspan="2"><center>Jenis Arsip</center></th>
 			<th rowspan="2"><center>Nama Arsip</center></th>
 			<th colspan="4"><center>Lokasi</center></th>
 			<th rowspan="2">Ubah</th>
@@ -238,12 +235,12 @@ switch($modul){
 	</thead>
 	<tbody>
 <?php
+	if($all!=0){
 	foreach($all as $display){
 	
 			echo "<tr>";
-			echo "<td>".$display['nama_jenisarsip']."</td>";//jenisarsip
 			echo "<td>
-					<a href=\"arsipdetail.php?jenis=".$display['jenisarsip_id']."&id=".$display['arsip_id']."\">
+					<a href=\"sp2d.php?modul=detail&id=".$display['arsip_id']."\">
 					".$display['nama_arsip']."
 					</a>
 				   </td>";//namaarsip   
@@ -252,13 +249,13 @@ switch($modul){
 			echo "<td>".$display['baris']."</td>";//baris
 			echo "<td>".$display['box']."</td>";//box
 			echo "<td>
-					<a href=\"arsip.php?modul=ubah&id=".$display['arsip_id']."\">
+					<a href=\"sp2d.php?modul=ubah&id=".$display['arsip_id']."\">
 						<i class=\"icon-edit\"></i>
 						<span>Ubah</span>       					
 					</a>
 				  </td>";
 			echo "<td>
-					<a href=\"arsip.php?delete=".$display['arsip_id']."\" data-confirm='Anda Yakin Akan menghapus Arsip : ".$display['nama_arsip']." ?'>					
+					<a href=\"sp2d.php?delete=".$display['arsip_id']."\" data-confirm='Anda Yakin Akan menghapus Arsip SP2D : ".$display['nama_arsip']." ?'>					
 						<i class=\"icon-remove-sign\"></i>
 						<span>Hapus</span>        					
 					</a>
@@ -266,10 +263,10 @@ switch($modul){
 	}
 
 	}else{
-		echo "<div class=\"alert\">
-			  <buttontype=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
-			  Data Tidak Ada
-			  </div>";
+		echo "<div class=\"alert alert-error\">
+				  Data Tidak Ada
+				  <buttontype=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
+				  </div>";
 	}
 ?>
 </table>
@@ -279,391 +276,99 @@ switch($modul){
 
 </div> <!-- /#content -->
 
-<!-- view tambah LKPP -->
 <?php
 break;
 
-case "tambah_LKPP":
+case "load_sp2d":
 ?>
-
 <div id="content">
+
 	<div class="container">
-
-			<form class="well form-horizontal" action="#" method="post" enctype="multipart/form-data">
-			<fieldset>
-				<div id="legend">
-					<legend class="">Rekam Arsip LKPP</legend>
-				</div>
-<?php
-
-	if(isset($error_rekam)){
-		echo '<div class="alert alert-error" id="alert">'.$error_rekam.'
-			  <button type="button" class="close" data-dismiss="alert" id=""close">x</button>
-			  </div>';
-	}
-	if(isset($success)){
-		echo '<div class="alert alert-success">'.$success.'
-			  <button type="button" class="close" data-dismiss="alert" id=""close">x</button>
-			  </div>';
-	}else{
-?>				
-	<div class="row">
-		<div class="span4">
-			<div class="control-group">
-				<!-- Nama Arsip -->
-				<label class="control-label"  for="nama">Nama Arsip</label>
-				<div class="controls">
-					<input type="text" id="nama" name="nama" placeholder="Nama Arsip" class="span3">
-				</div>
-			</div>
-			<div class="control-group">
-			<!-- Tanggal -->
-				<label class="control-label"  for="nosurat">Tanggal</label>
-				<div class="controls date" id="dp3" data-date="<?php $date=date("Y-m-d");echo $date?>" data-date-format="yyyy-mm-dd">
-					<input class="span2" type="text" name="tanggal" >
-					<span class="add-on"><i class="icon-calendar"></i></span>
-				</div>
-			</div>			
-			<div class="control-group">
-				<!-- Ruang Arsip -->
-				<label class="control-label"  for="ruang">Ruang Arsip</label>
-				<div class="controls">
-					<select name="ruang" class="span3">
-					<?php
-					foreach($all_ruang as $rows_ruang){
-						echo "<option value=\"".$rows_ruang['ruang_id']."\">".$rows_ruang['nama_ruang']."</option>";
-					}
-					?>
-					</select>
-				</div>
-			</div>
-			<div class="control-group">
-				<!-- lokasi -->
-				<label class="control-label" for="lokasi">Lokasi</label>
-				<div class="controls">
-					<tr>
-						<td>Rak</td>
-						<td>
-							<input type="number" name="rak" style="width: 30px; padding: 1px"> 
-						</td>
-						<td>Baris</td>
-						<td>
-							<input type="number" name="baris" style="width: 30px; padding: 1px"> 
-						</td>
-						<td>Box</td>
-						<td>
-							<input type="number" name="box" style="width: 30px; padding: 1px"> 
-						</td>
-					 </tr>
-				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label" for="file">Nama File</label>
-					<div class="controls">
-						<!--<input type="hidden" name="MAX_FILE_SIZE" value="120000">-->
-						<input type="file" name="upload" id="file" placeholder="Pilih File" class="span3">
-					</div>
-			</div>
-			<div class="control-group">
-				<!-- Button -->
-				<div class="controls">
-					<button type="submit" class="btn btn-primary" name="rekam_lkpp" id="rekam_btn">Rekam</button>
-					<input type="button" class="btn btn-secondary" id="batal_btn" onclick="window.self.history.back()" value="Batal">
-				</div>
-			</div>
+		<div id="legend">
+		  <legend class=""><a href="sp2d.php?modul=load_sp2d">Load SP2D</a> | <a href="sp2d.php?modul=view_sp2d">Rekam SP2D</a></legend>
 		</div>
-		<div class="span5">
-			<div class="control-group">
-				<!-- Uraian -->
-				<label class="control-label" for="uraian">Uraian</label>
-				<div class="controls">
-					<textarea rows="12" name="uraian" class="input-xlarge span5"></textarea>
+	
+		<div class="well">
+			<form method="post" action="#" accept-charset="UTF-8">
+	<?php
+			if(isset($error)){
+				echo '<div class="alert alert-error" id "alert">'.$error.'
+					  <button type="button" class="close" data-dismiss="alert" id="close">x</button>
+					  </div>';
+			}
+	?> 
+				<div class="input-append date" id="dp3" data-date="<?php $date=date("Y-m-d");echo $date?>" data-date-format="yyyy-mm-dd">
+					<input class="span2" type="text" name="date" readonly>
+					<span class="add-on"><i class="icon-calendar"></i></span>
+					<button class="btn-info btn" type="submit" name="load_sp2d">Load</button>
 				</div>
-			</div>
+			</form>
 		</div>
 	</div>
-			</fieldset>
-		</form>
+</div>
+<?php
+break;
+
+case "view_sp2d":
+?>
+
+<div id="content">
+
+	<div class="container">
+	<div id="legend">
+	  <legend class="">Rekam Arsip SP2D</legend>
+	</div>
+	
+	<table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="example">
+	<thead>
+		<tr>
+			<th>No SP2D</th>
+			<th>Tanggal</th>
+			<th>Satker</th>
+			<th>Nilai</th>
+			<th>Kepada</th>
+			<th>Uraian</th>			
+			<th>Rekam</th>
+		</tr>
+	</thead>
+	<tbody>
+<?php
+	if($data_sp2d!=0){
+	foreach($data_sp2d as $display){
+			echo "<tr>";
+			echo "<td>".$display['nosp2d']."</td>";
+			echo "<td>".$display['tgsp2d']."</td>";
+			echo "<td>".$display['kdsatker']."</td>";
+			echo "<td>".$display['nilaisp2d']."</td>";
+			echo "<td>".$display['uraiben']."</td>";
+			echo "<td>".$display['untuk']."</td>";		
+			echo "<td>
+					<a href=\"sp2d.php?modul=tambah&id=".$display['nosp2d']."\">
+						<i class=\"icon-edit\"></i>
+						<span>Rekam</span>        					
+					</a>
+				  </td>";
+	}
+?>
+	</tbody>
+<?php	
+	}else{
+		echo "<div class=\"alert alert-error\">
+			   Data Tidak Ada
+			  <buttontype=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
+			  </div>";
+	}
+?>
+	</table>
+		</div>
 	</div> <!-- /.container -->
+
 </div> <!-- /#content -->
 
-<!-- view tambah surat masuk -->
 <?php
-}
 break;
 
-case "tambah_sm":
-?>
-
-<div id="content">
-	<div class="container">
-	<form class="well form-horizontal" action="#" method="post" enctype="multipart/form-data">
-	<fieldset>
-		<div id="legend">
-			<legend class="">Rekam Arsip Surat Masuk</legend>
-		</div>
-<?php
-
-	if(isset($error_rekam)){
-		echo '<div class="alert alert-error" id="alert">'.$error_rekam.'
-			  <button type="button" class="close" data-dismiss="alert" id=""close">x</button>
-			  </div>';
-	}
-	if(isset($success)){
-		echo '<div class="alert alert-success">'.$success.'
-			  <button type="button" class="close" data-dismiss="alert" id=""close">x</button>
-			  </div>';
-	}else{
-?>			
-	<div class="row">
-		<div class="span4">
-			<div class="control-group">
-				 <!-- Nama Arsip -->
-				<label class="control-label"  for="nama">Nama Arsip</label>
-				<div class="controls">
-					<input type="text" id="nama" name="nama" placeholder="Nama Arsip" class="span3">
-				</div>
-			</div>
-			<div class="control-group">
-				<!-- Ruang Arsip -->
-				<label class="control-label"  for="ruang">Ruang Arsip</label>
-				<div class="controls">
-					<select name="ruang" class="span3">
-					<?php
-					foreach($all_ruang as $rows_ruang){
-						echo "<option value=\"".$rows_ruang['ruang_id']."\">".$rows_ruang['nama_ruang']."</option>";
-					}
-					?>
-					</select>
-				</div>			
-			</div>
-			<div class="control-group">
-			<!-- lokasi -->
-				<label class="control-label" for="lokasi">Lokasi</label>
-					<div class="controls">
-						<tr>
-							<td>Rak</td>
-							<td>
-								<input type="number" name="rak" style="width: 30px; padding: 1px"> 
-							</td>
-							<td>Baris</td>
-							<td>
-								<input type="number" name="baris" style="width: 30px; padding: 1px"> 
-							</td>
-							<td>Box</td>
-							<td>
-								<input type="number" name="box" style="width: 30px; padding: 1px"> 
-							</td>
-						</tr>
-					</div>			
-			</div>
-			<div class="control-group">
-			<!-- No Surat -->
-				<label class="control-label"  for="nosurat">No Surat</label>
-				<div class="controls">
-					<input type="text" id="nosurat" name="nosurat" placeholder="No Surat" class="span3">
-				</div>			
-			</div>
-			<div class="control-group">
-			<!-- Perihal Surat -->
-				<label class="control-label"  for="perihal">Perihal</label>
-				<div class="controls">
-					<input type="text" id="perihal" name="perihal" placeholder="Perihal Surat" class="span3">
-				</div>
-			</div>
-			<div class="control-group">
-			<!-- Pengirim Surat -->
-				<label class="control-label"  for="pengirim">Pengirim</label>
-				<div class="controls">
-					<input type="text" id="pengirim" name="pengirim" placeholder="Pengirim Surat" class="span3">
-				</div>
-			</div>
-			<div class="control-group">
-			<!-- Tanggal -->
-				<label class="control-label"  for="nosurat">Tanggal Surat</label>
-				<div class="controls prepend date" id="dp3" data-date="<?php $date=date("Y-m-d");echo $date?>" data-date-format="yyyy-mm-dd">
-					<input class="span2" type="text" name="tanggal" >
-					<span class="add-on"><i class="icon-calendar"></i></span>
-				</div>
-			</div>
-			<div class="control-group">
-			<!-- Attachment -->			
-				<label class="control-label" for="file">Nama File</label>
-				<div class="controls">
-					<!--<input type="hidden" name="MAX_FILE_SIZE" value="120000">-->
-					<input type="file" name="upload" id="file" placeholder="Pilih File" class="span3">
-				</div>
-			</div>
-			<div class="control-group">
-				<!-- Button -->
-				<div class="controls">
-					<button type="submit" class="btn btn-primary" name="rekam_sm" id="rekam_btn">Rekam</button>
-					<input type="button" class="btn btn-secondary" id="batal_btn" onclick="window.self.history.back()" value="Batal">
-				</div>
-			</div>
-		</div>				
-		<div class="span5">
-			<div class="control-group">
-			<!-- Uraian -->
-				<label class="control-label" for="uraian">Uraian</label>
-					<div class="controls">
-						<textarea rows="20" name="uraian" class="input-xlarge span5"></textarea>
-					</div>
-			</div>
-		</div>
-	</fieldset>
-	</form>
-</div> <!-- /.container -->
-</div> <!-- /#content -->
-
-<!-- view tambah surat keluar -->
-<?php
-}
-break;
-
-case "tambah_sk":
-?>
-
-<div id="content">
-	<div class="container">
-	<form class="well form-horizontal" action="#" method="post" enctype="multipart/form-data">
-	<fieldset>
-		<div id="legend">
-			<legend class="">Rekam Arsip Surat Keluar</legend>
-		</div>
-<?php
-
-	if(isset($error_rekam)){
-		echo '<div class="alert alert-error" id="alert">'.$error_rekam.'
-			  <button type="button" class="close" data-dismiss="alert" id=""close">x</button>
-			  </div>';
-	}
-	if(isset($success)){
-		echo '<div class="alert alert-success">'.$success.'
-			  <button type="button" class="close" data-dismiss="alert" id=""close">x</button>
-			  </div>';
-	}else{
-?>			
-	<div class="row">
-		<div class="span4">
-			<div class="control-group">
-				 <!-- Nama Arsip -->
-				<label class="control-label"  for="nama">Nama Arsip</label>
-				<div class="controls">
-					<input type="text" id="nama" name="nama" placeholder="Nama Arsip" class="span3">
-				</div>
-			</div>
-			<div class="control-group">
-				<!-- Ruang Arsip -->
-				<label class="control-label"  for="ruang">Ruang Arsip</label>
-				<div class="controls">
-					<select name="ruang" class="span3">
-					<?php
-					foreach($all_ruang as $rows_ruang){
-					echo "<option value=\"".$rows_ruang['ruang_id']."\">".$rows_ruang['nama_ruang']."</option>";
-					}
-					?>
-					</select>
-				</div>			
-			</div>
-			<div class="control-group">
-			<!-- lokasi -->
-				<label class="control-label" for="lokasi">Lokasi</label>
-					<div class="controls">
-						<tr>
-							<td>Rak</td>
-							<td>
-								<input type="number" name="rak" style="width: 30px; padding: 1px"> 
-							</td>
-							<td>Baris</td>
-							<td>
-								<input type="number" name="baris" style="width: 30px; padding: 1px"> 
-							</td>
-							<td>Box</td>
-							<td>
-								<input type="number" name="box" style="width: 30px; padding: 1px"> 
-							</td>
-						</tr>
-					</div>			
-			</div>
-			<div class="control-group">
-			<!-- No Surat -->
-				<label class="control-label"  for="nosurat">No Surat</label>
-				<div class="controls">
-					<input type="text" id="nosurat" name="nosurat" placeholder="No Surat" class="span3">
-				</div>			
-			</div>
-			<div class="control-group">
-			<!-- Perihal Surat -->
-				<label class="control-label"  for="perihal">Perihal</label>
-				<div class="controls">
-					<input type="text" id="perihal" name="perihal" placeholder="Perihal Surat" class="span3">
-				</div>
-			</div>
-			<div class="control-group">
-			<!-- Kepada -->
-				<label class="control-label"  for="kepada">Kepada</label>
-				<div class="controls">
-					<input type="text" id="kepada" name="kepada" placeholder="Kepada" class="span3">
-				</div>
-			</div>
-			<div class="control-group">
-			<!-- Tanggal -->
-				<label class="control-label"  for="nosurat">Tanggal Surat</label>
-				<div class="controls date" id="dp3" data-date="<?php $date=date("Y-m-d");echo $date?>" data-date-format="yyyy-mm-dd">
-					<input class="span2" type="text" name="tanggal" >
-					<span class="add-on"><i class="icon-calendar"></i></span>
-				</div>
-			</div>
-			<div class="control-group">
-				<!-- Seksi Penerbit -->
-				<label class="control-label"  for="penerbit">Penerbit</label>
-				<div class="controls">
-					<select name="penerbit" class="span3">
-					<?php
-					foreach($all_seksi as $rows_seksi){
-					echo "<option value=\"".$rows_seksi['kdseksi']."\">".$rows_seksi['nmseksi']."</option>";
-					}
-					?>
-					</select>
-				</div>			
-			</div>			
-			<div class="control-group">
-			<!-- Attachment -->			
-				<label class="control-label" for="file">Nama File</label>
-				<div class="controls">
-					<!--<input type="hidden" name="MAX_FILE_SIZE" value="120000">-->
-					<input type="file" name="upload" id="file" placeholder="Pilih File" class="span3">
-				</div>
-			</div>
-			<div class="control-group">
-				<!-- Button -->
-				<div class="controls">
-					<button type="submit" class="btn btn-primary" name="rekam_sk" id="rekam_btn">Rekam</button>
-					<input type="button" class="btn btn-secondary" id="batal_btn" onclick="window.self.history.back()" value="Batal">
-				</div>
-			</div>
-		</div>				
-		<div class="span5">
-			<div class="control-group">
-			<!-- Uraian -->
-				<label class="control-label" for="uraian">Uraian</label>
-					<div class="controls">
-						<textarea rows="20" name="uraian" class="input-xlarge span5"></textarea>
-					</div>
-			</div>
-		</div>
-	</fieldset>
-	</form>
-</div> <!-- /.container -->
-</div> <!-- /#content -->
-
-<!--view tambah SPJ Bendum -->
-<?php
-}
-break;
-
-case "tambah_SPJBendum":
+case "tambah":
 ?>
 
 <div id="content">
@@ -672,20 +377,22 @@ case "tambah_SPJBendum":
 		<form class="well form-horizontal" action="#" method="post" enctype="multipart/form-data">
 			<fieldset>
 				<div id="legend">
-					<legend class="">Rekam Arsip SPJ Bendum</legend>
+					<legend class="">Rekam Arsip SP2D</legend>
 				</div>
 <?php
 
 	if(isset($error_rekam)){
 		echo '<div class="alert alert-error" id="alert">'.$error_rekam.'
-			  <button type="button" class="close" data-dismiss="alert" id=""close">x</button>
+			  <button type="button" class="close" data-dismiss="alert" id="close">x</button>
 			  </div>';
 	}
 	if(isset($success)){
 		echo '<div class="alert alert-success">'.$success.'
-			  <button type="button" class="close" data-dismiss="alert" id=""close">x</button>
+			  <button type="button" class="close" data-dismiss="alert" id="close">x</button>
 			  </div>';
 	}else{
+			
+	foreach($sp2d_detail as $display){
 ?>				
 	<div class="row">
 		<div class="span4">
@@ -693,15 +400,7 @@ case "tambah_SPJBendum":
 				<!-- Nama Arsip -->
 				<label class="control-label"  for="nama">Nama Arsip</label>
 				<div class="controls">
-					<input type="text" id="nama" name="nama" placeholder="Nama Arsip" class="span3">
-				</div>
-			</div>
-			<div class="control-group">
-			<!-- Tanggal -->
-				<label class="control-label"  for="nosurat">Tanggal</label>
-				<div class="controls date" id="dp3" data-date="<?php $date=date("Y-m-d");echo $date?>" data-date-format="yyyy-mm-dd">
-					<input class="span2" type="text" name="tanggal" >
-					<span class="add-on"><i class="icon-calendar"></i></span>
+					<input type="text" id="nama" name="nama" placeholder="Nama Arsip" class="span3" >
 				</div>
 			</div>
 			<div class="control-group">
@@ -715,7 +414,7 @@ case "tambah_SPJBendum":
 					}
 					?>
 					</select>
-				</div>
+				</div>			
 			</div>
 			<div class="control-group">
 				<!-- lokasi -->
@@ -724,118 +423,308 @@ case "tambah_SPJBendum":
 					<tr>
 						<td>Rak</td>
 						<td>
-							<input type="number" name="rak" style="width: 30px; padding: 1px"> 
+							<input type="number" name="rak" style="width: 30px; padding: 1px" > 
 						</td>
 						<td>Baris</td>
 						<td>
-							<input type="number" name="baris" style="width: 30px; padding: 1px"> 
+							<input type="number" name="baris" style="width: 30px; padding: 1px" > 
 						</td>
 						<td>Box</td>
 						<td>
-							<input type="number" name="box" style="width: 30px; padding: 1px"> 
+							<input type="number" name="box" style="width: 30px; padding: 1px" > 
 						</td>
 					</tr>
 				</div>
+			</div>
+			<div class="control-group">
+				<!-- No SP2D -->
+				<label class="control-label"  for="nosp2d">No SP2D</label>
+				<div class="controls">
+					<input type="text" id="nosp2d" name="nosp2d" placeholder="nosp2d" class="span3" value="<?php echo $display['nosp2d'];?>" readonly>
+				</div>
 			</div>			
 			<div class="control-group">
-				<label class="control-label" for="file">Nama File</label>
-					<div class="controls">
-						<!--<input type="hidden" name="MAX_FILE_SIZE" value="120000">-->
-						<input type="file" name="upload" id="file" placeholder="Pilih File" class="span3">
-					</div>
+				<!-- Satker -->
+				<label class="control-label"  for="kdsatker">Satker</label>
+				<div class="controls">
+					<input type="text" id="kdsatker" name="kdsatker" placeholder="satker" class="span3" value="<?php echo $display['kdsatker'];?>" readonly>
+				</div>
 			</div>
+			<div class="control-group">
+				<!-- Nilai -->
+				<label class="control-label"  for="nilai">Nilai</label>
+				<div class="controls">
+					<input type="text" id="nilai" name="nilai" placeholder="nilai" class="span3" value="<?php echo $display['nilaisp2d'];?>" readonly>
+				</div>
+			</div>
+			<div class="control-group">
+			<!-- Tanggal -->
+				<label class="control-label"  for="tgsp2d">Tanggal</label>
+				<div class="controls prepend date" id="dp3" data-date="<?php $date=date("Y-m-d");echo $date?>" data-date-format="yyyy-mm-dd">
+					<input class="span2" type="text" name="tgsp2d" value="<?php echo $display['tgsp2d'];?>" readonly>
+					<span class="add-on"><i class="icon-calendar"></i></span>
+				</div>
+			</div>	
+			<div class="control-group">
+			<!-- Attachment -->			
+				<label class="control-label" for="file">Nama File</label>
+				<div class="controls">
+					<!--<input type="hidden" name="MAX_FILE_SIZE" value="120000">-->
+					<input type="file" name="upload" id="file" placeholder="Pilih File" class="span3" >
+				</div>
+			</div>			
 			<div class="control-group">
 				<!-- Button -->
 				<div class="controls">
-					<button type="submit" class="btn btn-primary" name="rekam_spj" id="rekam_btn">Rekam</button>
+					<button type="submit" class="btn btn-primary" name="rekam_sp2d" id="rekam_btn">Rekam</button>
 					<input type="button" class="btn btn-secondary" id="batal_btn" onclick="window.self.history.back()" value="Batal">
 				</div>
 			</div>
 		</div>
 		<div class="span5">
 			<div class="control-group">
+				<!-- Kepada -->
+				<label class="control-label" for="Kepada">Kepada</label>
+				<div class="controls">
+					<textarea rows="3" name="uraiben" class="input-xlarge span5" readonly><?php echo $display['uraiben'];?></textarea>
+				</div>
+			</div>			
+			<div class="control-group">
 				<!-- Uraian -->
 				<label class="control-label" for="uraian">Uraian</label>
 				<div class="controls">
-					<textarea rows="12" name="uraian" class="input-xlarge span5"></textarea>
+					<textarea rows="12" name="uraian" class="input-xlarge span5" readonly><?php echo $display['untuk'];?></textarea>
 				</div>
-			</div>		
-		</div>
-	</div>
+			</div>
+		</div>	
 			</fieldset>
 		</form>
+	</div>
 	</div> <!-- /.container -->
 </div> <!-- /#content -->
 
 <?php
 }
+}
 break;
+
 case "ubah":
 ?>
+
 <div id="content">
 	<div class="container">
-
-			<form class="form-horizontal" action="#" method="post">
-			  <fieldset>
+		<form class="well form-horizontal" action="#" method="post" enctype="multipart/form-data">
+			<fieldset>
 				<div id="legend">
-				  <legend class="">Ubah Jenis Arsip</legend>
+					<legend class="">Ubah Arsip SP2D</legend>
 				</div>
 <?php
 
 	if(isset($error_rekam)){
 		echo '<div class="alert alert-error" id="alert">'.$error_rekam.'
-			  <button type="button" class="close" data-dismiss="alert" id=""close">x</button>
+			  <button type="button" class="close" data-dismiss="alert" id="close">x</button>
 			  </div>';
 	}
 	if(isset($success)){
-		echo '<div class="alert alert-sicess">'.$success.'
-			  <button type="button" class="close" data-dismiss="alert" id=""close">x</button>
+		echo '<div class="alert alert-success">'.$success.'
+			  <button type="button" class="close" data-dismiss="alert" id="close">x</button>
 			  </div>';
 	}else{
-		foreach($ubah as $display){
-//value lom d isi
+			
+	foreach($ubah as $display){
 ?>				
-				<input name="id_ubah" id="id_ubah" type="hidden" value="<?php echo $_GET['id']; ?>" />					 
-				<div class="control-group">
-				  <!-- Nama Jenis Arsip -->
-				  <label class="control-label"  for="nama">Nama Jenis Arsip</label>
-				  <div class="controls">
-					<input type="text" id="nama" name="nama" placeholder="Nama Jenis Arsip" class="input-xlarge" value="<?php echo $display['nama_jenisarsip']; ?>">
-					<p class="help-block">Jenis Arsip</p>
-				  </div>
+	<div class="row">
+		<div class="span4">
+			<input name="id_ubah" id="id_ubah" type="hidden" value="<?php echo $_GET['id']; ?>" />
+			<div class="control-group">
+				<!-- Nama Arsip -->
+				<label class="control-label"  for="nama">Nama Arsip</label>
+				<div class="controls">
+					<input type="text" id="nama" name="nama" placeholder="Nama Arsip" class="span3" value="<?php echo $display['nama_arsip'];?>">
 				</div>
-				<div class="control-group">
-				  <!-- Retensi-->
-				  <label class="control-label" for="retensi">Retensi</label>
-				  <div class="controls">
-					<input type="number" id="retensi" name="retensi" placeholder="Masa Retensi" class="input-xlarge" value="<?php echo $display['masa_retensi']; ?>">
-					<p class="help-block">Sesuaikan dengan Jadwal Retensi Arsip</p>
-				  </div>
+			</div>
+			<div class="control-group">
+				<!-- Ruang Arsip -->
+				<label class="control-label"  for="ruang">Ruang Arsip</label>
+				<div class="controls">
+					<select name="ruang" class="span3">
+					<?php
+					foreach($all_ruang as $rows_ruang){
+						echo "<option value=\"".$rows_ruang['ruang_id']."\">".$rows_ruang['nama_ruang']."</option>";
+					}
+					?>
+					</select>
+				</div>			
+			</div>
+			<div class="control-group">
+				<!-- lokasi -->
+				<label class="control-label" for="lokasi">Lokasi</label>
+				<div class="controls">
+					<tr>
+						<td>Rak</td>
+						<td>
+							<input type="number" name="rak" style="width: 30px; padding: 1px" value="<?php echo $display['rak'];?>"> 
+						</td>
+						<td>Baris</td>
+						<td>
+							<input type="number" name="baris" style="width: 30px; padding: 1px" value="<?php echo $display['baris'];?>"> 
+						</td>
+						<td>Box</td>
+						<td>
+							<input type="number" name="box" style="width: 30px; padding: 1px" value="<?php echo $display['box'];?>"> 
+						</td>
+					</tr>
 				</div>
-				<div class="control-group">
-				  <!-- Uraian -->
-				  <label class="control-label"  for="uraian">Uraian Jenis Arsip</label>
-				  <div class="controls">
-					<!--<input type="textarea" id="nama" name="nama" placeholder="Nama Jenis Arsip" class="input-xlarge">-->
-					<textarea rows="5" name="uraian" class="input-xlarge focused"><?php echo $display['uraian']; ?></textarea>
-					<p class="help-block">Jenis Arsip</p>
-				  </div>
+			</div>
+			<div class="control-group">
+				<!-- No SP2D -->
+				<label class="control-label"  for="nosp2d">No SP2D</label>
+				<div class="controls">
+					<input type="text" id="nosp2d" name="nosp2d" placeholder="nosp2d" class="span3" value="<?php echo $display['nosp2d'];?>" readonly>
 				</div>
-				<div class="control-group">
-				  <!-- Button -->
-				  <div class="controls">
-					<button type="submit" class="btn btn-primary" name="update_jenisarsip" id="update_btn">Simpan</button>
+			</div>			
+			<div class="control-group">
+				<!-- Satker -->
+				<label class="control-label"  for="kdsatker">Satker</label>
+				<div class="controls">
+					<input type="text" id="kdsatker" name="kdsatker" placeholder="satker" class="span3" value="<?php echo $display['kdsatker'];?>" readonly>
+				</div>
+			</div>
+			<div class="control-group">
+				<!-- Nilai -->
+				<label class="control-label"  for="nilai">Nilai</label>
+				<div class="controls">
+					<input type="text" id="nilai" name="nilai" placeholder="nilai" class="span3" value="<?php echo $display['nilaisp2d'];?>" readonly>
+				</div>
+			</div>
+			<div class="control-group">
+			<!-- Tanggal -->
+				<label class="control-label"  for="tgsp2d">Tanggal</label>
+				<div class="controls prepend date" id="dp3" data-date="<?php $date=date("Y-m-d");echo $date?>" data-date-format="yyyy-mm-dd">
+					<input class="span2" type="text" name="tgsp2d" value="<?php echo $display['tgsp2d'];?>" readonly>
+					<span class="add-on"><i class="icon-calendar"></i></span>
+				</div>
+			</div>	
+			<div class="control-group">
+			<!-- Attachment -->			
+				<label class="control-label" for="file">Nama File</label>
+				<div class="controls">
+					<!--<input type="hidden" name="MAX_FILE_SIZE" value="120000">-->
+					<input type="file" name="upload" id="file" placeholder="Pilih File" class="span3" >
+				</div>
+			</div>			
+			<div class="control-group">
+				<!-- Button -->
+				<div class="controls">
+					<button type="submit" class="btn btn-primary" name="update_sp2d" id="rekam_btn">Simpan</button>
 					<input type="button" class="btn btn-secondary" id="batal_btn" onclick="window.self.history.back()" value="Batal">
-				  </div>
 				</div>
-			  </fieldset>
-			</form>
-
+			</div>
+		</div>
+		<div class="span5">
+			<div class="control-group">
+				<!-- Kepada -->
+				<label class="control-label" for="Kepada">Kepada</label>
+				<div class="controls">
+					<textarea rows="3" name="uraiben" class="input-xlarge span5" readonly><?php echo $display['uraiben'];?></textarea>
+				</div>
+			</div>			
+			<div class="control-group">
+				<!-- Uraian -->
+				<label class="control-label" for="uraian">Uraian</label>
+				<div class="controls">
+					<textarea rows="12" name="uraian" class="input-xlarge span5" readonly><?php echo $display['untuk'];?></textarea>
+				</div>
+			</div>
+		</div>	
+			</fieldset>
+		</form>
+	</div>
 	</div> <!-- /.container -->
 </div> <!-- /#content -->
-</div>
+
+
 <?php
 }
+}
+break;
+
+case "detail":
+?>
+
+<div id="content">
+	<div class="container well">
+		<div class="row">
+			<div class="span12">	
+
+	<?php
+		foreach($ubah as $display){
+	?>
+			<table class="table table-bordered">
+				<thead>
+					<tr><th colspan="3">Detail SP2D</th></tr>
+				</thead>
+				<tr>
+					<td>No SP2D</td>
+					<td colspan="2"><?php echo $display['nosp2d'];?></td>
+				</tr>
+				<tr>
+					<td>Tanggal SP2D</td>
+					<td colspan="2"><?php echo $display['tgsp2d'];?></td>
+				</tr>
+				<tr>
+					<td>Satker</td>
+					<td colspan="2"><?php echo $display['kdsatker'];?></td>
+				</tr>
+				<tr>
+					<td>Nilai</td>
+					<td colspan="2"><?php echo $display['nilaisp2d'];?></td>
+				</tr>
+				<tr>
+					<td>Kepada</td>
+					<td colspan="2"><?php echo $display['uraiben'];?></td>
+				</tr>
+				<tr>
+					<td>Uraian</td>
+					<td colspan="2"><?php echo $display['untuk'];?></td>
+				</tr>
+				<tr>
+					<td rowspan="5">Lokasi</td>
+					<tr><td>Ruang</td><td><?php echo $display['nama_ruang'];?></td></tr>
+					<tr><td>Rak</td><td><?php echo $display['rak'];?></td></tr>
+					<tr><td>Baris</td><td><?php echo $display['baris'];?></td></tr>
+					<tr><td>Box</td><td><?php echo $display['box'];?></td></tr>
+				</tr>
+				<tr>
+					<td >Attachment</td>
+					<td colspan="2"><a href="#preview" data-toggle="modal">Preview</a></td>
+				</tr>
+				<tr>
+					<td>Keywords</td>
+					<td colspan="2"><?php echo $display['keyword'];?></td>
+				</tr>				
+				<tfoot>
+					<tr>
+						<th colspan="3"><center><input type="button" class="btn btn-secondary" id="batal_btn" onclick="window.self.history.back()" value="Kembali"></center></th>
+					</tr>
+				</tfoot>
+			</table>
+			</div>
+		</div>
+	</div>
+	<!-- Modal -->
+	<div id="preview" class="modal hide fade in" style="width:750px;height:500px;border:1px solid #ddd;">
+	        <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h3>Preview File Attachment</h3>
+			</div>
+			<div class="modal-body" style="width:700px;height:500px;border:1px solid #ddd;">
+				<iframe src="../attachment/sp2d/<?php echo $display['attachment'];?>" style="width:100%;height:100%;"></iframe>	
+			</div>
+	</div>
+
+</div>	
+<?php
 }
 break;
 }

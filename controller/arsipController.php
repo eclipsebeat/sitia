@@ -23,7 +23,7 @@
 	//view all arsip
 	$arsip = new Arsip();
 	$all=$arsip->getAllarsip();
-	var_dump($all);
+	//var_dump($all);
 	
 	//$sp2d = new Sp2d();
 		
@@ -36,13 +36,13 @@
 		if(empty($date)){
 			$error="Pilih tgl SP2D terlebih dahulu";
 		}else{
-			$data_sp2d=$sp2d->getSp2d($date);
+			$data_sp2d=$sp2d->loadSp2d($date);
 			//var_dump($data_sp2d);
 			if($data_sp2d==0){
-			$data_sp2d=$sp2d->getSp2d($date);
+				
 				$error="Tidak Terdapat SP2D untuk tanggal : ".$date."";
 			}else{
-			$data_sp2d=$sp2d->getSp2d($date);
+				$data_sp2d=$sp2d->loadSp2d($date);
 			//header("location:tes.php?modul=view_sp2d");
 			}
 		}

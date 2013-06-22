@@ -10,7 +10,7 @@
     <title>Login</title>
     <!-- Bootstrap -->
 	<link type="text/css" rel="stylesheet" href="../includes/css/bootstrap.css">
-	<link type="text/css" rel="stylesheet" href="../includes/css/application_login.css">
+	<link type="text/css" rel="stylesheet" href="../includes/css/application.css">
 	<link type="text/css" rel="stylesheet" href="../includes/datepicker/css/datepicker.css">
 	<link type="text/css" rel="stylesheet" href="../includes/DT/css/DT_bootstrap.css">
 	
@@ -33,13 +33,13 @@
 
 ?> 	
  <div class="row">
-    <div class="span8 offset2 well">
-    <div id="legend" class="well-large">
+    <div class="span8 offset2 well-large">
+    <div id="legend">
 	  <h1><img alt="" src="../includes/img/document-icon.png" />Sistem Informasi Arsip</h1>
     </div>
 	<hr>
     <div class="row">
-    <div class="span3 well-large">
+    <div class="span4">
 	<p><br>
 	<b>Selamat datang di halaman login<br>
 	Hanya staff terdaftar yang diperkenankan menggunakan sistem informasi ini.<br>
@@ -48,7 +48,7 @@
 
     <div id="login form" class="span4">
 	<div class="well">
-	    <legend><img alt="" src="../includes/img/App-login-manager-icon.png" /><b>Login</b></legend>
+	    <legend><img alt="" src="../includes/img/App-login-manager-icon.png" />Login</legend>
         <form method="post" action="#" accept-charset="UTF-8">
             <!--
 			<div class="alert alert-error">
@@ -80,7 +80,7 @@
     </div>
 	<hr>
   <div class="row">
-  	<p><center><b>&copy 2013 by FreaksMJ</b></center></p>
+  	<p><center>&copy 2013 by FreaksMJ</center></p>
     </div>
   </div>
   </div>

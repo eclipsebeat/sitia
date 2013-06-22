@@ -64,6 +64,12 @@
 		else {
 				$cek=$sk->getNo($nosurat);
 				if($cek==0){
+				//autokeyword
+				$autokeyword = new Autokeyword();
+				$stopwords = file('../includes/stopwords/stopword_list_tala.txt');
+				$data = $nama.$perihal.$kepada.$uraian;
+				$keywords = $autokeyword->getKeywords($data,$stopwords);
+				
 				//rename attachment
 				$date=date("dmYHis");
 				$new_file_name=$date.$FileName;
@@ -72,7 +78,7 @@
 				move_uploaded_file ($_FILES['upload']['tmp_name'],$path);
 				
 				//rekam arsip
-				$rekam	=$sk->addArsipSk($jenis_arsip,$nama,$ruang,$rak,$baris,$box,$keyword,$arsip_id,$nosurat,$tanggal,$perihal,$kepada,$penerbit,$uraian,$new_file_name);
+				$rekam	=$sk->addArsipSk($jenis_arsip,$nama,$ruang,$rak,$baris,$box,$keywords,$arsip_id,$nosurat,$tanggal,$perihal,$kepada,$penerbit,$uraian,$new_file_name);
 					if($rekam ==1){
 						$success="Arsip Berhasil Direkam";
 						header("refresh:3;suratkeluar.php");
@@ -135,6 +141,12 @@
 		}*/
 		else {
 
+				//autokeyword
+				$autokeyword = new Autokeyword();
+				$stopwords = file('../includes/stopwords/stopword_list_tala.txt');
+				$data = $nama.$perihal.$kepada.$uraian;
+				$keywords = $autokeyword->getKeywords($data,$stopwords);
+				
 				//rename attachment
 				$date=date("dmYHis");
 				$new_file_name=$date.$FileName;
@@ -143,7 +155,7 @@
 				move_uploaded_file ($_FILES['upload']['tmp_name'],$path);
 				
 				//rekam arsip
-				$rekam	=$sk->updateSk($id,$nama,$ruang,$rak,$baris,$box,$keyword,$nosurat,$tanggal,$perihal,$kepada,$penerbit,$uraian,$new_file_name);
+				$rekam	=$sk->updateSk($id,$nama,$ruang,$rak,$baris,$box,$keywords,$nosurat,$tanggal,$perihal,$kepada,$penerbit,$uraian,$new_file_name);
 					if($rekam ==1){
 						$success="Arsip Berhasil Direkam";
 						header("refresh:3;suratkeluar.php");

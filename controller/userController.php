@@ -121,7 +121,7 @@
 		$hapus=$user->deleteUser($id);
 		if($hapus==1){
 			$success="User berhasil di hapus";
-			header("location:user.php");
+			header("refresh:3;user.php");
 		}else{
 			$error_delete="User gagal di hapus";
 		}

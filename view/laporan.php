@@ -3,12 +3,12 @@
  * @author freaksmj
  */
 include ("topbar.php");
-include_once ('../controller/pinjamController.php');
+include_once ('../controller/laporanController.php');
 ?>
 <!DOCTYPE html>
 <html>
  <head>
-  <title>Peminjaman Arsip</title>
+  <title>Laporan Arsip</title>
    <!-- Bootstrap -->
 	<link type="text/css" rel="stylesheet" href="../includes/css/bootstrap.css">
 	<link type="text/css" rel="stylesheet" href="../includes/css/application.css">
@@ -133,9 +133,9 @@ include_once ('../controller/pinjamController.php');
 					</ul>    				
 				</li>
 				
-				<li class="dropdown active">					
+				<li class="dropdown">					
 					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
-						<i class="icon-briefcase"></i>
+						<i class="icon-briefcase icon-white"></i>
 						<span>Peminjaman Arsip</span> 
 						<b class="caret"></b>
 					</a>	
@@ -154,9 +154,9 @@ include_once ('../controller/pinjamController.php');
 					</a>	
 				</li>
 				
-				<li class="dropdown">					
+				<li class="dropdown active">					
 					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
-						<i class="icon-tasks icon-white"></i>
+						<i class="icon-tasks"></i>
 						<span>Laporan</span> 
 						<b class="caret"></b>
 					</a>	
@@ -171,7 +171,7 @@ include_once ('../controller/pinjamController.php');
 							<li><a href="laporan.php?modul=arsipMusnah">Arsip Musnah</a></li>
 							</ul>
 						</li>
-					</ul>   				
+					</ul>    				
 				</li>
 				
 			</ul>
@@ -192,7 +192,7 @@ include_once ('../controller/pinjamController.php');
 			
 			<div class="masthead-text">
 				<h2>Peminjaman Arsip</h2>
-				<p>Pada menu ini User Dapat Melakukan Peminjaman dan Pengembalian Arsip</p>
+				<p>Pada menu ini User Dapat Melihat Laporan Peminjaman Arsip dan Laporan Status Arsip</p>
 			</div> <!-- /.masthead-text -->
 			
 		</div>
@@ -210,214 +210,222 @@ switch($modul){
     
     default :
 ?>
-
+<!-- view Laporan Peminjaman Arsip -->
 <div id="content">
 
 	<div class="container">
-	<div id="legend">
-	  <legend class="">Daftar Arsip</legend>
-	</div>
-
-	<table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="example">
-	<thead>
-		<tr>
-			<th rowspan="2"><center>Nama Arsip</center></th>
-			<th colspan="4"><center>Lokasi</center></th>
-			<th rowspan="2">Pinjam</th>
-		</tr>
-		<tr>
-			<th><center>Ruang</center></th>
-			<th>Rak</th>
-			<th>Baris</th>
-			<th>Box</th>
-		</tr>
-	</thead>
-	<tbody>
-<?php
-	if($all!=0){
-	foreach($all as $display){
-	
-			echo "<tr>";
-			echo "<td>".$display['nama_arsip']."</a></td>";//namaarsip //lom bs link k detail tiap jenis arsip  
-			echo "<td>".$display['nama_ruang']."</td>";//ruang
-			echo "<td>".$display['rak']."</td>";//rak
-			echo "<td>".$display['baris']."</td>";//baris
-			echo "<td>".$display['box']."</td>";//box
-			echo "<td>
-					<a href=\"pinjam.php?modul=tambah&id=".$display['arsip_id']."\">
-						<i class=\"icon-edit\"></i>
-						<span>Pinjam</span>       					
-					</a>
-				  </td>";
-	}
-
-	}else{
-		echo "<div class=\"alert alert-error\">
-			   Data Tidak Ada
-			  <buttontype=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
-			  </div>";
-	}
-?>
-</table>
+		<div id="legend">
+		  <legend class="">Laporan Peminjaman Arsip</legend>
 		</div>
+
+		<table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="example">
+		<thead>
+			<tr>
+				<th><center>Jenis Arsip</center></th>
+				<th><center>Nama Arsip</center></th>
+				<th><center>Peminjam</center></th>
+				<th><center>Uraian</center></th>
+				<th><center>Tanggal Pinjam</center></th>
+				<th><center>Tanggal Kembali</center></th>
+			</tr>
+		</thead>
+		<tbody>
+	<?php
+		if($all_pinjam!=0){
+			foreach($all_pinjam as $display){	
+				echo "<tr>";
+				echo "<td>".$display['nama_jenisarsip']."</a></td>";  
+				echo "<td>".$display['nama_arsip']."</td>";
+				echo "<td>".$display['username']."</td>";
+				echo "<td>".$display['uraian']."</td>";
+				echo "<td>".$display['tgl_pinjam']."</td>";
+				echo "<td>".$display['tgl_kembali']."</td>";
+			}
+		}else{
+			echo "<div class=\"alert alert-error\">
+				  Data Tidak Ada
+				  <buttontype=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
+				  </div>";
+		}
+	?>
+		</table>
 		
+	</div>
 	</div> <!-- /.container -->
 
 </div> <!-- /#content -->
 
-<!-- view tambah Pinjam -->
 <?php
 break;
 
-case "tambah":
+case "arsipAktif":
 ?>
-
+<!-- view Laporan Arsip Aktif -->
 <div id="content">
+
 	<div class="container">
-
-			<form class="well form-horizontal" action="#" method="post" enctype="multipart/form-data">
-			<fieldset>
-				<div id="legend">
-					<legend class="">Rekam Peminjaman Arsip</legend>
-				</div>
-<?php
-
-	if(isset($error_rekam)){
-		echo '<div class="alert alert-error" id="alert">'.$error_rekam.'
-			  <button type="button" class="close" data-dismiss="alert" id="close">x</button>
-			  </div>';
-	}
-	if(isset($success)){
-		echo '<div class="alert alert-success">'.$success.'
-			  <button type="button" class="close" data-dismiss="alert" id="close">x</button>
-			  </div>';
-	}else{
-			
-	foreach($ubah as $display){
-?>				
-	<div class="row">
-		<div class="span4">
-			<input name="id_user" id="id_user" type="hidden" value="<?php echo " ".$_SESSION['login']." "; ?>" />		
-			<input name="id_ubah" id="id_ubah" type="hidden" value="<?php echo $_GET['id']; ?>" />
-			<div class="control-group">
-				<!-- Nama Arsip -->
-				<label class="control-label"  for="nama">Nama Arsip</label>
-				<div class="controls">
-					<input type="text" id="nama" name="nama" placeholder="Nama Arsip" class="span3" value="<?php echo $display['nama_arsip'];?>" readonly>
-				</div>
-			</div>
-			<div class="control-group">
-				<!-- Ruang Arsip -->
-				<label class="control-label"  for="ruang">Ruang Arsip</label>
-				<div class="controls">
-					<input type="text" id="ruang" name="ruang" placeholder="Ruang Arsip" class="span3" value="<?php echo $display['nama_ruang'];?>" readonly>
-				</div>
-			</div>
-			<div class="control-group">
-				<!-- lokasi -->
-				<label class="control-label" for="lokasi">Lokasi</label>
-				<div class="controls">
-					<tr>
-						<td>Rak</td>
-						<td>
-							<input type="number" name="rak" style="width: 30px; padding: 1px" value="<?php echo $display['rak'];?>" readonly> 
-						</td>
-						<td>Baris</td>
-						<td>
-							<input type="number" name="baris" style="width: 30px; padding: 1px" value="<?php echo $display['baris'];?>" readonly> 
-						</td>
-						<td>Box</td>
-						<td>
-							<input type="number" name="box" style="width: 30px; padding: 1px" value="<?php echo $display['box'];?>" readonly> 
-						</td>
-					</tr>
-				</div>
-			</div>
-			<div class="control-group">
-				<!-- Uraian -->
-				<label class="control-label" for="uraian">Uraian</label>
-				<div class="controls">
-					<textarea rows="6" name="uraian" class="input-xlarge"></textarea>
-				</div>
-			</div>				
-			<div class="control-group">
-				<!-- Button -->
-				<div class="controls">
-					<button type="submit" class="btn btn-primary" name="rekam_pinjam" id="rekam_btn">Pinjam</button>
-					<input type="button" class="btn btn-secondary" id="batal_btn" onclick="window.self.history.back()" value="Batal">
-				</div>
-			</div>
+		<div id="legend">
+		  <legend class="">Laporan Status Arsip Aktif</legend>
 		</div>
+
+		<table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="example">
+		<thead>
+			<tr>
+				<th rowspan="2"><center>Jenis Arsip</center></th>
+				<th rowspan="2"><center>Nama Arsip</center></th>
+				<th rowspan="2"><center>Tanggal Arsip</center></th>
+				<th colspan="4"><center>Lokasi</center></th>
+			</tr>
+			<tr>
+				<th><center>Ruang</center></th>
+				<th>Rak</th>
+				<th>Baris</th>
+				<th>Box</th>
+			</tr>			
+		</thead>
+		<tbody>
+		<?php
+		if($all_aktif!=0){
+			foreach($all_aktif as $display){	
+				echo "<tr>";
+				echo "<td>".$display['nama_jenisarsip']."</a></td>";  
+				echo "<td>".$display['nama_arsip']."</td>";
+				echo "<td>".$display['tgl']."</td>";
+				echo "<td>".$display['nama_ruang']."</td>";
+				echo "<td>".$display['rak']."</td>";
+				echo "<td>".$display['baris']."</td>";
+				echo "<td>".$display['box']."</td>";
+			}
+		}else{
+			echo "<div class=\"alert alert-error\">
+				  Data Tidak Ada
+				  <buttontype=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
+				  </div>";
+		}
+		?>
+		</table>
+		
 	</div>
-			</fieldset>
-		</form>
-		</div>
-		</div>
 	</div> <!-- /.container -->
+
 </div> <!-- /#content -->
 
-
 <?php
-}
-}
 break;
-case "kembali":
+
+case "arsipInAktif":
 ?>
+<!-- view Laporan Arsip In Aktif -->
 <div id="content">
 
 	<div class="container">
-	<div id="legend">
-	  <legend class="">Daftar Arsip</legend>
-	</div>
-		
-	<table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="example">
-	<thead>
-		<tr>
-			<th rowspan="2"><center>Nama Arsip</center></th>
-			<th colspan="4"><center>Lokasi</center></th>
-			<th rowspan="2">Kembali</th>
-		</tr>
-		<tr>
-			<th><center>Ruang</center></th>
-			<th>Rak</th>
-			<th>Baris</th>
-			<th>Box</th>
-		</tr>
-	</thead>
-	<tbody>
-<?php
-	if($view_pinjam!=0){
-	foreach($view_pinjam as $display){
-		if (isset($_SESSION['login'])==$display['user_id']){
-			echo "<tr>";
-			echo "<td>".$display['nama_arsip']."</td>";//namaarsip   
-			echo "<td>".$display['nama_ruang']."</td>";//ruang
-			echo "<td>".$display['rak']."</td>";//rak
-			echo "<td>".$display['baris']."</td>";//baris
-			echo "<td>".$display['box']."</td>";//box
-			echo "<td>
-					<a href=\"pinjam.php?kembali=".$display['pinjam_id']."&id=".$display['arsip_id']."\" data-confirm='Pastikan Anda Sudah Mengembalikan Arsip : ".$display['nama_arsip']." Pada Tempatnya'>
-						<i class=\"icon-edit\"></i>
-						<span>Kembali</span>       					
-					</a>
-				  </td>";
-		}		  
-	}
-
-	}else{
-		echo "<div class=\"alert alert-error\">
-				Data Tidak Ada
-				<buttontype=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
-			  </div>";
-	}
-?>
-</table>
+		<div id="legend">
+		  <legend class="">Laporan Status Arsip In Aktif</legend>
 		</div>
+
+		<table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="example">
+		<thead>
+			<tr>
+				<th rowspan="2"><center>Jenis Arsip</center></th>
+				<th rowspan="2"><center>Nama Arsip</center></th>
+				<th rowspan="2"><center>Tanggal Arsip</center></th>
+				<th rowspan="2"><center>Retensi Arsip (th)</center></th>
+				<th rowspan="2"><center>Umur Arsip (th)</center></th>				
+				<th colspan="4"><center>Lokasi</center></th>
+			</tr>
+			<tr>
+				<th><center>Ruang</center></th>
+				<th>Rak</th>
+				<th>Baris</th>
+				<th>Box</th>
+			</tr>			
+		</thead>
+		<tbody>
+		<?php
+		if($all_inaktif!=0){
+			foreach($all_inaktif as $display){	
+				echo "<tr>";
+				echo "<td>".$display['nama_jenisarsip']."</a></td>";  
+				echo "<td>".$display['nama_arsip']."</td>";
+				echo "<td>".$display['tgl']."</td>";
+				echo "<td>".$display['masa_retensi']."</td>";
+				echo "<td>".$display['diff_years']."</td>";
+				echo "<td>".$display['nama_ruang']."</td>";
+				echo "<td>".$display['rak']."</td>";
+				echo "<td>".$display['baris']."</td>";
+				echo "<td>".$display['box']."</td>";
+			}
+		}else{
+			echo "<div class=\"alert alert-error\">
+				  Data Tidak Ada
+				  <buttontype=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
+				  </div>";
+		}
+		?>
+		</table>
 		
+	</div>
 	</div> <!-- /.container -->
 
 </div> <!-- /#content -->
+<?php
+break;
+
+case "arsipMusnah":
+?>
+<!-- view Laporan Status Musnah -->
+<div id="content">
+
+	<div class="container">
+		<div id="legend">
+		  <legend class="">Laporan Status Arsip Musnah</legend>
+		</div>
+
+		<table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="example">
+		<thead>
+			<tr>
+				<th rowspan="2"><center>Jenis Arsip</center></th>
+				<th rowspan="2"><center>Nama Arsip</center></th>
+				<th rowspan="2"><center>Tanggal Arsip</center></th>
+				<th rowspan="2"><center>Retensi Arsip (th)</center></th>
+				<th rowspan="2"><center>Umur Arsip (th)</center></th>				
+				<th colspan="4"><center>Lokasi</center></th>
+			</tr>
+			<tr>
+				<th><center>Ruang</center></th>
+				<th>Rak</th>
+				<th>Baris</th>
+				<th>Box</th>
+			</tr>			
+		</thead>
+		<tbody>
+		<?php
+		if($all_musnah!=0){
+			foreach($all_musnah as $display){	
+				echo "<tr>";
+				echo "<td>".$display['nama_jenisarsip']."</a></td>";  
+				echo "<td>".$display['nama_arsip']."</td>";
+				echo "<td>".$display['tgl']."</td>";
+				echo "<td>".$display['masa_retensi']."</td>";
+				echo "<td>".$display['diff_years']."</td>";
+				echo "<td>".$display['nama_ruang']."</td>";
+				echo "<td>".$display['rak']."</td>";
+				echo "<td>".$display['baris']."</td>";
+				echo "<td>".$display['box']."</td>";
+			}
+		}else{
+			echo "<div class=\"alert alert-error\">
+				  Data Tidak Ada
+				  <buttontype=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
+				  </div>";
+		}
+		?>
+		</table>
 		
+	</div>
+	</div> <!-- /.container -->
+
+</div> <!-- /#content -->		
 <?php
 }
 ?>
