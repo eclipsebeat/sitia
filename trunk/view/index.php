@@ -112,7 +112,8 @@ header("location:login.php");
 						<a tabindex="-1" href="#">SP2D</a>
 							<ul class="dropdown-menu">
 							<li><a href="sp2d.php">Daftar SP2D</a></li>							
-							<li><a href="sp2d.php?modul=tambah">Rekam Surat Masuk</a></li>							
+							<li><a href="sp2d.php?modul=load_sp2d">Load SP2D</a></li>
+							<li><a href="sp2d.php?modul=view_sp2d">Rekam SP2D</a></li>							
 							</ul>
 						</li>
 						<li class="dropdown-submenu">
@@ -140,9 +141,9 @@ header("location:login.php");
 					</a>	
 				
 					<ul class="dropdown-menu">							
-						<li><a href="pinjam.php">Daftar Peminjaman Arsip</a></li>
-						<li><a href="pinjam.php?modul=tambah">Pinjam</a></li>
-					</ul>    				
+						<li><a href="pinjam.php">Peminjaman Arsip</a></li>
+						<li><a href="pinjam.php?modul=kembali">Pengembalian Arsip</a></li>
+					</ul>     				
 				</li>
 				
 				<li class="dropdown">					
@@ -161,16 +162,16 @@ header("location:login.php");
 					</a>	
 				
 					<ul class="dropdown-menu">
-						<li><a href="#">Peminjaman Arsip</a></li>
+						<li><a href="laporan.php">Peminjaman Arsip</a></li>
 						<li class="dropdown-submenu">
 							<a tabindex="-1" href="#">Status Arsip</a>
 							<ul class="dropdown-menu">
-							<li><a href="./laporanstatusarsip.php">Arsip Aktif</a></li>
-							<li><a href="#">Arsip Inaktif</a></li>
-							<li><a href="#">Arsip Musnah</a></li>
+							<li><a href="laporan.php?modul=arsipAktif">Arsip Aktif</a></li>
+							<li><a href="laporan.php?modul=arsipInAktif">Arsip Inaktif</a></li>
+							<li><a href="laporan.php?modul=arsipMusnah">Arsip Musnah</a></li>
 							</ul>
 						</li>
-					</ul>    				
+					</ul>   				
 				</li>
 				
 			</ul>

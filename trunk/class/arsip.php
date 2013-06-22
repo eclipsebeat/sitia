@@ -54,12 +54,24 @@ class Arsip{
 		}
 	}
 	
+	//menampilkan available arsip untuk dipinjam
+	function getTersedia(){
+		$query=$this->db1->query("SELECT a.arsip_id,a.jenisarsip_id,a.nama_arsip,c.nama_ruang,a.rak,a.baris,a.box FROM arsip as a RIGHT JOIN  jenis_arsip as b on a.jenisarsip_id=b.jenisarsip_id,ruang as c WHERE a.ruang=c.ruang_id AND a.status_pinjam='N' ORDER BY a.arsip_id");
+		$jml_data=$query->rowCount();
+		if($jml_data>=1){
+			$hasil=$query->fetchAll();
+			return $hasil;
+		}else{
+			return $jml_data;
+		}
+	}
 	//mendapatkan id terakhir 
 	function getLastId(){
 		$query=$this->db1->query("SELECT MAX(arsip_id) FROM arsip");
 		return $query;
 	}
 	
+	//lom jelas kepake
 	function getDetail($jenis,$id){
 		if($jenis=1 AND !is_null($id)){
 			$query=$this->db1->query("SELECT a.arsip_id,a.nama_arsip,c.nama_ruang,a.rak,a.baris,a.box,a.keyword,b.no_surat,b.tanggal,b.perihal,b.pengirim,b.uraian,b.attachment FROM arsip as a RIGHT JOIN  suratmasuk_detail as b on a.arsip_id=b.arsip_id, ruang as c WHERE  a.ruang=c.ruang_id  AND a.arsip_id='$id'");

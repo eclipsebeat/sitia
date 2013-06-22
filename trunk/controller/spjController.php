@@ -57,6 +57,12 @@
 		else {
 				$cek=$lkpp->getTgl($tanggal);
 				if($cek==0){
+				//autokeyword
+				$autokeyword = new Autokeyword();
+				$stopwords = file('../includes/stopwords/stopword_list_tala.txt');
+				$data = $nama.$uraian;
+				$keywords = $autokeyword->getKeywords($data,$stopwords);
+				
 				//rename attachment
 				$date=date("dmYHis");
 				$new_file_name=$date.$FileName;
@@ -65,7 +71,7 @@
 				move_uploaded_file ($_FILES['upload']['tmp_name'],$path);
 				
 				//rekam arsip
-				$rekam	=$spj->addArsipSpj($jenis_arsip,$nama,$ruang,$rak,$baris,$box,$keyword,$arsip_id,$tanggal,$uraian,$new_file_name);
+				$rekam	=$spj->addArsipSpj($jenis_arsip,$nama,$ruang,$rak,$baris,$box,$keywords,$arsip_id,$tanggal,$uraian,$new_file_name);
 				
 					if($rekam ==1){
 						$success="Arsip Berhasil Direkam";
@@ -127,6 +133,12 @@
 		}*/
 		else {
 
+				//autokeyword
+				$autokeyword = new Autokeyword();
+				$stopwords = file('../includes/stopwords/stopword_list_tala.txt');
+				$data = $nama.$uraian;
+				$keywords = $autokeyword->getKeywords($data,$stopwords);
+				
 				//rename attachment
 				$date=date("dmYHis");
 				$new_file_name=$date.$FileName;
@@ -135,7 +147,7 @@
 				move_uploaded_file ($_FILES['upload']['tmp_name'],$path);
 				
 				//rekam arsip
-				$rekam	=$spj->updateSpj($id,$nama,$ruang,$rak,$baris,$box,$keyword,$arsip_id,$tanggal,$uraian,$new_file_name);
+				$rekam	=$spj->updateSpj($id,$nama,$ruang,$rak,$baris,$box,$keywords,$arsip_id,$tanggal,$uraian,$new_file_name);
 					if($rekam ==1){
 						$success="Arsip Berhasil Direkam";
 						header("refresh:3;spj_bendum.php");

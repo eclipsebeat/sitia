@@ -41,13 +41,6 @@
 		$TempName	= $_FILES['upload']['tmp_name'];
 		$ext	=  pathinfo($FileName, PATHINFO_EXTENSION);
 		
-		//autokeyword
-		$autokeyword = new Autokeyword();
-		$stopwords = file('../includes/stopwords/stopword_list_tala.txt');
-		$data = $perihal.$pengirim.$uraian;
-		$keywords = $autokeyword->getKeywords($data,$stopwords);
-		//var_dump($keywords);
-		
 		if(empty($ruang)||empty($rak)||empty($baris)||empty($box)||empty($nosurat)||empty($tanggal)||empty($perihal)||empty($pengirim)||empty($uraian)){
 			$error_rekam="Semua Field Harus diisi!";
 		}
@@ -66,6 +59,14 @@
 		else {
 				$cek=$sm->getNo($nosurat);
 				if($cek==0){
+				
+				//autokeyword
+				$autokeyword = new Autokeyword();
+				$stopwords = file('../includes/stopwords/stopword_list_tala.txt');
+				$data = $nama.$perihal.$pengirim.$uraian;
+				$keywords = $autokeyword->getKeywords($data,$stopwords);
+				//var_dump($keywords);
+
 				//rename attachment
 				$date=date("dmYHis");
 				$new_file_name=$date.$FileName;
@@ -136,7 +137,12 @@
 			$error_rekam="Ukuran File Melebihi Ukuran Max (20MB)!";
 		}*/
 		else {
-
+				//autokeyword
+				$autokeyword = new Autokeyword();
+				$stopwords = file('../includes/stopwords/stopword_list_tala.txt');
+				$data = $perihal.$pengirim.$uraian;
+				$keywords = $autokeyword->getKeywords($data,$stopwords);
+				
 				//rename attachment
 				$date=date("dmYHis");
 				$new_file_name=$date.$FileName;
@@ -145,7 +151,7 @@
 				move_uploaded_file ($_FILES['upload']['tmp_name'],$path);
 				
 				//rekam arsip
-				$rekam	=$sm->updateSm($id,$nama,$ruang,$rak,$baris,$box,$keyword,$nosurat,$tanggal,$perihal,$pengirim,$uraian,$new_file_name);
+				$rekam	=$sm->updateSm($id,$nama,$ruang,$rak,$baris,$box,$keywords,$nosurat,$tanggal,$perihal,$pengirim,$uraian,$new_file_name);
 				
 					if($rekam ==1){
 						$success="Arsip Berhasil Direkam";

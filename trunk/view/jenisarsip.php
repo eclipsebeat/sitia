@@ -111,7 +111,8 @@ include_once ('../controller/jenisarsipController.php');
 						<a tabindex="-1" href="#">SP2D</a>
 							<ul class="dropdown-menu">
 							<li><a href="sp2d.php">Daftar SP2D</a></li>							
-							<li><a href="sp2d.php?modul=tambah">Rekam Surat Masuk</a></li>							
+							<li><a href="sp2d.php?modul=load_sp2d">Load SP2D</a></li>
+							<li><a href="sp2d.php?modul=view_sp2d">Rekam SP2D</a></li>							
 							</ul>
 						</li>
 						<li class="dropdown-submenu">
@@ -139,9 +140,9 @@ include_once ('../controller/jenisarsipController.php');
 					</a>	
 				
 					<ul class="dropdown-menu">							
-						<li><a href="pinjam.php">Daftar Peminjaman Arsip</a></li>
-						<li><a href="pinjam.php?modul=tambah">Pinjam</a></li>
-					</ul>    				
+						<li><a href="pinjam.php">Peminjaman Arsip</a></li>
+						<li><a href="pinjam.php?modul=kembali">Pengembalian Arsip</a></li>
+					</ul>     				
 				</li>
 				
 				<li class="dropdown">					
@@ -160,16 +161,16 @@ include_once ('../controller/jenisarsipController.php');
 					</a>	
 				
 					<ul class="dropdown-menu">
-						<li><a href="#">Peminjaman Arsip</a></li>
+						<li><a href="laporan.php">Peminjaman Arsip</a></li>
 						<li class="dropdown-submenu">
 							<a tabindex="-1" href="#">Status Arsip</a>
 							<ul class="dropdown-menu">
-							<li><a href="./laporanstatusarsip.php">Arsip Aktif</a></li>
-							<li><a href="#">Arsip Inaktif</a></li>
-							<li><a href="#">Arsip Musnah</a></li>
+							<li><a href="laporan.php?modul=arsipAktif">Arsip Aktif</a></li>
+							<li><a href="laporan.php?modul=arsipInAktif">Arsip Inaktif</a></li>
+							<li><a href="laporan.php?modul=arsipMusnah">Arsip Musnah</a></li>
 							</ul>
 						</li>
-					</ul>    				
+					</ul>   				
 				</li>
 				
 			</ul>
@@ -215,10 +216,7 @@ switch($modul){
 	<div id="legend">
 	  <legend class=""><a href="jenisarsip.php">Daftar Jenis Arsip</a> | <a href="jenisarsip.php?modul=tambah">Rekam Jenis Arsip</a></legend>
 	</div>
-
-<?php
-	if($all!=0){
-?>				
+			
 	<table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="example">
 	<thead>
 		<tr>
@@ -232,6 +230,7 @@ switch($modul){
 	</thead>
 	<tbody>
 <?php
+	if($all!=0){
 	foreach($all as $display){
 			echo "<tr>";
 			echo "<td>".$display['nama_jenisarsip']."</td>";
@@ -256,10 +255,10 @@ switch($modul){
 
 <?php
 	}else{
-		echo "<div class=\"alert\">
-			  <buttontype=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
-			  Data Tidak Ada
-			  </div>";
+		echo "<div class=\"alert alert-error\">
+				  Data Tidak Ada
+				  <buttontype=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
+				  </div>";
 	}
 ?>
 </table>

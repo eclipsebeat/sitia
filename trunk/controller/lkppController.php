@@ -59,6 +59,13 @@
 		else {
 				$cek=$arsip->getArsip($nama);
 				if($cek==0){
+				
+				//autokeyword
+				$autokeyword = new Autokeyword();
+				$stopwords = file('../includes/stopwords/stopword_list_tala.txt');
+				$data = $nama.$uraian;
+				$keywords = $autokeyword->getKeywords($data,$stopwords);
+				
 				//rename attachment
 				$date=date("dmYHis");
 				$new_file_name=$date.$FileName;
@@ -67,7 +74,7 @@
 				move_uploaded_file ($_FILES['upload']['tmp_name'],$path);
 				
 				//rekam tabel arsip
-				$rekam	=$lkpp->addArsiplkpp($jenis_arsip,$nama,$ruang,$rak,$baris,$box,$keyword,$arsip_id,$tanggal,$uraian,$new_file_name);
+				$rekam	=$lkpp->addArsiplkpp($jenis_arsip,$nama,$ruang,$rak,$baris,$box,$keywords,$arsip_id,$tanggal,$uraian,$new_file_name);
 				//rekam tabel lkpp_detail
 				//$rekam2	=$lkpp->addlkpp($arsip_id,$periode,$uraian,$new_file_name);
 				
@@ -132,7 +139,12 @@
 			$error_rekam="Ukuran File Melebihi Ukuran Max (20MB)!";
 		}*/
 		else {
-
+				//autokeyword
+				$autokeyword = new Autokeyword();
+				$stopwords = file('../includes/stopwords/stopword_list_tala.txt');
+				$data = $nama.$uraian;
+				$keywords = $autokeyword->getKeywords($data,$stopwords);
+				
 				//rename attachment
 				$date=date("dmYHis");
 				$new_file_name=$date.$FileName;

@@ -3,7 +3,7 @@
  * @author freaksmj
  */
 include ("topbar.php");
-include_once ('../controller/jenisarsipController.php');
+include_once ('../controller/searchController.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -105,9 +105,9 @@ include_once ('../controller/jenisarsipController.php');
 					</a>	
 				
 					<ul class="dropdown-menu">							
-						<li><a href="pinjam.php">Daftar Peminjaman Arsip</a></li>
-						<li><a href="pinjam.php?modul=tambah">Pinjam</a></li>
-					</ul>    				
+						<li><a href="pinjam.php">Peminjaman Arsip</a></li>
+						<li><a href="pinjam.php?modul=kembali">Pengembalian Arsip</a></li>
+					</ul> 
 				</li>
 				
 				<li class="dropdown active">					
@@ -126,13 +126,13 @@ include_once ('../controller/jenisarsipController.php');
 					</a>	
 				
 					<ul class="dropdown-menu">
-						<li><a href="#">Peminjaman Arsip</a></li>
+						<li><a href="laporan.php">Peminjaman Arsip</a></li>
 						<li class="dropdown-submenu">
 							<a tabindex="-1" href="#">Status Arsip</a>
 							<ul class="dropdown-menu">
-							<li><a href="./laporanstatusarsip.php">Arsip Aktif</a></li>
-							<li><a href="#">Arsip Inaktif</a></li>
-							<li><a href="#">Arsip Musnah</a></li>
+							<li><a href="laporan.php?modul=arsipAktif">Arsip Aktif</a></li>
+							<li><a href="laporan.php?modul=arsipInAktif">Arsip Inaktif</a></li>
+							<li><a href="laporan.php?modul=arsipMusnah">Arsip Musnah</a></li>
 							</ul>
 						</li>
 					</ul>    				
@@ -168,77 +168,129 @@ include_once ('../controller/jenisarsipController.php');
 
 <div class="container">
 <div class="row">
+	<div id="search" class="span3 sidebar">
+	<!-- simple search -->
+        <div class="well">
+			<form name="simpleSearch" action="#" method="post">
+			<fieldset>
+				<div id="legend">
+				<legend class="">Pencarian Sederhana</legend>
+				</div>
+					<div class="control-group">
+							  <!-- Nama Arsip -->
+							  <label class="control-label"  for="nama"></label>
+							  <div class="controls">
+								<input type="text" id="keyword" name="keyword" placeholder="Masukkan Kata Pencarian">
+							  </div>
+					</div>
+					<button class="btn-info btn" type="submit" name="search">Pencarian</button>		
+			</fieldset>
+			</form>
+	<!-- simple search -->	
+		<hr>
+	<!-- advance search -->
+        <form name="advanceSearch" action="#" method="post">
+			<fieldset>
+				<div id="legend">
+				<legend class="">Pencarian Spesifik</legend>
+				</div>
+					<div class="control-group">
+							  <!-- Nama Arsip -->
+							  <label class="control-label"  for="nama">Nama Arsip</label>
+							  <div class="controls">
+								<input type="text" id="nama" name="nama" placeholder="Nama Arsip">
+							  </div>
+					</div>	
+					<div class="control-group">
+							  <!-- Jenis Arsip -->
+							  <label class="control-label"  for="jenis">Jenis Arsip</label>
+							  <div class="controls">
+								<select name="jenis">
+								<?php
+									foreach($all_jenis as $rows_jenis){
+										echo "<option value=\"".$rows_jenis['jenisarsip_id']."\">".$rows_jenis['nama_jenisarsip']."</option>";							
+									}
+								?>
+								</select>
+							  </div>
+					</div>
+					<div class="control-group">
+							  <!-- Ruang Arsip -->
+							  <label class="control-label"  for="ruang">Ruang Arsip</label>
+							  <div class="controls">
+								<select name="ruang">
+								<?php
+									foreach($all_ruang as $rows_ruang){
+										echo "<option value=\"".$rows_ruang['ruang_id']."\">".$rows_ruang['nama_ruang']."</option>";							
+									}
+								?>
+								</select>
+							  </div>
+					</div>			
+					<button class="btn-info btn" type="submit" name="advancesearch">Pencarian</button>
+			</fieldset>
+		</form>
+	<!-- advance search -->
+	</div>
+	</div>
 <?php
-include_once ('sidebar_search.php');
+//include_once ('sidebar_search.php');
 $modul=$_GET['modul'];
 $id=$_GET['id'];
 switch($modul){
     
     default :
 ?>
-<div class="span9">
-<div id="content">
+		<div id="content" class="span9">
 
-	<div class="container">
-	<div id="legend">
-	  <legend class=""><a href="jenisarsip.php">Daftar Jenis Arsip</a> | <a href="jenisarsip.php?modul=tambah">Rekam Jenis Arsip</a></legend>
-	</div>
-
-<?php
-	if($all!=0){
-?>				
-	<table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="example">
+				<div id="legend">
+				  <legend class="">Daftar Arsip</legend>
+				</div>
+	<?php
+	if(isset($error_search))
+	{
+		echo '<div class="alert alert-error" id="alert">'.$error_search.' 
+			<button type="button" class="close" data-dismiss="alert" id="close">×</button></div>';
+	}
+	?>
+	<table cellpadding="0" cellspacing="0" border="0" class="table" >
 	<thead>
 		<tr>
-			<th>Jenis Arsip</th>
-			<th>Retensi(th)</th>
-			<th>Uraian</th>
-			<th>Perubahan Terakhir</th>
-			<th>Ubah</th>
-			<th>Hapus</th>
+			<th rowspan="2"><center>Nama Arsip</center></th>
+			<th colspan="4"><center>Lokasi</center></th>
+			<th rowspan="2">Pinjam</th>
+		</tr>
+		<tr>
+			<th><center>Ruang</center></th>
+			<th>Rak</th>
+			<th>Baris</th>
+			<th>Box</th>
 		</tr>
 	</thead>
 	<tbody>
 <?php
-	foreach($all as $display){
+
+	if(isset($data)){
+	foreach($data as $display){
+	
 			echo "<tr>";
-			echo "<td>".$display['nama_jenisarsip']."</td>";
-			echo "<td>".$display['masa_retensi']."</td>";
-			echo "<td>".$display['uraian']."</td>";
-			echo "<td>".$display['last_update']."</td>";
+			echo "<td>".$display['nama_arsip']."</a></td>";//namaarsip //lom bs link k detail tiap jenis arsip  
+			echo "<td>".$display['nama_ruang']."</td>";//ruang
+			echo "<td>".$display['rak']."</td>";//rak
+			echo "<td>".$display['baris']."</td>";//baris
+			echo "<td>".$display['box']."</td>";//box
 			echo "<td>
-					<a href=\"jenisarsip.php?modul=ubah&id=".$display['jenisarsip_id']."\">
+					<a href=\"pinjam.php?modul=tambah&id=".$display['arsip_id']."\">
 						<i class=\"icon-edit\"></i>
-						<span>Ubah</span>        					
+						<span>Detail</span>       					
 					</a>
 				  </td>";
-			echo "<td>
-					<a data-toggle='modal' href='#tes'>
-					
-						<i class=\"icon-remove-sign\"></i>
-						<span>Hapus</span>        					
-					</a>
-				 </td>";
 	}
-?>
-	</tbody>
-	<div id="tes" class="modal hide fade in">
-            <div class="modal-header">
-			  <button type="button" class="close" data-dismiss="modal">X</button>
-			</div> 
-			<div class="modal-body">
-			  <center>
-              <h4>Anda Yakin Akan Menghapus Jenis Arsip Ini ?</h4></br>
-			  <a href="jenisarsip.php?delete=<?php echo $display['jenisarsip_id'];?>" class="btn btn-secondary">Ya</a>              
-			  <a href="#" class="btn" data-dismiss="modal">Tidak</a>
-			  </center>
-            </div>
-    </div>
-<?php
+
 	}else{
-		echo "<div class=\"alert\">
+		echo "<div class=\"alert alert-error\">
+			   Data Tidak Ada
 			  <buttontype=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
-			  Data Tidak Ada
 			  </div>";
 	}
 ?>
@@ -247,13 +299,11 @@ switch($modul){
 		
 	</div> <!-- /.container -->
 
-</div> <!-- /#content -->
-</div>
+		</div> <!-- /#content -->
+
 </div>
 </div>
 <?php
-
-
 break;
 }
 ?>
