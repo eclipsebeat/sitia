@@ -2,7 +2,7 @@
 /**
  * @author freaksmj
  */
-include ("topbar.php");
+include_once ("topbar.php");
 include_once ('../controller/jenisarsipController.php');
 ?>
 <!DOCTYPE html>
@@ -60,11 +60,11 @@ include_once ('../controller/jenisarsipController.php');
 							</ul>
 						</li>
 						<li class="dropdown-submenu">
-							<a tabindex="-1" href="#">RUH Jenis Arsip</a>
-							<ul class="dropdown-menu">
+							<a tabindex="-1" href="jenisarsip.php">Daftar Jenis Arsip</a>
+							<!-- <ul class="dropdown-menu">
 							<li><a href="jenisarsip.php">Daftar Jenis Arsip</a></li>
-							<li><a href="jenisarsip.php?modul=tambah">Rekam Jenis Arsip</a></li>
-							</ul>
+							 <li><a href="jenisarsip.php?modul=tambah">Rekam Jenis Arsip</a></li> 
+							</ul> -->
 						</li>
 						<li class="dropdown-submenu">
 							<a tabindex="-1" href="#">RUH Lokasi</a>
@@ -74,11 +74,7 @@ include_once ('../controller/jenisarsipController.php');
 							</ul>
 						</li>
 						<li class="dropdown-submenu">
-							<a tabindex="-1" href="#">Utility</a>
-							<ul class="dropdown-menu">
-							<li><a href="#">Backup</a></li>
-							<li><a href="#">Restore</a></li>
-							</ul>
+							<a tabindex="-1" href="utility.php">Utility</a>
 						</li>
 					</ul>
 				</li>
@@ -118,8 +114,8 @@ include_once ('../controller/jenisarsipController.php');
 						<li class="dropdown-submenu">
 						<a tabindex="-1" href="#">Laporan Pertanggungjawaban Penerimaan dan Pengeluaran Negara</a>
 							<ul class="dropdown-menu">
-							<li><a href="spj_bendum.php">Daftar Laporan Pertanggungjawaban Penerimaan dan Pengeluaran Negara</a></li>							
-							<li><a href="spj_bendum.php?modul=tambah">Rekam Laporan Pertanggungjawaban Penerimaan dan Pengeluaran Negara</a></li>							
+							<li><a href="spj_bendum.php">Daftar SPJ Bendum</a></li>							
+							<li><a href="spj_bendum.php?modul=tambah">Rekam SPJ Bendum</a></li>							
 							</ul>
 						</li>
 						<li class="dropdown-submenu">
@@ -206,63 +202,61 @@ include_once ('../controller/jenisarsipController.php');
 $modul=$_GET['modul'];
 $id=$_GET['id'];
 switch($modul){
-    
-    default :
+default :
 ?>
 
 <div id="content">
 
 	<div class="container">
-	<div id="legend">
-	  <legend class=""><a href="jenisarsip.php">Daftar Jenis Arsip</a> | <a href="jenisarsip.php?modul=tambah">Rekam Jenis Arsip</a></legend>
-	</div>
+		<div id="legend">
+			<legend class=""><a href="jenisarsip.php">Daftar Jenis Arsip</a></legend>
+		</div>
 			
-	<table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="example">
-	<thead>
-		<tr>
-			<th>Jenis Arsip</th>
-			<th>Retensi(th)</th>
-			<th>Uraian</th>
-			<th>Perubahan Terakhir</th>
-			<th>Ubah</th>
-			<th>Hapus</th>
-		</tr>
-	</thead>
-	<tbody>
-<?php
-	if($all!=0){
-	foreach($all as $display){
-			echo "<tr>";
-			echo "<td>".$display['nama_jenisarsip']."</td>";
-			echo "<td>".$display['masa_retensi']."</td>";
-			echo "<td>".$display['uraian']."</td>";
-			echo "<td>".$display['last_update']."</td>";
-			echo "<td>
-					<a href=\"jenisarsip.php?modul=ubah&id=".$display['jenisarsip_id']."\">
+		<table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="example">
+		<thead>
+			<tr>
+				<th>Jenis Arsip</th>
+				<th>Retensi(th)</th>
+				<th>Uraian</th>
+				<th>Perubahan Terakhir</th>
+				<th>Ubah</th>
+				<!-- <th>Hapus</th> -->
+			</tr>
+		</thead>
+		<tbody>
+		<?php
+			if($all!=0){
+			foreach($all as $display){
+				echo "<tr>";
+				echo "<td>".$display['nama_jenisarsip']."</td>";
+				echo "<td>".$display['masa_retensi']."</td>";
+				echo "<td>".$display['uraian']."</td>";
+				echo "<td>".$display['last_update']."</td>";
+				echo "<td>
+						<a href=\"jenisarsip.php?modul=ubah&id=".$display['jenisarsip_id']."\">
 						<i class=\"icon-edit\"></i>
 						<span>Ubah</span>        					
-					</a>
-				  </td>";
-			echo "<td>
-					<a href=\"jenisarsip.php?delete=".$display['jenisarsip_id']."\" data-confirm='Anda Yakin Akan menghapus Jenis Arsip : ".$display['nama_jenisarsip']." ?'>
+						</a>
+					  </td>";
+				/**echo "<td>
+						<a href=\"jenisarsip.php?delete=".$display['jenisarsip_id']."\" data-confirm='Anda Yakin Akan menghapus Jenis Arsip : ".$display['nama_jenisarsip']." ?'>
 						<i class=\"icon-remove-sign\"></i>
 						<span>Hapus</span>        					
-					</a>
-				 </td>";
-	}
-?>
-	</tbody>
+						</a>
+					  </td>";*/
+			}
+		?>
+		</tbody>
 
-<?php
-	}else{
-		echo "<div class=\"alert alert-error\">
-				  Data Tidak Ada
-				  <buttontype=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
-				  </div>";
-	}
-?>
-</table>
-		</div>
+		<?php
+			}else{
+				echo "<div class=\"alert alert-error\">
+						Data Tidak Ditemukan
+						<buttontype=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
+					  </div>";
+			}
+		?>
+		</table>
 		
 	</div> <!-- /.container -->
 
@@ -340,7 +334,7 @@ case "ubah":
 <div id="content">
 	<div class="container">
 
-			<form class="form-horizontal" action="#" method="post">
+			<form class="well form-horizontal" action="#" method="post">
 			  <fieldset>
 				<div id="legend">
 				  <legend class="">Ubah Jenis Arsip</legend>
@@ -358,7 +352,6 @@ case "ubah":
 			  </div>';
 	}else{
 		foreach($ubah as $display){
-//value dah d isi
 ?>				
 				<input name="id_ubah" id="id_ubah" type="hidden" value="<?php echo $_GET['id']; ?>" />					 
 				<div class="control-group">
@@ -366,24 +359,20 @@ case "ubah":
 				  <label class="control-label"  for="nama">Nama Jenis Arsip</label>
 				  <div class="controls">
 					<input type="text" id="nama" name="nama" placeholder="Nama Jenis Arsip" class="input-xlarge" value="<?php echo $display['nama_jenisarsip']; ?>">
-					<p class="help-block">Jenis Arsip</p>
 				  </div>
 				</div>
 				<div class="control-group">
 				  <!-- Retensi-->
-				  <label class="control-label" for="retensi">Retensi</label>
+				  <label class="control-label" for="retensi">Retensi (th)</label>
 				  <div class="controls">
-					<input type="number" id="retensi" name="retensi" placeholder="Masa Retensi" class="input-xlarge" value="<?php echo $display['masa_retensi']; ?>">
-					<p class="help-block">Sesuaikan dengan Jadwal Retensi Arsip</p>
+					<input type="number" id="retensi" name="retensi" placeholder="Masa Retensi" style="width: 50px; padding: 1px" value="<?php echo $display['masa_retensi']; ?>">
 				  </div>
 				</div>
 				<div class="control-group">
 				  <!-- Uraian -->
 				  <label class="control-label"  for="uraian">Uraian Jenis Arsip</label>
 				  <div class="controls">
-					<!--<input type="textarea" id="nama" name="nama" placeholder="Nama Jenis Arsip" class="input-xlarge">-->
 					<textarea rows="5" name="uraian" class="input-xlarge focused"><?php echo $display['uraian']; ?></textarea>
-					<p class="help-block">Jenis Arsip</p>
 				  </div>
 				</div>
 				<div class="control-group">
@@ -405,7 +394,8 @@ case "ubah":
 break;
 }
 ?>
-
+</div>
+</div>
 <?php
 include("footer.php");
 ?>

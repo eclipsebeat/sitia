@@ -2,7 +2,9 @@
 /**
  * @author freaksmj
  */
+ 			ob_start();
 include_once('../controller/sessionController.php');
+include_once('../controller/notifikasiController.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -52,6 +54,21 @@ include_once('../controller/sessionController.php');
 				if(isset($_SESSION['login'])){
 					echo " ".$_SESSION['username']." ";
 					//echo " ".$_SESSION['login']." ";
+				}
+				if(isset($_SESSION['login'])&& $_SESSION['level']==1){
+					if($deadline!=0){
+						if($data_notif!=0){
+							foreach($data_notif as $jml_notif){
+								if($jml_notif['jumlah']!=0)
+									echo "<li>
+											<font id=\"blink\">
+											<a class=\"btn btn-small btn-danger\" href=\"notifikasi.php\">
+											<i class=\"icon-envelope icon-white\"></i>
+											".$jml_notif['jumlah']."</a></font>
+										 <li>";
+							}
+						}
+					}
 				}
 				?> 
 				</li>

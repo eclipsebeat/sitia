@@ -2,7 +2,7 @@
 /**
  * @author freaksmj
  */
-include ("topbar.php");
+include_once ("topbar.php");
 if(!isset($_SESSION['login'])){
 header("location:login.php");
 }
@@ -61,11 +61,11 @@ header("location:login.php");
 							</ul>
 						</li>
 						<li class="dropdown-submenu">
-							<a tabindex="-1" href="#">RUH Jenis Arsip</a>
-							<ul class="dropdown-menu">
+							<a tabindex="-1" href="jenisarsip.php">Daftar Jenis Arsip</a>
+							<!-- <ul class="dropdown-menu">
 							<li><a href="jenisarsip.php">Daftar Jenis Arsip</a></li>
-							<li><a href="jenisarsip.php?modul=tambah">Rekam Jenis Arsip</a></li>
-							</ul>
+							 <li><a href="jenisarsip.php?modul=tambah">Rekam Jenis Arsip</a></li> 
+							</ul> -->
 						</li>
 						<li class="dropdown-submenu">
 							<a tabindex="-1" href="#">RUH Lokasi</a>
@@ -75,11 +75,7 @@ header("location:login.php");
 							</ul>
 						</li>
 						<li class="dropdown-submenu">
-							<a tabindex="-1" href="#">Utility</a>
-							<ul class="dropdown-menu">
-							<li><a href="#">Backup</a></li>
-							<li><a href="#">Restore</a></li>
-							</ul>
+							<a tabindex="-1" href="utility.php">Utility</a>
 						</li>
 					</ul>
 				</li>
@@ -119,8 +115,8 @@ header("location:login.php");
 						<li class="dropdown-submenu">
 						<a tabindex="-1" href="#">Laporan Pertanggungjawaban Penerimaan dan Pengeluaran Negara</a>
 							<ul class="dropdown-menu">
-							<li><a href="spj_bendum.php">Daftar Laporan Pertanggungjawaban Penerimaan dan Pengeluaran Negara</a></li>							
-							<li><a href="spj_bendum.php?modul=tambah">Rekam Laporan Pertanggungjawaban Penerimaan dan Pengeluaran Negara</a></li>							
+							<li><a href="spj_bendum.php">Daftar SPJ Bendum</a></li>							
+							<li><a href="spj_bendum.php?modul=tambah">Rekam SPJ Bendum</a></li>							
 							</ul>
 						</li>
 						<li class="dropdown-submenu">
@@ -214,7 +210,47 @@ header("location:login.php");
 		
 		<div class="row">
 			
+			<!-- Disk space -->
+			<?php
 			
+			//free space
+			$df = disk_free_space("C:");
+			//total space
+			$dt = disk_total_space("C:");
+			//used space
+			$du = $dt-$df;
+			
+			$dp = sprintf('%.2f',($du / $dt) * 100);
+			$df = formatSize($df);
+			$du = formatSize($du);
+			$dt = formatSize($dt);
+			
+			//echo "Total Space : $dt<br>";
+			//echo "Free Space : $df<br>";			
+			//echo "Used Space : $dp%";
+
+			function formatSize( $bytes ){
+					$types = array( 'B', 'KB', 'MB', 'GB', 'TB' );
+					for( $i = 0; $bytes >= 1024 && $i < ( count( $types ) -1 ); $bytes /= 1024, $i++ );
+							return( round( $bytes, 2 ) . " " . $types[$i] );
+			}
+			
+			if(isset($_SESSION['login'])&& $_SESSION['level']==1){
+				if($df<'15GB'){
+					echo '<div class="alert alert-error" id="alert">
+							<h4>Peringatan!!</h4>
+							<h4>Penggunaan Harddisk : '.$dp.'%</h4>
+							<h4>Ruang Harddisk Tersisa : '.$df.'</h4>
+							<br>
+							<button type="button" class="close" data-dismiss="alert" id="close">x</button>
+							<div class="progress progress-striped active">
+							<div class="bar" style="width: '.$dp.'%"></div> <!-- /.bar -->				
+							</div>
+						 </div>';
+				}		 
+			}
+			
+			?>
 			<div class="span4 offset5">
 				
 				<img alt="" src="../includes/img/document-icon.png" />

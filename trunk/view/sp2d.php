@@ -2,7 +2,7 @@
 /**
  * @author freaksmj
  */
-include ("topbar.php");
+include_once ("topbar.php");
 include_once ('../controller/sp2dController.php');
 ?>
 <!DOCTYPE html>
@@ -61,11 +61,11 @@ include_once ('../controller/sp2dController.php');
 							</ul>
 						</li>
 						<li class="dropdown-submenu">
-							<a tabindex="-1" href="#">RUH Jenis Arsip</a>
-							<ul class="dropdown-menu">
+							<a tabindex="-1" href="jenisarsip.php">Daftar Jenis Arsip</a>
+							<!-- <ul class="dropdown-menu">
 							<li><a href="jenisarsip.php">Daftar Jenis Arsip</a></li>
 							<li><a href="jenisarsip.php?modul=tambah">Rekam Jenis Arsip</a></li>
-							</ul>
+							</ul> -->
 						</li>
 						<li class="dropdown-submenu">
 							<a tabindex="-1" href="#">RUH Lokasi</a>
@@ -75,11 +75,7 @@ include_once ('../controller/sp2dController.php');
 							</ul>
 						</li>
 						<li class="dropdown-submenu">
-							<a tabindex="-1" href="#">Utility</a>
-							<ul class="dropdown-menu">
-							<li><a href="#">Backup</a></li>
-							<li><a href="#">Restore</a></li>
-							</ul>
+							<a tabindex="-1" href="utility.php">Utility</a>
 						</li>
 					</ul>
 				</li>
@@ -119,8 +115,8 @@ include_once ('../controller/sp2dController.php');
 						<li class="dropdown-submenu">
 						<a tabindex="-1" href="#">Laporan Pertanggungjawaban Penerimaan dan Pengeluaran Negara</a>
 							<ul class="dropdown-menu">
-							<li><a href="spj_bendum.php?">Daftar Laporan Pertanggungjawaban Penerimaan dan Pengeluaran Negara</a></li>							
-							<li><a href="spj_bendum.php?modul=tambah">Rekam Laporan Pertanggungjawaban Penerimaan dan Pengeluaran Negara</a></li>							
+							<li><a href="spj_bendum.php">Daftar SPJ Bendum</a></li>							
+							<li><a href="spj_bendum.php?modul=tambah">Rekam SPJ Bendum</a></li>							
 							</ul>
 						</li>
 						<li class="dropdown-submenu">
@@ -192,7 +188,7 @@ include_once ('../controller/sp2dController.php');
 			
 			<div class="masthead-text">
 				<h2>RUH Arsip SP2D</h2>
-				<p>Pada menu ini User dapat melihat, merekam, merubah dan menghapus Arsip SP2D.</p>
+				<p>Pada menu ini User dapat load data SP2D, melihat, merekam, merubah dan menghapus Arsip SP2D.</p>
 			</div> <!-- /.masthead-text -->
 			
 		</div>
@@ -400,7 +396,7 @@ case "tambah":
 				<!-- Nama Arsip -->
 				<label class="control-label"  for="nama">Nama Arsip</label>
 				<div class="controls">
-					<input type="text" id="nama" name="nama" placeholder="Nama Arsip" class="span3" >
+					<textarea rows="2" id="nama" name="nama" placeholder="Nama Arsip" class="span3" ><?php echo $nama;?></textarea>
 				</div>
 			</div>
 			<div class="control-group">
@@ -423,15 +419,15 @@ case "tambah":
 					<tr>
 						<td>Rak</td>
 						<td>
-							<input type="number" name="rak" style="width: 30px; padding: 1px" > 
+							<input type="number" name="rak" style="width: 30px; padding: 1px" value="<?php echo $rak;?>"> 
 						</td>
 						<td>Baris</td>
 						<td>
-							<input type="number" name="baris" style="width: 30px; padding: 1px" > 
+							<input type="number" name="baris" style="width: 30px; padding: 1px" value="<?php echo $baris;?>"> 
 						</td>
 						<td>Box</td>
 						<td>
-							<input type="number" name="box" style="width: 30px; padding: 1px" > 
+							<input type="number" name="box" style="width: 30px; padding: 1px" value="<?php echo $box;?>"> 
 						</td>
 					</tr>
 				</div>
@@ -540,7 +536,7 @@ case "ubah":
 				<!-- Nama Arsip -->
 				<label class="control-label"  for="nama">Nama Arsip</label>
 				<div class="controls">
-					<input type="text" id="nama" name="nama" placeholder="Nama Arsip" class="span3" value="<?php echo $display['nama_arsip'];?>">
+					<textarea rows="2" id="nama" name="nama" placeholder="Nama Arsip" class="span3"><?php echo $display['nama_arsip'];?></textarea>
 				</div>
 			</div>
 			<div class="control-group">
@@ -609,7 +605,8 @@ case "ubah":
 			<!-- Attachment -->			
 				<label class="control-label" for="file">Nama File</label>
 				<div class="controls">
-					<!--<input type="hidden" name="MAX_FILE_SIZE" value="120000">-->
+					<a href="#preview" data-toggle="modal">Preview File</a>					
+					<input type="hidden" name="attachment" value="<?php echo $display['attachment'];?>">
 					<input type="file" name="upload" id="file" placeholder="Pilih File" class="span3" >
 				</div>
 			</div>			
@@ -639,6 +636,16 @@ case "ubah":
 		</div>	
 			</fieldset>
 		</form>
+	<!-- Modal -->
+	<div id="preview" class="modal hide fade in" style="width:750px;height:500px;border:1px solid #ddd;">
+	        <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h3>Preview File Attachment</h3>
+			</div>
+			<div class="modal-body" style="width:700px;height:500px;border:1px solid #ddd;">
+				<iframe src="../attachment/sp2d/<?php echo $display['attachment'];?>" style="width:100%;height:100%;"></iframe>	
+			</div>
+	</div>		
 	</div>
 	</div> <!-- /.container -->
 </div> <!-- /#content -->
@@ -729,7 +736,8 @@ case "detail":
 break;
 }
 ?>
-
+</div>
+</div>
 <?php
 include("footer.php");
 ?>

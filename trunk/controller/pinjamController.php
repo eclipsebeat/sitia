@@ -6,6 +6,10 @@
 	include_once('../class/arsip.php');
 	include_once('../class/pinjam.php');
 	
+	//tambah
+	include_once('../class/notifikasi.php');
+	$notif = new Notifikasi();
+	
 	//view all available arsip
 	$arsip = new Arsip();
 	$all=$arsip->getTersedia();
@@ -23,7 +27,6 @@
 	if(isset($_GET['id'])){
 		$pinjam = new Pinjam();
 		$id	=$_GET['id'];
-		session_start();
 		
 		$ubah=$pinjam->getArsippinjam($id);
 	}
@@ -33,16 +36,22 @@
 		$pinjam		= new Pinjam();
 		$arsip_id	=$_POST['id_ubah'];
 		$user_id	=$_POST['id_user'];
+
+		$username	=$_POST['username'];
+		$nama_arsip =$_POST['nama'];
+		$tgl_akhir	=$_POST['tgl_akhir'];
 		$uraian		=$_POST['uraian'];
 		
 		$arsip			= new Arsip();
 		$id				=$_POST['id_ubah'];
 		$stat_pinjam	='Y';
 		
+		$message = "Besok Adalah Tanggal Akhir Pengembalian Arsip : ".$nama_arsip." yang dipinjam oleh ".$username."";
+		
 		if(empty($uraian)){
 			$error_rekam="Semua Field Harus diisi!";		
 		}else{
-			$rekam=$pinjam->pinjam($id,$arsip_id,$user_id,$uraian,$stat_pinjam);
+			$rekam=$pinjam->pinjam($id,$arsip_id,$user_id,$tgl_akhir,$uraian,$stat_pinjam,$message);
 				if($rekam ==1){
 					$success="Pinjam Arsip Berhasil Direkam";
 					header("refresh:3;pinjam.php");
@@ -59,10 +68,10 @@
 		$id			= $_GET['id'];
 		$pinjam_id	= $_GET['kembali'];
 		$stats		= 'N';
-		$kembali=$pinjam->kembali($id,$stats,$pinjam_id);
-		var_dump($kembali);
+		$notif_stat	= '1';
+		$kembali=$pinjam->kembali($id,$stats,$pinjam_id,$notif_stat);
 		if($kembali==1){
-			$success="Pengembalian Arsip Berhasil";
+			//$success="Pengembalian Arsip Berhasil";
 			header("refresh:3;pinjam.php?modul=kembali");
 		}else{
 			$error_kembali="Pengembalian Arsip Gagal";

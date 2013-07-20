@@ -18,23 +18,23 @@ class Search{
 	function search($keywords){
 		$query=$this->db1->query("SELECT a.arsip_id,a.jenisarsip_id,a.nama_arsip,a.keyword,c.nama_ruang,a.rak,a.baris,a.box,CONCAT(d.no_surat,'--',d.perihal,'--',d.pengirim,'--',d.uraian) AS detail,d.tanggal 
 									FROM arsip as a RIGHT JOIN jenis_arsip as b on a.jenisarsip_id=b.jenisarsip_id,ruang as c,suratmasuk_detail as d 
-									WHERE a.ruang=c.ruang_id AND a.arsip_id=d.arsip_id AND (a.nama_arsip LIKE '%$keywords%' OR a.keyword LIKE '%$keywords%' OR c.nama_ruang LIKE '%$keywords%' OR CONCAT(d.no_surat,'--',d.perihal,'--',d.pengirim,'--',d.uraian) LIKE '%$keywords%' OR d.tanggal LIKE '%$keywords%')
+									WHERE a.ruang=c.ruang_id AND a.arsip_id=d.arsip_id AND (a.keyword LIKE '%$keywords%' OR CONCAT(a.nama_arsip,c.nama_ruang,d.no_surat,d.perihal,d.pengirim,d.uraian,d.tanggal) LIKE '%$keywords%')
 									UNION 
 									SELECT a.arsip_id,a.jenisarsip_id,a.nama_arsip,a.keyword,c.nama_ruang,a.rak,a.baris,a.box,CONCAT(d.no_surat,'--',d.perihal,'--',d.kepada,'--',d.uraian) AS detail,d.tanggal 
 									FROM arsip as a RIGHT JOIN jenis_arsip as b on a.jenisarsip_id=b.jenisarsip_id,ruang as c,suratkeluar_detail as d 
-									WHERE a.ruang=c.ruang_id AND a.arsip_id=d.arsip_id AND (a.nama_arsip LIKE '%$keywords%' OR a.keyword LIKE '%$keywords%' OR c.nama_ruang LIKE '%$keywords%' OR CONCAT(d.no_surat,'--',d.perihal,'--',d.kepada,'--',d.uraian) LIKE '%$keywords%' OR d.tanggal LIKE '%$keywords%')
+									WHERE a.ruang=c.ruang_id AND a.arsip_id=d.arsip_id AND (a.keyword LIKE '%$keywords%' OR CONCAT(a.nama_arsip,c.nama_ruang,d.no_surat,d.perihal,d.kepada,d.uraian,d.tanggal) LIKE '%$keywords%')
 									UNION
 									SELECT a.arsip_id,a.jenisarsip_id,a.nama_arsip,a.keyword,c.nama_ruang,a.rak,a.baris,a.box,CONCAT(d.nosp2d,'--',d.kdsatker,'--',d.nilaisp2d,'--',d.uraiben,d.untuk) AS detail,d.tgsp2d 
 									FROM arsip as a RIGHT JOIN jenis_arsip as b on a.jenisarsip_id=b.jenisarsip_id,ruang as c,sp2d_detail as d 
-									WHERE a.ruang=c.ruang_id AND a.arsip_id=d.arsip_id AND (a.nama_arsip LIKE '%$keywords%' OR a.keyword LIKE '%$keywords%' OR c.nama_ruang LIKE '%$keywords%' OR CONCAT(d.nosp2d,'--',d.kdsatker,'--',d.nilaisp2d,'--',d.uraiben,d.untuk) LIKE '%$keywords%' OR d.tgsp2d LIKE '%$keywords%')
+									WHERE a.ruang=c.ruang_id AND a.arsip_id=d.arsip_id AND (a.keyword LIKE '%$keywords%' OR CONCAT(a.nama_arsip,c.nama_ruang,d.nosp2d,d.kdsatker,d.nilaisp2d,d.uraiben,d.untuk,d.tgsp2d) LIKE '%$keywords%')
 									UNION
 									SELECT a.arsip_id,a.jenisarsip_id,a.nama_arsip,a.keyword,c.nama_ruang,a.rak,a.baris,a.box,d.uraian,d.tanggal
 									FROM arsip as a RIGHT JOIN jenis_arsip as b on a.jenisarsip_id=b.jenisarsip_id,ruang as c,spj_detail as d 
-									WHERE a.ruang=c.ruang_id AND a.arsip_id=d.arsip_id AND (a.nama_arsip LIKE '%$keywords%' OR a.keyword LIKE '%$keywords%' OR c.nama_ruang LIKE '%$keywords%' OR d.uraian LIKE '%$keywords%' OR d.tanggal LIKE '%$keywords%')
+									WHERE a.ruang=c.ruang_id AND a.arsip_id=d.arsip_id AND (a.keyword LIKE '%$keywords%' OR CONCAT(a.nama_arsip,c.nama_ruang,d.uraian,d.tanggal) LIKE '%$keywords%')
 									UNION
 									SELECT a.arsip_id,a.jenisarsip_id,a.nama_arsip,a.keyword,c.nama_ruang,a.rak,a.baris,a.box,d.uraian,d.tanggal
 									FROM arsip as a RIGHT JOIN jenis_arsip as b on a.jenisarsip_id=b.jenisarsip_id,ruang as c,lkpp_detail as d 
-									WHERE a.ruang=c.ruang_id AND a.arsip_id=d.arsip_id AND (a.nama_arsip LIKE '%$keywords%' OR a.keyword LIKE '%$keywords%' OR c.nama_ruang LIKE '%$keywords%' OR d.uraian LIKE '%$keywords%' OR d.tanggal LIKE '%$keywords%')
+									WHERE a.ruang=c.ruang_id AND a.arsip_id=d.arsip_id AND (a.keyword LIKE '%$keywords%' OR CONCAT(a.nama_arsip,c.nama_ruang,d.uraian,d.tanggal) LIKE '%$keywords%')
 								  ");
 		$jml_data=$query->rowCount();
 		if($jml_data>=1){
@@ -77,6 +77,5 @@ class Search{
 	}
 	
 }
-
 
 ?>

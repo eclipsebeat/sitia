@@ -54,6 +54,18 @@ class Arsip{
 		}
 	}
 	
+	//menampilkan 10 arsip terakhir
+	function getLastarsip(){
+		$query=$this->db1->query("SELECT a.arsip_id,a.jenisarsip_id,b.nama_jenisarsip,a.nama_arsip,c.nama_ruang,a.rak,a.baris,a.box FROM arsip as a RIGHT JOIN  jenis_arsip as b on a.jenisarsip_id=b.jenisarsip_id,ruang as c WHERE a.ruang=c.ruang_id ORDER BY a.arsip_id DESC LIMIT 10");
+		$jml_data=$query->rowCount();
+		if($jml_data>=1){
+			$hasil=$query->fetchAll();
+			return $hasil;
+		}else{
+			return $jml_data;
+		}
+	}
+	
 	//menampilkan available arsip untuk dipinjam
 	function getTersedia(){
 		$query=$this->db1->query("SELECT a.arsip_id,a.jenisarsip_id,a.nama_arsip,c.nama_ruang,a.rak,a.baris,a.box FROM arsip as a RIGHT JOIN  jenis_arsip as b on a.jenisarsip_id=b.jenisarsip_id,ruang as c WHERE a.ruang=c.ruang_id AND a.status_pinjam='N' ORDER BY a.arsip_id");
@@ -69,31 +81,6 @@ class Arsip{
 	function getLastId(){
 		$query=$this->db1->query("SELECT MAX(arsip_id) FROM arsip");
 		return $query;
-	}
-	
-	//lom jelas kepake
-	function getDetail($jenis,$id){
-		if($jenis=1 AND !is_null($id)){
-			$query=$this->db1->query("SELECT a.arsip_id,a.nama_arsip,c.nama_ruang,a.rak,a.baris,a.box,a.keyword,b.no_surat,b.tanggal,b.perihal,b.pengirim,b.uraian,b.attachment FROM arsip as a RIGHT JOIN  suratmasuk_detail as b on a.arsip_id=b.arsip_id, ruang as c WHERE  a.ruang=c.ruang_id  AND a.arsip_id='$id'");
-		}
-		elseif($jenis=2){
-			$query=$this->db1->query("SELECT a.arsip_id,a.nama_arsip,d.nama_ruang,a.rak,a.baris,a.box,a.keyword,b.no_surat,b.tanggal,b.perihal,b.kepada,c.nmseksi,b.uraian,b.attachment FROM arsip as a RIGHT JOIN  suratkeluar_detail as b on a.arsip_id=b.arsip_id, seksi as c, ruang as d WHERE  a.ruang=d.ruang_id AND b.penerbit=c.kdseksi AND a.arsip_id='$id'");
-		}
-		elseif($jenis=3){
-			$query=$this->db1->query("SELECT a.arsip_id,a.nama_arsip,c.nama_ruang,a.rak,a.baris,a.box,a.keyword,b.nosp2d,b.tgsp2d,b.kdsatker,b.nilaisp2d,b.uraiben,b.untuk,b.attachment FROM arsip as a RIGHT JOIN  sp2d_detail as b on a.arsip_id=b.arsip_id, ruang as c WHERE  a.ruang=c.ruang_id AND a.arsip_id='$id'");
-		}
-		elseif($jenis=4){
-			$query=$this->db1->query("SELECT a.arsip_id,a.nama_arsip,c.nama_ruang,a.rak,a.baris,a.box,a.keyword,b.tanggal,b.uraian,b.attachment FROM arsip as a RIGHT JOIN  spj_detail as b on a.arsip_id=b.arsip_id, ruang as c WHERE  a.ruang=c.ruang_id AND a.arsip_id='$id'");
-		}
-		else{
-			$query=$this->db1->query("SELECT a.arsip_id,a.nama_arsip,c.nama_ruang,a.rak,a.baris,a.box,a.keyword,b.tanggal,b.uraian,b.attachment FROM arsip as a RIGHT JOIN  lkpp_detail as b on a.arsip_id=b.arsip_id, ruang as c WHERE  a.ruang=c.ruang_id AND a.arsip_id='$id'");
-		}
-		if($jml_data==1){
-			$hasil=$query->fetchALL();
-			return $hasil;
-		}else{
-			return $jml_data;
-		}
 	}
 
 }

@@ -61,7 +61,7 @@ class Sp2d{
 		return $jml_data;
 	}
 	
-	//ambil detail bua rekam
+	//ambil detail buat rekam
 	function getSp2ddetail($id){
 		$query=$this->db1->query("SELECT * from sp2d_detail where nosp2d='$id'");
 		$jml_data=$query->rowCount();

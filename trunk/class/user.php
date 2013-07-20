@@ -13,8 +13,7 @@ class User{
 		$connect = new Database();
 		$this->db1 = $connect->connectdb1();
 		//$connect2 = new Database();
-		$this->db2 = $connect->connectdb2();
-
+		//$this->db2 = $connect->connectdb2();
 	}
 	
 	function addUser($username, $password, $NIP, $role){
@@ -51,7 +50,7 @@ class User{
 	}
 	
 	function getAllUser(){
-		$query=$this->db1->query("SELECT*FROM users");
+		$query=$this->db1->query("SELECT a.user_id,a.username,a.password,a.NIP,a.role,b.category,a.input_date,a.last_update FROM users as a RIGHT JOIN user_categories as b ON a.role=b.usercat_id ORDER BY role");
 		$jml_data=$query->rowCount();
 		if($jml_data>=1){
 			$hasil=$query->fetchAll();

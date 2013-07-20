@@ -6,7 +6,8 @@
 	include_once('../class/arsip.php');
 	include_once('../class/ruang.php');
 	include_once('../class/lkpp.php');
-	
+	include_once('../class/autokeyword.php');
+		
 	//dropdown ruang
 	$ruang = new Ruang();
 	$all_ruang=$ruang->getAllruang();
@@ -92,7 +93,6 @@
 	if(isset($_GET['id'])){
 		$lkpp = new Lkpp();
 		$id	=$_GET['id'];
-		session_start();
 		
 		$ubah=$lkpp->getLkpp($id);
 	}	
@@ -128,7 +128,24 @@
 		}
 		//attachment ad atau gak
 		elseif(empty($FileName)){
-			$error_rekam="File Tidak Ditemukan!";
+			//$error_rekam="File Tidak Ditemukan!";
+			$new_file_name=$_POST['attachment'];
+			
+			//autokeyword
+			$autokeyword = new Autokeyword();
+			$stopwords = file('../includes/stopwords/stopword_list_tala.txt');
+			$data = $nama.$uraian;
+			$keywords = $autokeyword->getKeywords($data,$stopwords);
+			
+			//rekam tabel arsip
+			$rekam	=$lkpp->updateLkpp($id,$nama,$ruang,$rak,$baris,$box,$keyword,$arsip_id,$tanggal,$uraian,$new_file_name);
+			if($rekam ==1){
+				$success="Arsip LKPP Berhasil Di Update";
+				header("refresh:3;lkpp.php");
+			}else{
+				$error_rekam="LKPP Gagal Di Ubah";
+			}	
+			
 		}
 		//attachment ekstensi
 		elseif($ext!="pdf"){
@@ -157,10 +174,9 @@
 				//rekam tabel lkpp_detail
 				//$rekam2	=$lkpp->addlkpp($arsip_id,$periode,$uraian,$new_file_name);
 				
-					if($rekam ==1){
-						$success="Arsip Berhasil Direkam";
-						header("refresh:3;lkpp.php");
-
+				if($rekam ==1){
+					$success="Arsip LKPP Berhasil Di Update";
+					header("refresh:3;lkpp.php");
 				}else{
 					$error_rekam="LKPP Gagal Di Ubah";
 				}		

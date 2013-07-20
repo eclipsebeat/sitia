@@ -61,11 +61,11 @@ include_once ('../controller/ruangController.php');
 							</ul>
 						</li>
 						<li class="dropdown-submenu">
-							<a tabindex="-1" href="#">RUH Jenis Arsip</a>
-							<ul class="dropdown-menu">
+							<a tabindex="-1" href="jenisarsip.php">Daftar Jenis Arsip</a>
+							<!-- <ul class="dropdown-menu">
 							<li><a href="jenisarsip.php">Daftar Jenis Arsip</a></li>
-							<li><a href="jenisarsip.php?modul=tambah">Rekam Jenis Arsip</a></li>
-							</ul>
+							<li><a href="jenisarsip.php?modul=tambah">Rekam Jenis Arsip</a></li> 
+							</ul> -->
 						</li>
 						<li class="dropdown-submenu">
 							<a tabindex="-1" href="#">RUH Lokasi</a>
@@ -75,11 +75,7 @@ include_once ('../controller/ruangController.php');
 							</ul>
 						</li>
 						<li class="dropdown-submenu">
-							<a tabindex="-1" href="#">Utility</a>
-							<ul class="dropdown-menu">
-							<li><a href="#">Backup</a></li>
-							<li><a href="#">Restore</a></li>
-							</ul>
+							<a tabindex="-1" href="utility.php">Utility</a>
 						</li>
 					</ul>
 				</li>
@@ -119,8 +115,8 @@ include_once ('../controller/ruangController.php');
 						<li class="dropdown-submenu">
 						<a tabindex="-1" href="#">Laporan Pertanggungjawaban Penerimaan dan Pengeluaran Negara</a>
 							<ul class="dropdown-menu">
-							<li><a href="spj_bendum.php">Daftar Laporan Pertanggungjawaban Penerimaan dan Pengeluaran Negara</a></li>							
-							<li><a href="spj_bendum.php?modul=tambah">Rekam Laporan Pertanggungjawaban Penerimaan dan Pengeluaran Negara</a></li>							
+							<li><a href="spj_bendum.php">Daftar SPJ Bendum</a></li>							
+							<li><a href="spj_bendum.php?modul=tambah">Rekam SPJ Bendum</a></li>							
 							</ul>
 						</li>
 						<li class="dropdown-submenu">
@@ -274,7 +270,7 @@ case "tambah":
 <div id="content">
 	<div class="container">
 
-			<form class="form-horizontal" action="#" method="post">
+			<form class="well form-horizontal" action="#" method="post">
 			  <fieldset>
 				<div id="legend">
 				  <legend class="">Rekam Ruang</legend>
@@ -330,7 +326,7 @@ case "ubah":
 <div id="content">
 	<div class="container">
 
-			<form class="form-horizontal" action="#" method="post">
+			<form class="well form-horizontal" action="#" method="post">
 			  <fieldset>
 				<div id="legend">
 				  <legend class="">Ubah Ruang</legend>
@@ -385,7 +381,8 @@ case "ubah":
 break;
 }
 ?>
-
+</div>
+</div>
 <?php
 include("footer.php");
 ?>

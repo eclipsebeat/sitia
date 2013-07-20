@@ -2,7 +2,7 @@
 /**
  * @author freaksmj
  */
-include ("topbar.php");
+include_once ("topbar.php");
 include_once ('../controller/laporanController.php');
 ?>
 <!DOCTYPE html>
@@ -14,7 +14,7 @@ include_once ('../controller/laporanController.php');
 	<link type="text/css" rel="stylesheet" href="../includes/css/application.css">
 	<link type="text/css" rel="stylesheet" href="../includes/datepicker/css/datepicker.css">
 	<link type="text/css" rel="stylesheet" href="../includes/DT/css/DT_bootstrap.css">
-	
+		<link type="text/css" rel="stylesheet" href="../includes/DT/TableTools/media/css/TableTools.css">	
 	<script type="text/javascript" src="../includes/js/bootstrap.js"></script>
 	<script type="text/javascript" src="../includes/js/jquery.js"></script>
 	<script type="text/javascript" src="../includes/js/bootstrap-dropdown.js"></script>
@@ -22,7 +22,8 @@ include_once ('../controller/laporanController.php');
 	<script type="text/javascript" src="../includes/js/bootstrap-modal.js"></script>
 	<script type="text/javascript" src="../includes/DT/js/jquery.dataTables.js"></script>
 	<script type="text/javascript" src="../includes/DT/js/DT_bootstrap.js"></script>
-
+		<script type="text/javascript" charset="utf-8" src="../includes/DT/TableTools/media/js/ZeroClipboard.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../includes/DT/TableTools/media/js/TableTools.js"></script>	
  </head>
 <body>
 
@@ -61,11 +62,11 @@ include_once ('../controller/laporanController.php');
 							</ul>
 						</li>
 						<li class="dropdown-submenu">
-							<a tabindex="-1" href="#">RUH Jenis Arsip</a>
-							<ul class="dropdown-menu">
+							<a tabindex="-1" href="jenisarsip.php">Daftar Jenis Arsip</a>
+							<!-- <ul class="dropdown-menu">
 							<li><a href="jenisarsip.php">Daftar Jenis Arsip</a></li>
 							<li><a href="jenisarsip.php?modul=tambah">Rekam Jenis Arsip</a></li>
-							</ul>
+							</ul> -->
 						</li>
 						<li class="dropdown-submenu">
 							<a tabindex="-1" href="#">RUH Lokasi</a>
@@ -75,11 +76,7 @@ include_once ('../controller/laporanController.php');
 							</ul>
 						</li>
 						<li class="dropdown-submenu">
-							<a tabindex="-1" href="#">Utility</a>
-							<ul class="dropdown-menu">
-							<li><a href="#">Backup</a></li>
-							<li><a href="#">Restore</a></li>
-							</ul>
+							<a tabindex="-1" href="utility.php">Utility</a>
 						</li>
 					</ul>
 				</li>
@@ -429,9 +426,9 @@ case "arsipMusnah":
 <?php
 }
 ?>
-
+</div>
+</div>
 <?php
-
 include("footer.php");
 ?>
 
