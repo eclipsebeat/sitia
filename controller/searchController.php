@@ -19,6 +19,8 @@
 	$search = new Search();
 	
 	if(isset($_POST['search'])){
+		//tes search speed
+		//$time_start = microtime(true); 		
 		$keywords=$_POST['keyword'];
 		if(empty($keywords)){
 			$error_search="Kata Kunci Pencarian Kosong";
@@ -26,18 +28,21 @@
 		}elseif(strlen($keywords) <= 3){
 			$error_search="Kata Kunci Pencarian Terlalu Pendek";
 		}else{
-			$data=$search->search($keywords);
-			if($data==0){
+			$data_cari=$search->search($keywords);
+			if($data_cari==0){
 				$error_search="Data Tidak Di temukan";
 			}else{
 				//$success="Berikut Merupakan Hasil Pencarian";
-				$data=$search->search($keywords);
+				$data_cari=$search->search($keywords);
 			}
 		}
+		//tes search speed
+		//$time_end = microtime(true);
+		//$execution_time = round(($time_end - $time_start),5);
+		//echo '<b>Total Execution Time:</b> '.$execution_time.' Seconds';			
 	} else {
 		$arsip = new Arsip();
-		$jenis=NULL;
-		$data=$arsip->getAllarsip($jenis);		
+		$data=$arsip->getLastarsip();		
 	}
 	
 	if(isset($_POST['advancesearch'])){
@@ -45,19 +50,15 @@
 		$jenisarsip	=$_POST['jenis'];
 		$ruangarsip	=$_POST['ruang'];
 
-			$data=$search->advanceSearch($keywords,$jenisarsip,$ruangarsip);
-			if($data==0){
+			$data_cari2=$search->advanceSearch($keywords,$jenisarsip,$ruangarsip);
+			if($data_cari2==0){
 				$error_search="Data Tidak Di temukan";
 			}else{
 				//$success="Berikut Merupakan Hasil Pencarian";
-				$data=$search->advanceSearch($keywords,$jenisarsip,$ruangarsip);
+				$data_cari2=$search->advanceSearch($keywords,$jenisarsip,$ruangarsip);
 			}
 		
-	} else {
-		$arsip = new Arsip();
-		$jenis=NULL;
-		$data=$arsip->getAllarsip($jenis);		
-	}
+	} 
 	
 	
 ?>

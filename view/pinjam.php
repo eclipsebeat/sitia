@@ -61,11 +61,11 @@ include_once ('../controller/pinjamController.php');
 							</ul>
 						</li>
 						<li class="dropdown-submenu">
-							<a tabindex="-1" href="#">RUH Jenis Arsip</a>
-							<ul class="dropdown-menu">
+							<a tabindex="-1" href="#">Daftar Jenis Arsip</a>
+							<!-- <ul class="dropdown-menu">
 							<li><a href="jenisarsip.php">Daftar Jenis Arsip</a></li>
 							<li><a href="jenisarsip.php?modul=tambah">Rekam Jenis Arsip</a></li>
-							</ul>
+							</ul>-->
 						</li>
 						<li class="dropdown-submenu">
 							<a tabindex="-1" href="#">RUH Lokasi</a>
@@ -75,11 +75,7 @@ include_once ('../controller/pinjamController.php');
 							</ul>
 						</li>
 						<li class="dropdown-submenu">
-							<a tabindex="-1" href="#">Utility</a>
-							<ul class="dropdown-menu">
-							<li><a href="#">Backup</a></li>
-							<li><a href="#">Restore</a></li>
-							</ul>
+							<a tabindex="-1" href="utility.php">Utility</a>
 						</li>
 					</ul>
 				</li>
@@ -297,6 +293,9 @@ case "tambah":
 ?>				
 	<div class="row">
 		<div class="span4">
+			<!-- tambah nama-->
+			<input name="username" id="username" type="hidden" value="<?php echo " ".$_SESSION['username']." "; ?>" />
+
 			<input name="id_user" id="id_user" type="hidden" value="<?php echo " ".$_SESSION['login']." "; ?>" />		
 			<input name="id_ubah" id="id_ubah" type="hidden" value="<?php echo $_GET['id']; ?>" />
 			<div class="control-group">
@@ -333,6 +332,16 @@ case "tambah":
 					</tr>
 				</div>
 			</div>
+			
+			<div class="control-group">
+			<!-- Tanggal -->
+				<label class="control-label"  for="nosurat">Tanggal Akhir Pinjam</label>
+				<div class="controls prepend date" id="dp3" data-date="<?php $date=date("Y-m-d");echo $date?>" data-date-format="yyyy-mm-dd">
+					<input class="span2" type="text" name="tgl_akhir" >
+					<span class="add-on"><i class="icon-calendar"></i></span>
+				</div>
+			</div>
+			
 			<div class="control-group">
 				<!-- Uraian -->
 				<label class="control-label" for="uraian">Uraian</label>
@@ -421,9 +430,9 @@ case "kembali":
 <?php
 }
 ?>
-
+</div>
+</div>
 <?php
-
 include("footer.php");
 ?>
 

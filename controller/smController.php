@@ -91,7 +91,6 @@
 	if(isset($_GET['id'])){
 		$sm = new Suratmasuk();
 		$id	=$_GET['id'];
-		session_start();
 		
 		$ubah=$sm->getSm($id);
 	}
@@ -126,7 +125,25 @@
 		}
 		//attachment ad atau gak
 		elseif(empty($FileName)){
-			$error_rekam="File Tidak Ditemukan!";
+			//$error_rekam="File Tidak Ditemukan!";
+			$new_file_name=$_POST['attachment'];
+			
+			//autokeyword
+			$autokeyword = new Autokeyword();
+			$stopwords = file('../includes/stopwords/stopword_list_tala.txt');
+			$data = $perihal.$pengirim.$uraian;
+			$keywords = $autokeyword->getKeywords($data,$stopwords);
+			
+			//rekam arsip
+			$rekam	=$sm->updateSm($id,$nama,$ruang,$rak,$baris,$box,$keywords,$nosurat,$tanggal,$perihal,$pengirim,$uraian,$new_file_name);
+				
+				if($rekam ==1){
+					$success="Arsip Berhasil Diupdate";
+					header("refresh:3;suratmasuk.php");
+
+				}else{
+					$error_rekam="Arsip Tidak Berhasil Di Ubah";
+				}
 		}
 		//attachment ekstensi
 		elseif($ext!="pdf"){
@@ -154,7 +171,7 @@
 				$rekam	=$sm->updateSm($id,$nama,$ruang,$rak,$baris,$box,$keywords,$nosurat,$tanggal,$perihal,$pengirim,$uraian,$new_file_name);
 				
 					if($rekam ==1){
-						$success="Arsip Berhasil Direkam";
+						$success="Arsip Berhasil Diupdate";
 						header("refresh:3;suratmasuk.php");
 
 					}else{

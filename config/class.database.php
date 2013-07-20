@@ -35,5 +35,12 @@ class Database {
 		}
 	}
 	
+	
+	public function connectUtil(){
+        $link = mysql_connect($this->host_sitia,$this->user_sitia, $this->pass_sitia);
+        mysql_select_db($this->db_sitia, $link) or die( "MySQL Gagal Koneksi" );
+
+    }
+	
 }
 ?>

@@ -45,7 +45,6 @@
 	if(isset($_GET['id'])){
 		$sp2d = new Sp2d();
 		$id	=$_GET['id'];
-		session_start();
 		
 		$sp2d_detail=$sp2d->getSp2ddetail($id);
 	}
@@ -106,9 +105,9 @@
 				//rekam arsip
 				$rekam	=$sp2d->addSp2d($jenis_arsip,$nama,$ruang,$rak,$baris,$box,$keywords,$nosp2d,$arsip_id,$new_file_name);
 
-					if($rekam ==1){
-						$success="Arsip Berhasil Direkam";
-						header("refresh:3;sp2d.php?modul=view_sp2d");
+				if($rekam ==1){
+					$success="Arsip Berhasil Direkam";
+					header("refresh:3;sp2d.php?modul=view_sp2d");
 					
 				}else{
 					$error_rekam="arsip Sp2d Sudah Terdapat Pada Database";
@@ -119,7 +118,6 @@
 	if(isset($_GET['id'])){
 		$sp2d = new Sp2d();
 		$id	=$_GET['id'];
-		session_start();
 		
 		$ubah=$sp2d->getSp2d($id);
 	}	
@@ -138,6 +136,9 @@
 		$box			=$_POST['box'];
 		
 		$sp2d 		= new Sp2d();
+		$nosp2d		=$_POST['nosp2d'];
+		$kepada		=$_POST['uraiben'];
+		$uraian		=$_POST['uraian'];
 		
 		//attachment
 		$FileName	= $_FILES['upload']['name'];
@@ -149,7 +150,23 @@
 		}
 		//attachment ad atau gak
 		elseif(empty($FileName)){
-			$error_rekam="File Tidak Ditemukan!";
+			//$error_rekam="File Tidak Ditemukan!";
+			$new_file_name=$_POST['attachment'];
+			
+			//autokeyword
+			$autokeyword = new Autokeyword();
+			$stopwords = file('../includes/stopwords/stopword_list_tala.txt');
+			$data = $nama.$kepada.$uraian;
+			$keywords = $autokeyword->getKeywords($data,$stopwords);
+
+			//rekam arsip
+			$rekam	=$sp2d->updateSp2d($id,$nama,$ruang,$rak,$baris,$box,$keywords,$new_file_name);
+			if($rekam ==1){
+				$success="Arsip Berhasil Di Update";
+				header("refresh:3;sp2d.php?modul=view_all");
+			}else{
+				$error_rekam="Arsip tidak berhasil di ubah";
+			}
 		}
 		//attachment ekstensi
 		elseif($ext!="pdf"){
@@ -176,9 +193,9 @@
 				move_uploaded_file ($_FILES['upload']['tmp_name'],$path);
 				
 				//rekam arsip
-				$rekam	=$sp2d->updateSp2d($id,$nama,$ruang,$rak,$baris,$box,$keyword,$new_file_name);
+				$rekam	=$sp2d->updateSp2d($id,$nama,$ruang,$rak,$baris,$box,$keywords,$new_file_name);
 					if($rekam ==1){
-						$success="Arsip Berhasil Direkam";
+						$success="Arsip Berhasil Di Update";
 						header("refresh:3;sp2d.php?modul=view_all");
 					
 				}else{

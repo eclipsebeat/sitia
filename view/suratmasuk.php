@@ -2,7 +2,7 @@
 /**
  * @author freaksmj
  */
-include ("topbar.php");
+include_once ("topbar.php");
 include_once ('../controller/smController.php');
 ?>
 <!DOCTYPE html>
@@ -61,11 +61,11 @@ include_once ('../controller/smController.php');
 							</ul>
 						</li>
 						<li class="dropdown-submenu">
-							<a tabindex="-1" href="#">RUH Jenis Arsip</a>
-							<ul class="dropdown-menu">
+							<a tabindex="-1" href="jenisarsip.php">Daftar Jenis Arsip</a>
+							<!-- <ul class="dropdown-menu">
 							<li><a href="jenisarsip.php">Daftar Jenis Arsip</a></li>
-							<li><a href="jenisarsip.php?modul=tambah">Rekam Jenis Arsip</a></li>
-							</ul>
+							<li><a href="jenisarsip.php?modul=tambah">Rekam Jenis Arsip</a></li> 
+							</ul> -->
 						</li>
 						<li class="dropdown-submenu">
 							<a tabindex="-1" href="#">RUH Lokasi</a>
@@ -75,11 +75,7 @@ include_once ('../controller/smController.php');
 							</ul>
 						</li>
 						<li class="dropdown-submenu">
-							<a tabindex="-1" href="#">Utility</a>
-							<ul class="dropdown-menu">
-							<li><a href="#">Backup</a></li>
-							<li><a href="#">Restore</a></li>
-							</ul>
+							<a tabindex="-1" href="utility.php">Utility</a>
 						</li>
 					</ul>
 				</li>
@@ -119,8 +115,8 @@ include_once ('../controller/smController.php');
 						<li class="dropdown-submenu">
 						<a tabindex="-1" href="#">Laporan Pertanggungjawaban Penerimaan dan Pengeluaran Negara</a>
 							<ul class="dropdown-menu">
-							<li><a href="spj_bendum.php">Daftar Laporan Pertanggungjawaban Penerimaan dan Pengeluaran Negara</a></li>							
-							<li><a href="spj_bendum.php?modul=tambah">Rekam Laporan Pertanggungjawaban Penerimaan dan Pengeluaran Negara</a></li>							
+							<li><a href="spj_bendum.php">Daftar SPJ Bendum</a></li>							
+							<li><a href="spj_bendum.php?modul=tambah">Rekam SPJ Bendum</a></li>							
 							</ul>
 						</li>
 						<li class="dropdown-submenu">
@@ -215,7 +211,7 @@ default :
 
 	<div class="container">
 	<div id="legend">
-	  <legend class=""><a href="suratmasuk.php">Daftar Arsip</a> | <a href="suratmasuk.php?modul=tambah">Rekam Arsip Surat Masuk</a></legend>
+	  <legend class=""><a href="suratmasuk.php">Daftar Arsip Surat Masuk</a> | <a href="suratmasuk.php?modul=tambah">Rekam Arsip Surat Masuk</a></legend>
 	</div>
 				
 	<table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="example">
@@ -264,7 +260,7 @@ default :
 
 	}else{
 		echo "<div class=\"alert alert-error\">
-				  Data Tidak Ada
+				  Data Tidak Di Temukan
 				  <buttontype=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
 				  </div>";
 	}
@@ -309,7 +305,7 @@ case "tambah":
 				 <!-- Nama Arsip -->
 				<label class="control-label"  for="nama">Nama Arsip</label>
 				<div class="controls">
-					<input type="text" id="nama" name="nama" placeholder="Nama Arsip" class="span3">
+					<textarea rows="2" id="nama" name="nama" placeholder="Nama Arsip" class="span3"><?php echo $nama;?></textarea>
 				</div>
 			</div>
 			<div class="control-group">
@@ -332,15 +328,15 @@ case "tambah":
 						<tr>
 							<td>Rak</td>
 							<td>
-								<input type="number" name="rak" style="width: 30px; padding: 1px"> 
+								<input type="number" name="rak" style="width: 30px; padding: 1px" value="<?php echo $rak;?>"> 
 							</td>
 							<td>Baris</td>
 							<td>
-								<input type="number" name="baris" style="width: 30px; padding: 1px"> 
+								<input type="number" name="baris" style="width: 30px; padding: 1px" value="<?php echo $baris;?>"> 
 							</td>
 							<td>Box</td>
 							<td>
-								<input type="number" name="box" style="width: 30px; padding: 1px"> 
+								<input type="number" name="box" style="width: 30px; padding: 1px" value="<?php echo $box;?>"> 
 							</td>
 						</tr>
 					</div>			
@@ -349,28 +345,28 @@ case "tambah":
 			<!-- No Surat -->
 				<label class="control-label"  for="nosurat">No Surat</label>
 				<div class="controls">
-					<input type="text" id="nosurat" name="nosurat" placeholder="No Surat" class="span3">
+					<input type="text" id="nosurat" name="nosurat" placeholder="No Surat" class="span3" value="<?php echo $nosurat;?>">
 				</div>			
 			</div>
 			<div class="control-group">
 			<!-- Perihal Surat -->
 				<label class="control-label"  for="perihal">Perihal</label>
 				<div class="controls">
-					<input type="text" id="perihal" name="perihal" placeholder="Perihal Surat" class="span3">
+					<textarea rows="4" id="perihal" name="perihal" placeholder="Perihal Surat" class="span3"><?php echo $perihal;?></textarea>
 				</div>
 			</div>
 			<div class="control-group">
 			<!-- Pengirim Surat -->
 				<label class="control-label"  for="pengirim">Pengirim</label>
 				<div class="controls">
-					<input type="text" id="pengirim" name="pengirim" placeholder="Pengirim Surat" class="span3">
+					<textarea rows="2" id="pengirim" name="pengirim" placeholder="Pengirim Surat" class="span3"><?php echo $pengirim;?></textarea>
 				</div>
 			</div>
 			<div class="control-group">
 			<!-- Tanggal -->
 				<label class="control-label"  for="nosurat">Tanggal Surat</label>
 				<div class="controls prepend date" id="dp3" data-date="<?php $date=date("Y-m-d");echo $date?>" data-date-format="yyyy-mm-dd">
-					<input class="span2" type="text" name="tanggal" >
+					<input class="span2" type="text" name="tanggal" value="<?php echo $tanggal;?>">
 					<span class="add-on"><i class="icon-calendar"></i></span>
 				</div>
 			</div>
@@ -395,7 +391,7 @@ case "tambah":
 			<!-- Uraian -->
 				<label class="control-label" for="uraian">Uraian</label>
 					<div class="controls">
-						<textarea rows="20" name="uraian" class="input-xlarge span5"></textarea>
+						<textarea rows="24" name="uraian" class="input-xlarge span5" placeholder="Uraian Isi Surat"><?php echo $uraian;?></textarea>
 					</div>
 			</div>
 		</div>
@@ -442,7 +438,7 @@ case "ubah":
 				 <!-- Nama Arsip -->
 				<label class="control-label"  for="nama">Nama Arsip</label>
 				<div class="controls">
-					<input type="text" id="nama" name="nama" placeholder="Nama Arsip" class="span3" value="<?php echo $display['nama_arsip'];?>">
+					<textarea rows="2" id="nama" name="nama" placeholder="Nama Arsip" class="span3"><?php echo $display['nama_arsip'];?></textarea>
 				</div>
 			</div>
 			<div class="control-group">
@@ -489,14 +485,14 @@ case "ubah":
 			<!-- Perihal Surat -->
 				<label class="control-label"  for="perihal">Perihal</label>
 				<div class="controls">
-					<input type="text" id="perihal" name="perihal" placeholder="Perihal Surat" class="span3" value="<?php echo $display['perihal'];?>">
+					<textarea rows="4" id="perihal" name="perihal" placeholder="Perihal Surat" class="span3"><?php echo $display['perihal'];?></textarea>
 				</div>
 			</div>
 			<div class="control-group">
 			<!-- Pengirim Surat -->
 				<label class="control-label"  for="pengirim">Pengirim</label>
 				<div class="controls">
-					<input type="text" id="pengirim" name="pengirim" placeholder="Pengirim Surat" class="span3" value="<?php echo $display['pengirim'];?>">
+					<textarea rows="2" id="pengirim" name="pengirim" placeholder="Pengirim Surat" class="span3"><?php echo $display['pengirim'];?></textarea>
 				</div>
 			</div>
 			<div class="control-group">
@@ -511,14 +507,15 @@ case "ubah":
 			<!-- Attachment -->			
 				<label class="control-label" for="file">Nama File</label>
 				<div class="controls">
-					<!--<input type="hidden" name="MAX_FILE_SIZE" value="120000">-->
-					<input type="file" name="upload" id="file" placeholder="Pilih File" class="span3" >
+					<a href="#preview" data-toggle="modal">Preview File</a>					
+					<input type="hidden" name="attachment" value="<?php echo $display['attachment'];?>">
+					<input type="file" name="upload" id="file" placeholder="Update File" class="span3" >
 				</div>
 			</div>
 			<div class="control-group">
 				<!-- Button -->
 				<div class="controls">
-					<button type="submit" class="btn btn-primary" name="update_sm" id="rekam_btn">Rekam</button>
+					<button type="submit" class="btn btn-primary" name="update_sm" id="rekam_btn">Simpan</button>
 					<input type="button" class="btn btn-secondary" id="batal_btn" onclick="window.self.history.back()" value="Batal">
 				</div>
 			</div>
@@ -528,12 +525,22 @@ case "ubah":
 			<!-- Uraian -->
 				<label class="control-label" for="uraian">Uraian</label>
 					<div class="controls">
-						<textarea rows="20" name="uraian" class="input-xlarge span5"><?php echo $display['uraian'];?></textarea>
+						<textarea rows="24" name="uraian" class="input-xlarge span5"><?php echo $display['uraian'];?></textarea>
 					</div>
 			</div>
 		</div>
 	</fieldset>
 			</form>
+	<!-- Modal -->
+	<div id="preview" class="modal hide fade in" style="width:750px;height:500px;border:1px solid #ddd;">
+	        <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h3>Preview File Attachment</h3>
+			</div>
+			<div class="modal-body" style="width:700px;height:500px;border:1px solid #ddd;">
+				<iframe src="../attachment/surat/masuk/<?php echo $display['attachment'];?>" style="width:100%;height:100%;"></iframe>	
+			</div>
+	</div>			
 
 	</div> <!-- /.container -->
 </div> <!-- /#content -->
@@ -634,7 +641,8 @@ case "detail":
 break;
 }
 ?>
-
+</div>
+</div>
 <?php
 include("footer.php");
 ?>

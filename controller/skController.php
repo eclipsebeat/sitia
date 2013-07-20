@@ -7,6 +7,7 @@
 	include_once('../class/ruang.php');
 	include_once('../class/seksi.php');	
 	include_once('../class/suratkeluar.php');
+	include_once('../class/autokeyword.php');
 	
 	//dropdown ruang
 	$ruang = new Ruang();
@@ -93,7 +94,6 @@
 	if(isset($_GET['id'])){
 		$sk = new Suratkeluar();
 		$id	=$_GET['id'];
-		session_start();
 		
 		$ubah=$sk->getSk($id);
 	}
@@ -129,7 +129,23 @@
 		}
 		//attachment ad atau gak
 		elseif(empty($FileName)){
-			$error_rekam="File Tidak Ditemukan!";
+			//$error_rekam="File Tidak Ditemukan!";
+			$new_file_name=$_POST['attachment'];
+			
+			//autokeyword
+			$autokeyword = new Autokeyword();
+			$stopwords = file('../includes/stopwords/stopword_list_tala.txt');
+			$data = $nama.$perihal.$kepada.$uraian;
+			$keywords = $autokeyword->getKeywords($data,$stopwords);
+				
+			//rekam arsip
+			$rekam	=$sk->updateSk($id,$nama,$ruang,$rak,$baris,$box,$keywords,$nosurat,$tanggal,$perihal,$kepada,$penerbit,$uraian,$new_file_name);
+				if($rekam ==1){
+					$success="Arsip Berhasil Di Update";
+					header("refresh:3;suratkeluar.php");
+				}else{
+					$error_rekam="Arsip Tidak Berhasil Di Ubah";
+				}			
 		}
 		//attachment ekstensi
 		elseif($ext!="pdf"){
@@ -157,7 +173,7 @@
 				//rekam arsip
 				$rekam	=$sk->updateSk($id,$nama,$ruang,$rak,$baris,$box,$keywords,$nosurat,$tanggal,$perihal,$kepada,$penerbit,$uraian,$new_file_name);
 					if($rekam ==1){
-						$success="Arsip Berhasil Direkam";
+						$success="Arsip Berhasil Di Update";
 						header("refresh:3;suratkeluar.php");
 
 					}else{

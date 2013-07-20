@@ -60,11 +60,11 @@ include_once ('../controller/userController.php');
 							</ul>
 						</li>
 						<li class="dropdown-submenu">
-							<a tabindex="-1" href="#">RUH Jenis Arsip</a>
-							<ul class="dropdown-menu">
+							<a tabindex="-1" href="jenisarsip.php">Daftar Jenis Arsip</a>
+							<!-- <ul class="dropdown-menu">
 							<li><a href="jenisarsip.php">Daftar Jenis Arsip</a></li>
-							<li><a href="jenisarsip.php?modul=tambah">Rekam Jenis Arsip</a></li>
-							</ul>
+							 <li><a href="jenisarsip.php?modul=tambah">Rekam Jenis Arsip</a></li> 
+							</ul> -->
 						</li>
 						<li class="dropdown-submenu">
 							<a tabindex="-1" href="#">RUH Lokasi</a>
@@ -74,11 +74,7 @@ include_once ('../controller/userController.php');
 							</ul>
 						</li>
 						<li class="dropdown-submenu">
-							<a tabindex="-1" href="#">Utility</a>
-							<ul class="dropdown-menu">
-							<li><a href="#">Backup</a></li>
-							<li><a href="#">Restore</a></li>
-							</ul>
+							<a tabindex="-1" href="utility.php">Utility</a>
 						</li>
 					</ul>
 				</li>
@@ -118,8 +114,8 @@ include_once ('../controller/userController.php');
 						<li class="dropdown-submenu">
 						<a tabindex="-1" href="#">Laporan Pertanggungjawaban Penerimaan dan Pengeluaran Negara</a>
 							<ul class="dropdown-menu">
-							<li><a href="spj_bendum.php">Daftar Laporan Pertanggungjawaban Penerimaan dan Pengeluaran Negara</a></li>							
-							<li><a href="spj_bendum.php?modul=tambah">Rekam Laporan Pertanggungjawaban Penerimaan dan Pengeluaran Negara</a></li>							
+							<li><a href="spj_bendum.php">Daftar SPJ Bendum</a></li>							
+							<li><a href="spj_bendum.php?modul=tambah">Rekam SPJ Bendum</a></li>							
 							</ul>
 						</li>
 						<li class="dropdown-submenu">
@@ -206,147 +202,147 @@ include_once ('../controller/userController.php');
 $modul=$_GET['modul'];
 $id=$_GET['id'];
 switch($modul){
-    
-    default :
+default :
 ?>
 
 <div id="content">
-
 	<div class="container">
-	<div id="legend">
-	  <legend class=""><a href="user.php">Daftar User</a> | <a href="user.php?modul=tambah">Rekam User</a></legend>
-	</div>
+		<div id="legend">
+		  <legend class=""><a href="user.php">Daftar User</a> | <a href="user.php?modul=tambah">Rekam User</a></legend>
+		</div>
 
-	<table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="example">
-	<thead>
-		<tr>
-			<th>Username</th>
-			<th>Password</th>
-			<th>NIP</th>
-			<th>Kewenangan</th>
-			<th>Perubahan Terakhir</th>			
-			<th>Ubah</th>
-			<th>Hapus</th>
-		</tr>
-	</thead>
-	<tbody>
-<?php
-	if($all!=0){
-	foreach($all as $display){
-			echo "<tr>";
-			echo "<td>".$display['username']."</td>";
-			echo "<td>".$display['password']."</td>";
-			echo "<td>".$display['NIP']."</td>";
-			echo "<td>".$display['role']."</td>";
-			echo "<td>".$display['last_update']."</td>";			
-			echo "<td>
-					<a href=\"user.php?modul=ubah&id=".$display['user_id']."\">
-						<i class=\"icon-edit\"></i>
-						<span>Ubah</span>        					
-					</a>
-				  </td>"; 
-			echo "<td>
-					<a href=\"user.php?delete=".$display['user_id']."\" data-confirm='Anda Yakin Akan menghapus User : ".$display['username']." ?'>
-						<i class=\"icon-remove-sign\"></i>
-						<span>Hapus</span>        					
-					</a>
-				  </td>";
-	}
-?>
-	</tbody>
+			<table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="example">
+			<thead>
+				<tr>
+					<th>Username</th>
+					<!-- <th>Password</th> -->
+					<th>NIP</th>
+					<th>Kewenangan</th>
+					<th>Perubahan Terakhir</th>			
+					<th>Ubah</th>
+					<th>Hapus</th>
+				</tr>
+			</thead>
+			<tbody>
+			<?php
+				if($all!=0){
+				foreach($all as $display){
+					echo "<tr>";
+					echo "<td>".$display['username']."</td>";
+					//echo "<td>".$display['password']."</td>";
+					echo "<td>".$display['NIP']."</td>";
+					echo "<td>".$display['category']."</td>";
+					echo "<td>".$display['last_update']."</td>";			
+					echo "<td>
+							<a href=\"user.php?modul=ubah&id=".$display['user_id']."\">
+							<i class=\"icon-edit\"></i>
+							<span>Ubah</span>        					
+							</a>
+						  </td>"; 
+					if($display['role']==2){
+					echo "<td>
+							<a href=\"user.php?delete=".$display['user_id']."\" data-confirm='Anda Yakin Akan menghapus User : ".$display['username']." ?'>
+							<i class=\"icon-remove-sign\"></i>
+							<span>Hapus</span>        					
+							</a>
+						  </td>";
+					}else{
+					echo "<td></td>";
+					}
+				}
+			?>
+			</tbody>
 
-<?php
-	}else{
-		echo "<div class=\"alert alert-error\">
-				  Data Tidak Ada
-				  <buttontype=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
-				</div>";
-	}
-?>
-</table>
+			<?php
+				}else{
+					echo "<div class=\"alert alert-error\">
+							Data Tidak Ditemukan
+							<buttontype=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
+						  </div>";
+				}
+			?>
+			</table>
 
-	</div> <!-- /.container -->
+	</div> <!-- container -->
 
-</div> <!-- /#content -->
+</div> <!-- content -->
 
 <?php
 break;
-
 case "tambah":
 ?>
 
 <div id="content">
 	<div class="container">
 
-			<form class="form-horizontal" action="#" method="post">
-			  <fieldset>
+			<form class="well form-horizontal" action="#" method="post">
+				<fieldset>
 				<div id="legend">
-				  <legend class="">Rekam User</legend>
+					<legend class="">Rekam User</legend>
 				</div>
-<?php
-
-	if(isset($error_daftar)){
-		echo '<div class="alert alert-error" id="alert">'.$error_daftar.'
-			  <button type="button" class="close" data-dismiss="alert" id="close">x</button>
-			  </div>';
-	}
-	if(isset($success)){
-		echo '<div class="alert alert-success">'.$success.'
-			  <button type="button" class="close" data-dismiss="alert" id="close">x</button>
-			  </div>';
-	}else{
-?>				
+			<?php
+				if(isset($error_daftar)){
+					echo '<div class="alert alert-error" id="alert">'.$error_daftar.'
+						  <button type="button" class="close" data-dismiss="alert" id="close">x</button>
+						  </div>';
+				}
+				if(isset($success)){
+					echo '<div class="alert alert-success">'.$success.'
+						  <button type="button" class="close" data-dismiss="alert" id="close">x</button>
+						  </div>';
+				}else{
+			?>				
 				<div class="control-group">
-				  <!-- Username -->
-				  <label class="control-label"  for="username">Username</label>
-				  <div class="controls">
-					<input type="text" id="username" name="username" placeholder="Username" class="input-xlarge" value="<?php echo $username;?>">
-					<p class="help-block">Username can contain any letters or numbers, without spaces</p>
-				  </div>
-				</div>
-				<div class="control-group">
-				  <!-- Password-->
-				  <label class="control-label" for="password">Password</label>
-				  <div class="controls">
-					<input type="password" id="password" name="password" placeholder="Password" class="input-xlarge">
-					<p class="help-block">Password should be at least 7 characters</p>
-				  </div>
+					<!-- Username -->
+					<label class="control-label"  for="username">Username</label>
+					<div class="controls">
+						<input type="text" id="username" name="username" placeholder="Username" class="input-xlarge" value="<?php echo $username;?>">
+						<!-- <p class="help-block">Username terdiri dari huruf dan angka, tanpa spasi</p> -->
+					</div>
 				</div>
 				<div class="control-group">
-				  <!-- Password -->
-				  <label class="control-label"  for="password_confirm">Password (Confirm)</label>
-				  <div class="controls">
-					<input type="password" id="password_confirm" name="password2" placeholder="Password" class="input-xlarge">
-					<p class="help-block">Please confirm password</p>
-				  </div>
+					<!-- Password-->
+					<label class="control-label" for="password">Password</label>
+					<div class="controls">
+						<input type="password" id="password" name="password" placeholder="Password" class="input-xlarge">
+						<!-- p class="help-block">Password should be at least 7 characters</p> -->
+					</div>
 				</div>
 				<div class="control-group">
-				  <!-- NIP -->
-				  <label class="control-label"  for="NIP">NIP</label>
-				  <div class="controls">
-					<input type="number" id="NIP" name="NIP" placeholder="NIP" class="input-xlarge">
-					<p class="help-block">NIP lama</p>
-				  </div>
+					<!-- Password -->
+					<label class="control-label"  for="password_confirm">Password (Confirm)</label>
+					<div class="controls">
+						<input type="password" id="password_confirm" name="password2" placeholder="Password" class="input-xlarge">
+						<!-- <p class="help-block">Please confirm password</p> -->
+					</div>
 				</div>
 				<div class="control-group">
-				  <!-- Role -->
-				  <label class="control-label"  for="role">Level User</label>
-				  <div class="controls">
-					<select name="role">
-						<option value="1">admin</option>
-						<option value="2">Staff</option>
-					</select>
-					<p class="help-block">Pilih Level User</p>
-				  </div>
+					<!-- NIP -->
+					<label class="control-label"  for="NIP">NIP</label>
+					<div class="controls">
+						<input type="text" id="NIP" name="NIP" placeholder="NIP" class="input-xlarge" value="<?php echo $NIP;?>">
+						<!-- <p class="help-block">NIP lama</p> -->
+					</div>
 				</div>
 				<div class="control-group">
-				  <!-- Button -->
-				  <div class="controls">
-					<button type="submit" class="btn btn-primary" name="daftar" id="daftar_btn">Rekam</button>
-					<input type="button" class="btn btn-secondary" id="batal_btn" onclick="window.self.history.back()" value="Batal">				  
-				  </div>
+					<!-- Role -->
+					<label class="control-label"  for="role">Level User</label>
+					<div class="controls">
+						<select name="role">
+							<option value="1">Admin</option>
+							<option value="2">Staff</option>
+						</select>
+						<!-- <p class="help-block">Pilih Level User</p> -->
+					</div>
 				</div>
-			  </fieldset>
+				<div class="control-group">
+					<!-- Button -->
+					<div class="controls">
+						<button type="submit" class="btn btn-primary" name="daftar" id="daftar_btn">Rekam</button>
+						<input type="button" class="btn btn-secondary" id="batal_btn" onclick="window.self.history.back()" value="Batal">				  
+					</div>
+				</div>
+				</fieldset>
 			</form>
 
 	</div> <!-- /.container -->
@@ -361,78 +357,72 @@ case "ubah":
 <div id="content">
 	<div class="container">
 
-			<form class="form-horizontal" action="#" method="post">
-			  <fieldset>
-				<div id="legend">
-				  <legend class="">Ubah User</legend>
-				</div>
-<?php
-
-	if(isset($error_daftar)){
-		echo '<div class="alert alert-error" id="alert">'.$error_daftar.'
-			  <button type="button" class="close" data-dismiss="alert" id="close">x</button>
-			  </div>';
-	}
-	if(isset($success)){
-		echo '<div class="alert alert-success">'.$success.'
-			  <button type="button" class="close" data-dismiss="alert" id="close">x</button>
-			  </div>';
-	}else{
-		foreach($ubah as $display){
-?>				
+		<form class="well form-horizontal" action="#" method="post">
+			<fieldset>
+			<div id="legend">
+				<legend class="">Ubah User</legend>
+			</div>
+			<?php
+				if(isset($error_daftar)){
+					echo '<div class="alert alert-error" id="alert">'.$error_daftar.'
+						  <button type="button" class="close" data-dismiss="alert" id="close">x</button>
+						  </div>';
+				}
+				if(isset($success)){
+					echo '<div class="alert alert-success">'.$success.'
+						  <button type="button" class="close" data-dismiss="alert" id="close">x</button>
+						  </div>';
+				}else{
+					foreach($ubah as $display){
+			?>				
 				<input  type="hidden" name="id_ubah" id="id_ubah" value="<?php echo $_GET['id']; ?>" />					 
 				<div class="control-group">
-				  <!-- Username -->
-				  <label class="control-label"  for="username">Username</label>
-				  <div class="controls">
-					<input type="text" id="username" name="username" placeholder="Username" class="input-xlarge" value="<?php echo $display['username']; ?>">
-					<p class="help-block">Username can contain any letters or numbers, without spaces</p>
-				  </div>
+					<!-- Username -->
+					<label class="control-label"  for="username">Username</label>
+					<div class="controls">
+						<input type="text" id="username" name="username" placeholder="Username" class="input-xlarge" value="<?php echo $display['username']; ?>">
+					</div>
 				</div>
 				<div class="control-group">
-				  <!-- Password-->
-				  <label class="control-label" for="password">Password</label>
-				  <div class="controls">
-					<input type="password" id="password" name="password" placeholder="Password" class="input-xlarge" value="<?php echo $display['password']; ?>">
-					<p class="help-block">Password should be at least 7 characters</p>
-				  </div>
+					<!-- Password-->
+					<label class="control-label" for="password">Password</label>
+					<div class="controls">
+						<input type="password" id="password" name="password" placeholder="Password" class="input-xlarge" >
+					</div>
 				</div>
 				<div class="control-group">
-				  <!-- Password -->
-				  <label class="control-label"  for="password_confirm">Password (Confirm)</label>
-				  <div class="controls">
-					<input type="password" id="password_confirm" name="password2" placeholder="Password" class="input-xlarge">
-					<p class="help-block">Please confirm password</p>
-				  </div>
+					<!-- Password -->
+					<label class="control-label"  for="password_confirm">Password (Confirm)</label>
+					<div class="controls">
+						<input type="password" id="password_confirm" name="password2" placeholder="Password" class="input-xlarge">
+					</div>
 				</div>
 				<div class="control-group">
-				  <!-- NIP -->
-				  <label class="control-label"  for="NIP">NIP</label>
-				  <div class="controls">
-					<input type="number" id="NIP" name="NIP" placeholder="NIP" class="input-xlarge" value="<?php echo $display['NIP']; ?>">
-					<p class="help-block">NIP lama</p>
-				  </div>
+					<!-- NIP -->
+					<label class="control-label"  for="NIP">NIP</label>
+					<div class="controls">
+						<input type="text" id="NIP" name="NIP" placeholder="NIP" class="input-xlarge" value="<?php echo $display['NIP']; ?>">
+					</div>
 				</div>
 				<div class="control-group">
-				  <!-- Role -->
-				  <label class="control-label"  for="role">Level User</label>
-				  <div class="controls">
-					<select name="role">
-						<option value="1">admin</option>
-						<option value="2">Staff</option>
-					</select>
-					<p class="help-block">Pilih Level User</p>
-				  </div>
+					<!-- Role -->
+					<label class="control-label"  for="role">Level User</label>
+					<div class="controls">
+						<select name="role">
+							<option value="1">Admin</option>
+							<option value="2">Staff</option>
+						</select>
+					</div>
 				</div>
 				<div class="control-group">
-				  <!-- Button -->
-				  <div class="controls">
-					<button type="submit" class="btn btn-primary" name="update" id="update_btn">Simpan</button>
-					<input type="button" class="btn btn-secondary" id="batal_btn" onclick="window.self.history.back()" value="Batal">
-				  </div>
+					<!-- Button -->
+					<div class="controls">
+						<button type="submit" class="btn btn-primary" name="update" id="update_btn">Simpan</button>
+						<input type="button" class="btn btn-secondary" id="batal_btn" onclick="window.self.history.back()" value="Batal">
+					</div>
 				</div>
-			  </fieldset>
-			</form>
+			</fieldset>
+		</form>
 
 	</div> <!-- /.container -->
 </div> <!-- /#content -->
@@ -443,7 +433,8 @@ case "ubah":
 break;
 }
 ?>
-
+</div>
+</div>
 <?php
 include("footer.php");
 ?>

@@ -72,7 +72,7 @@
 								</select>
 							  </div>
 					</div>			
-					<button class="btn-info btn" type="submit" name="search">Pencarian</button>
+					<button class="btn-info btn" type="submit" name="advancesearch">Pencarian</button>
 			</fieldset>
 		</form>
 	<!-- advance search -->
