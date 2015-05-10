@@ -26,7 +26,7 @@ class CreateArsipTable extends Migration {
 			$table->unsignedInteger('seksi_id')->nullable();
 			$table->foreign('seksi_id')->references('id')->on('seksi')->onDelete('set null');
 			$table->unsignedInteger('user_id')->nullable();
-			$table->foreign('user_id')->references('id')->on('users')->onDelete('set null');			
+			$table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
 			$table->timestamps();
 		});
 	}
