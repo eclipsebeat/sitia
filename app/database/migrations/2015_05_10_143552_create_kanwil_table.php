@@ -15,6 +15,8 @@ class CreateKanwilTable extends Migration {
 		Schema::create('kanwil', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->unsignedInteger('departemen_id')->nullable();
+			$table->foreign('departemen_id')->references('id')->on('departemen')->onDelete('set null');
 			$table->string('kanwil');
 			$table->timestamps();
 		});

@@ -15,6 +15,7 @@ class CreateBoxTable extends Migration {
 		Schema::create('box', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->string('box');
 			$table->timestamps();
 		});
 	}

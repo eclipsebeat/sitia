@@ -23,6 +23,8 @@ class CreateArsipTable extends Migration {
 			$table->foreign('gudang_id')->references('id')->on('gudang')->onDelete('set null');
 			$table->unsignedInteger('rak_id')->nullable();
 			$table->foreign('rak_id')->references('id')->on('rak')->onDelete('set null');
+			$table->unsignedInteger('box_id')->nullable();
+			$table->foreign('box_id')->references('id')->on('box')->onDelete('set null');
 			$table->unsignedInteger('seksi_id')->nullable();
 			$table->foreign('seksi_id')->references('id')->on('seksi')->onDelete('set null');
 			$table->unsignedInteger('user_id')->nullable();
