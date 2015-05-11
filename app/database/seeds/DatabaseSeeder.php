@@ -160,7 +160,7 @@ class ArsipTableSeeder extends Seeder {
         for ($i = 0; $i < 10; $i++)
 		{
 		  Arsip::create(array(
-		  	'arsip' => $faker->words($nb = 5),
+		  	'arsip' => $faker->word($nb = 5),
 		    'jenis_arsip_id' => $faker->numberBetween($min = 1, $max = 10),
 			'gudang_id' => $faker->numberBetween($min = 1, $max = 10),
 			'rak_id' => $faker->numberBetween($min = 1, $max = 10),
@@ -182,10 +182,10 @@ class KantorTableSeeder extends Seeder {
 		{
 		  Kantor::create(array(
 		  	'kanwil_id' => $faker->numberBetween($min = 1, $max = 10),
-		  	'kantor' => $faker->words,
-			'alamat' => $faker->words,
-			'telpon' => $faker->words,
-			'fax' => $faker->words,
+		  	'kantor' => $faker->word,
+			'alamat' => $faker->word,
+			'telpon' => $faker->word,
+			'fax' => $faker->word,
 			'email' => $faker->email,
 		));
 		}
