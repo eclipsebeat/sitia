@@ -11,7 +11,6 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('admin.login');
-});
+Route::get('/login', 'ArsipController@login');
+
+Route::get('/', 'ArsipController@index');
