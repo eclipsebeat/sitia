@@ -42,7 +42,10 @@
 	<script src="{{ asset('assets/js/bootstrap-datepicker.js') }}"></script>
 	
 <script type="text/javascript">
-
+	$(document).ready(function() {
+	    $('#example').dataTable();
+	} );
+	
 </script>
 </body>
 </html>

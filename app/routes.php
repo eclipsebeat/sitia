@@ -10,7 +10,11 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
+//Route::model('arsip', 'Arsip');
+
 
 Route::get('/login', 'ArsipController@login');
 
 Route::get('/', 'ArsipController@index');
+
+Route::get('/arsip', 'ArsipController@arsip');

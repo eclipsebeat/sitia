@@ -1,5 +1,6 @@
 <?php
 
+
 class ArsipController extends BaseController {
 
 	/*
@@ -23,6 +24,14 @@ class ArsipController extends BaseController {
 	public function index()
 	{
 		return View::make('arsip.index');
+	}
+
+	public function arsip()
+	{
+		$arsips = Arsip::all();
+		//var_dump($arsips->toArray());
+		// Show the page
+		return View::make('arsip.arsip', compact('arsips'));
 	}
 
 }
