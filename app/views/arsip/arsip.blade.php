@@ -16,6 +16,7 @@
 	                <th>Gudang</th>
 	                <th>Rak</th>
 	                <th>Box</th>
+	                <th>Softcopy Dokumen</th>
 	                <th>Petugas Rekam</th>
 	                <th>Tanggal Rekam</th>
 	            </tr>
@@ -24,13 +25,14 @@
 	            <tbody>
 				@foreach ($arsips as $arsip)
 	            <tr>
-	                <td>{{ $arsip->seksi_id }}</td>
+	                <td>{{ $arsip->seksi->seksi }}</td>
 	                <td>{{ $arsip->arsip }}</td>
-	                <td>{{ $arsip->jenis_arsip_id }}</td>
-	                <td>{{ $arsip->gudang_id }}</td>
-	                <td>{{ $arsip->rak_id }}</td>
-	                <td>{{ $arsip->box_id }}</td>
-	                <td>{{ $arsip->user_id }}</td>
+	                <td>{{ $arsip->jenis_arsip->jenis }}</td>
+	                <td>{{ $arsip->gudang->gudang }}</td>
+	                <td>{{ $arsip->rak->rak }}</td>
+	                <td>{{ $arsip->box->box }}</td>
+	                <td>{{ $arsip->files }}</td>
+	                <td>{{ $arsip->user->nmdepan }}</td>
 	                <td>{{ $arsip->created_at }}</td>
 	            </tr>
 				@endforeach

@@ -1,7 +1,7 @@
 <?php
 
 
-class JenisArsip extends Eloquent  {
+class Jenis_Arsip extends Eloquent  {
 
 
 	/**

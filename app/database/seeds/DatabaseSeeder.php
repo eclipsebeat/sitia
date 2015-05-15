@@ -53,7 +53,7 @@ class JenisArsipTableSeeder extends Seeder {
         
         for ($i = 0; $i < 10; $i++)
 		{
-		  JenisArsip::create(array(
+		  Jenis_Arsip::create(array(
 		    'jenis' => $faker->word
 		  ));
 		}
@@ -161,6 +161,7 @@ class ArsipTableSeeder extends Seeder {
 		{
 		  Arsip::create(array(
 		  	'arsip' => $faker->word($nb = 5),
+		  	'files' => $faker->word($nb = 5),
 		    'jenis_arsip_id' => $faker->numberBetween($min = 1, $max = 10),
 			'gudang_id' => $faker->numberBetween($min = 1, $max = 10),
 			'rak_id' => $faker->numberBetween($min = 1, $max = 10),
@@ -186,11 +187,7 @@ class KantorTableSeeder extends Seeder {
 			'alamat' => $faker->word,
 			'telpon' => $faker->word,
 			'fax' => $faker->word,
-<<<<<<< HEAD
-			'email' => $faker->email,
-=======
 			'email' => $faker->email
->>>>>>> origin
 		));
 		}
     }

@@ -18,3 +18,8 @@ Route::get('/login', 'ArsipController@login');
 Route::get('/', 'ArsipController@index');
 
 Route::get('/arsip', 'ArsipController@arsip');
+
+Route::get('/rekam', 'ArsipController@rekamArsip');
+
+
+Route::post('/simpan', 'ArsipController@store');

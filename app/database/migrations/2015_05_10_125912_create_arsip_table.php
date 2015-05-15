@@ -17,6 +17,7 @@ class CreateArsipTable extends Migration {
 			$table->engine = 'InnoDB';
 			$table->increments('id');
 			$table->string('arsip', 255);
+			$table->string('files', 255)->nullable();
 			$table->unsignedInteger('jenis_arsip_id')->nullable();
 			$table->foreign('jenis_arsip_id')->references('id')->on('jenis_arsip')->onDelete('set null');
 			$table->unsignedInteger('gudang_id')->nullable();

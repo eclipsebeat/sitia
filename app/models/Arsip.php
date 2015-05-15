@@ -17,11 +17,11 @@ class Arsip extends Eloquent  {
 	 * @var array
 	 */
 	
-	protected $fillable = array('arsip', 'jenis_arsip_id', 'gudang_id', 'user_id', 'rak_id', 'seksi_id');
+	protected $fillable = array('arsip', 'files', 'jenis_arsip_id', 'gudang_id', 'user_id', 'rak_id', 'seksi_id');
 	
-	public function jenisarsip()
+	public function jenis_arsip()
     {
-        return $this->belongsTo('JenisArsip');
+        return $this->belongsTo('Jenis_Arsip');
     }
 
     public function gudang()
@@ -31,7 +31,7 @@ class Arsip extends Eloquent  {
 
     public function rak()
     {
-        return $this->belongsTo('Gudang');
+        return $this->belongsTo('Rak');
     }
 
     public function box()
