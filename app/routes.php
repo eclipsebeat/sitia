@@ -21,5 +21,6 @@ Route::get('/arsip', 'ArsipController@arsip');
 
 Route::get('/rekam', 'ArsipController@rekamArsip');
 
-
 Route::post('/simpan', 'ArsipController@store');
+
+Route::get('/user', 'UserController@index');
