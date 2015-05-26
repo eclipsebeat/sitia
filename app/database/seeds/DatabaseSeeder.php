@@ -34,11 +34,11 @@ class UserTableSeeder extends Seeder {
         for ($i = 0; $i < 10; $i++)
 		{
 		  User::create(array(
-		    'nip' => $faker->randomDigit,
-		    'username' => $faker->userName,
-		    'nmdepan' => $faker->firstName,
-		    'nmbelakang' => $faker->lastName,
-		    'password' => 'password'
+		    'nip' => '000000000000000',
+		    'username' => 'admin',
+		    'nmdepan' => 'admin',
+		    'nmbelakang' => 'admin',
+		    'password' => '$2y$10$XOOz4RxEazfZk8WELZQKGOfa1Xuq48KslhOnHOAQ6tJ7miVZRx1.i'
 		  ));
 		}
     }

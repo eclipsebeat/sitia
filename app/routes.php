@@ -12,15 +12,10 @@
 */
 //Route::model('arsip', 'Arsip');
 
+Route::get('/', function(){
+	return View::make('index');
+});
 
-Route::get('/login', 'ArsipController@login');
+Route::resource('arsip', 'ArsipController');
 
-Route::get('/', 'ArsipController@index');
-
-Route::get('/arsip', 'ArsipController@arsip');
-
-Route::get('/rekam', 'ArsipController@rekamArsip');
-
-Route::post('/simpan', 'ArsipController@store');
-
-Route::get('/user', 'UserController@index');
+Route::resource('user', 'UserController');
