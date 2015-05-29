@@ -12,10 +12,16 @@
 */
 //Route::model('arsip', 'Arsip');
 
-Route::get('/', function(){
-	return View::make('index');
+Route::get('login', array('uses' => 'UserController@showLogin'));
+
+Route::post('login', array('uses' => 'UserController@doLogin'));
+
+Route::get('logout', array('uses' => 'UserController@doLogout'));
+
+Route::group(array('before'=>'auth'), function() { 
+
+	Route::get('/', 'HomeController@index');
+
+	Route::resource('arsip', 'ArsipController');
+	
 });
-
-Route::resource('arsip', 'ArsipController');
-
-Route::resource('user', 'UserController');

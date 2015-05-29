@@ -16,6 +16,7 @@ class CreateDepartemenTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('departemen');
+			$table->string('logo');
 			$table->timestamps();
 		});
 	}

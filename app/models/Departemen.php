@@ -24,4 +24,9 @@ class Departemen extends Eloquent  {
         return $this->hasMany('Kanwil');
     }
 
+    public function kantor()
+    {
+        return $this->hasMany('Kantor');
+    }
+
 }

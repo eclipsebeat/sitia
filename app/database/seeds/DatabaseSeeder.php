@@ -124,14 +124,10 @@ class DepartemenTableSeeder extends Seeder {
 
 	public function run()  
     {  
-    	$faker = Faker\Factory::create();
-        
-        for ($i = 0; $i < 10; $i++)
-		{
-		  Departemen::create(array(
-		    'departemen' => $faker->word
-		  ));
-		}
+		Departemen::create(array(
+		    'departemen' => 'Kementerian Keuangan',
+		    'logo' => 'logo.png'
+		));
     }
 }
 
@@ -139,15 +135,11 @@ class KanwilTableSeeder extends Seeder {
 
 	public function run()  
     {  
-    	$faker = Faker\Factory::create();
-        
-        for ($i = 0; $i < 10; $i++)
-		{
-		  Kanwil::create(array(
-		  	'departemen_id' => $faker->numberBetween($min = 1, $max = 10),
-		    'kanwil' => $faker->word
-		  ));
-		}
+    	
+		Kanwil::create(array(
+		  'departemen_id' => '1',
+		  'kanwil' => 'Kanwil DJP Provinsi Sumatera Barat'
+		));
     }
 }
 
@@ -176,19 +168,16 @@ class ArsipTableSeeder extends Seeder {
 class KantorTableSeeder extends Seeder {
 
 	public function run()  
-    {  
-    	$faker = Faker\Factory::create();
-        
-        for ($i = 0; $i < 10; $i++)
-		{
+    {  		
 		  Kantor::create(array(
-		  	'kanwil_id' => $faker->numberBetween($min = 1, $max = 10),
-		  	'kantor' => $faker->word,
-			'alamat' => $faker->word,
-			'telpon' => $faker->word,
-			'fax' => $faker->word,
-			'email' => $faker->email
+		  	'departemen_id' => '1',
+		  	'kanwil_id' => '1',
+		  	'kantor' => 'KPP Payakumbuh',
+			'alamat' => 'JL. Sudirman, No. 184-A',
+			'telpon' => '(0752) 92281',
+			'fax' => '(0752) 92281',
+			'email' => 'payakumbuh@pajak.go.id'
 		));
-		}
+		
     }
 }

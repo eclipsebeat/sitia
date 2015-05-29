@@ -24,4 +24,9 @@ class Kantor extends Eloquent  {
         return $this->belongsTo('Kanwil');
     }
 
+    public function departemen()
+    {
+        return $this->belongsTo('Departemen');
+    }
+
 }
