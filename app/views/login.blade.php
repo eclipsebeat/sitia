@@ -1,61 +1,58 @@
-@extends('layouts.master')
-
-@section('content')
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
-			<div class="panel panel-default">
-				<div class="panel-heading">Login</div>
-				<div class="panel-body">
-					@if (count($errors) > 0)
-						<div class="alert alert-danger">
-							<strong>Whoops!</strong> There were some problems with your input.<br><br>
-							<ul>
-								@foreach ($errors->all() as $error)
-									<li>{{ $error }}</li>
-								@endforeach
-							</ul>
-						</div>
-					@endif
-
-					<form class="form-horizontal" role="form" method="POST" action="">
-						<input type="hidden" name="_token" value="{{ csrf_token() }}">
-
-						<div class="form-group">
-							<label class="col-md-4 control-label">Username</label>
-							<div class="col-md-6">
-								<input type="text" class="form-control" name="username" value="">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-md-4 control-label">Password</label>
-							<div class="col-md-6">
-								<input type="password" class="form-control" name="password">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<div class="col-md-6 col-md-offset-4">
-								<div class="checkbox">
-									<label>
-										<input type="checkbox" name="remember"> Remember Me
-									</label>
-								</div>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<div class="col-md-6 col-md-offset-4">
-								<button type="submit" class="btn btn-primary">Login</button>
-
-								<a class="btn btn-link" href="{{ url('/password/email') }}">Forgot Your Password?</a>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
+<!DOCTYPE html>
+<html>
+ <head>
+    <title>Login</title>
+    <!-- Bootstrap -->
+	{{HTML::style('assets/css/bootstrap.css')}}
+	{{HTML::style('assets/css/app_tes.css')}}
+ </head>
+ <body>	
+ <div class="row">
+    <div class="col-md-8 col-md-offset-2 well">
+	<div class="row" style="padding-left:15px;padding-right:15px">
+    <div id="legend" class="well">
+	  <h1><img alt="" src="{{URL::to('assets/img/document-icon.png')}}" />Sistem Informasi Arsip</h1>
+    </div>
 	</div>
-</div>
-@endsection
+	<hr>
+    <div class="row" style="padding-left:15px">
+    <div class="col-md-6 well">
+	<p><br>
+	<b>Selamat datang di halaman login<br>
+	Hanya staff terdaftar yang diperkenankan menggunakan sistem informasi ini.<br>
+	Silahkan hubungi Administrator untuk mendapatkan user dan password.</b></p>
+	</div>
+
+    <div class="col-md-6">
+	<div class="well">
+	    <legend><img alt="" src="{{URL::to('assets/img/App-login-manager-icon.png')}}" /><b>Login</b></legend>
+		{{Form::open(array('url'=>'login'))}}
+			<div>
+			<div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+			{{Form::text('username','',array('class'=>'form-control','placeholder'=>'Username'))}}
+			</div>
+			</div>
+            <!-- Password-->
+			<div style="margin-top:4px">
+			<div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+			{{Form::password('password',array('class'=>'form-control'))}}
+            </div>
+			</div>
+			<div class="checkbox">
+			<label>
+				{{Form::checkbox('remember','Remember me',true)}} Remember me
+			</label>
+            </div>
+			{{Form::submit('Login',array('class'=>'btn-info btn','name'=>'login'))}}
+        {{Form::close()}}
+	</div>
+    </div>
+    </div>
+	<hr>
+  <div class="row">
+  	<p><center><b>&copy 2015 Kanwil DJP Sumbar Jambi</b></center></p>
+    </div>
+  </div>
+  </div>
+</body>  
+</html>
