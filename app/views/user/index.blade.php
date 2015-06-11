@@ -28,7 +28,7 @@
 	                <td>{{ $user->nmdepan }}</td>
 	                <td>{{ $user->nmbelakang }}</td>
 	                <td> - </td>
-	                <td><a href="ubah" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning">Ubah</a></td>
+	                <td><a href="user/{{ $user->id }}" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning">Ubah</a></td>
 	                <td></td>
 	            </tr>
 				@endforeach

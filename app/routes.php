@@ -24,4 +24,9 @@ Route::group(array('before'=>'auth'), function() {
 
 	Route::resource('arsip', 'ArsipController');
 	
+	Route::get('user', array('uses' => 'UserController@show'));
+
+	Route::get('user/{id}', array('uses' => 'UserController@edit'));
+
+	Route::post('user/{id}', array('uses' => 'UserController@update'));
 });

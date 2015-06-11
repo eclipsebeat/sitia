@@ -10,30 +10,22 @@
 	            <table id="example" class="table table-striped table-bordered table-hover">
 	            <thead>
 	            <tr>
-	                <th>Seksi</th>
 	                <th>arsip</th>
 	                <th>Jenis Arsip</th>
 	                <th>Gudang</th>
-	                <th>Rak</th>
-	                <th>Box</th>
-	                <th>Softcopy Dokumen</th>
-	                <th>Petugas Rekam</th>
-	                <th>Tanggal Rekam</th>
+	                <th>Seksi</th>
+	                <th>Detail</th>
 	            </tr>
 	            </tr>
 	            </thead>
 	            <tbody>
 				@foreach ($arsips as $arsip)
 	            <tr>
-	                <td>{{ $arsip->seksi->seksi }}</td>
 	                <td>{{ $arsip->arsip }}</td>
 	                <td>{{ $arsip->jenis_arsip->jenis }}</td>
 	                <td>{{ $arsip->gudang->gudang }}</td>
-	                <td>{{ $arsip->rak->rak }}</td>
-	                <td>{{ $arsip->box->box }}</td>
-	                <td>{{ $arsip->files }}</td>
-	                <td>{{ $arsip->user->nmdepan }}</td>
-	                <td>{{ $arsip->created_at }}</td>
+	                <td>{{ $arsip->seksi->seksi }}</td>
+	                <td><a href="{{ url('/arsip/') }}/{{ $arsip->id }}" data-original-title="Data Detail" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a></td>
 	            </tr>
 				@endforeach
 	            </tbody>

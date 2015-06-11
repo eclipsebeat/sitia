@@ -18,6 +18,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 */
 	protected $table = 'users';
 
+
+
 	/**
 	 * The attributes excluded from the model's JSON form.
 	 *
@@ -30,4 +32,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     {
         return $this->hasMany('Arsip');
     }
+
+    public function getId()
+	{
+	  return $this->id;
+	}
 }

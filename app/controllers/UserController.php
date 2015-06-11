@@ -63,4 +63,28 @@ class UserController extends \BaseController {
 		return Redirect::to('login')->with('message', 'Your are now logged out!');
 	}
 
+	public function show(){
+
+        $users = User::get();
+
+        //var_dump($profile);
+
+        return View::make('user.index', compact('users'));
+
+	}
+
+	public function edit($id){
+
+       $user = User::find($id);
+
+       //var_dump($user);
+
+       return View::make('user.edit', compact('user'));
+
+	}
+
+	public function update(){
+
+	}
+
 }

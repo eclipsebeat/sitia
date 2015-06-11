@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder {
 		$this->call('KanwilTableSeeder');
 		$this->call('ArsipTableSeeder');
 		$this->call('KantorTableSeeder');
+		$this->call('RolesTableSeeder');
 	}
 
 }
@@ -29,17 +30,26 @@ class UserTableSeeder extends Seeder {
 
 	public function run()  
     {  
-        $faker = Faker\Factory::create();
-
-        for ($i = 0; $i < 10; $i++)
 		{
-		  User::create(array(
-		    'nip' => '000000000000000',
-		    'username' => 'admin',
-		    'nmdepan' => 'admin',
-		    'nmbelakang' => 'admin',
-		    'password' => '$2y$10$XOOz4RxEazfZk8WELZQKGOfa1Xuq48KslhOnHOAQ6tJ7miVZRx1.i'
-		  ));
+
+		DB::table('users')->delete();
+
+		$users = new User;
+        $users->nip = '000000000000000';
+        $users->username = 'admin';
+        $users->nmdepan = 'admin';
+        $users->nmbelakang = 'admin';
+        $users->password = '$2y$10$XOOz4RxEazfZk8WELZQKGOfa1Xuq48KslhOnHOAQ6tJ7miVZRx1.i';
+        $users->save();
+
+        $users = new User;
+        $users->nip = '111111111111111111';
+        $users->username = 'staff';
+        $users->nmdepan = 'staff';
+        $users->nmbelakang = 'staff';
+        $users->password = '$2y$10$XOOz4RxEazfZk8WELZQKGOfa1Xuq48KslhOnHOAQ6tJ7miVZRx1.i';
+        $users->save();
+
 		}
     }
 }
@@ -153,13 +163,13 @@ class ArsipTableSeeder extends Seeder {
 		{
 		  Arsip::create(array(
 		  	'arsip' => $faker->word($nb = 5),
-		  	'files' => $faker->word($nb = 5),
+		  	'files' => 'batas_akhir_tahun.pdf',
 		    'jenis_arsip_id' => $faker->numberBetween($min = 1, $max = 10),
 			'gudang_id' => $faker->numberBetween($min = 1, $max = 10),
 			'rak_id' => $faker->numberBetween($min = 1, $max = 10),
 			'box_id' => $faker->numberBetween($min = 1, $max = 10),
 			'seksi_id' => $faker->numberBetween($min = 1, $max = 10),
-			'user_id' => $faker->numberBetween($min = 1, $max = 10)
+			'user_id' => '2'
 		  ));
 		}
     }
@@ -178,6 +188,29 @@ class KantorTableSeeder extends Seeder {
 			'fax' => '(0752) 92281',
 			'email' => 'payakumbuh@pajak.go.id'
 		));
+		
+    }
+}
+
+class RolesTableSeeder extends Seeder {
+
+	public function run()  
+    {  		
+		DB::table('roles')->delete();
+
+        $adminRole = new Role;
+        $adminRole->name = 'Admin';
+        $adminRole->save();
+
+        $standRole = new Role;
+        $standRole->name = 'Staff';
+        $standRole->save();
+
+        $user = User::where('username','=','admin')->first();
+        $user->attachRole( $adminRole );
+
+        $user = User::where('username','=','staff')->first();
+        $user->attachRole( $standRole );
 		
     }
 }

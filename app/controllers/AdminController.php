@@ -9,7 +9,10 @@ class AdminController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		$kantor = Arsip::with('seksi', 'jenis_arsip')->orderBy('created_at', 'desc')->take(10)->get();
+		//var_dump($arsips->toArray());
+		// Show the page
+		return View::make('index', compact('arsips'));
 	}
 
 

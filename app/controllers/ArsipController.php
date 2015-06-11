@@ -92,10 +92,10 @@ class ArsipController extends \BaseController {
 	public function show($id)
 	{
 
-		$arsips = Arsip::with('seksi', 'gudang', 'rak', 'jenis_arsip', 'user', 'box')->whereId($id)->first();
-		var_dump($arsips->toArray());
-		// Show the page
-		//return View::make('arsip.arsip', compact('arsips'));	
+		$arsip = Arsip::with('seksi', 'gudang', 'rak', 'jenis_arsip', 'box', 'user')->whereId($id)->first();
+		//var_dump($arsips->toArray());
+		//Show the page
+		return View::make('arsip.detail', compact('arsip'));	
 	}
 
 
@@ -107,7 +107,10 @@ class ArsipController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		$arsip = Arsip::with('seksi', 'gudang', 'rak', 'jenis_arsip', 'box', 'user')->whereId($id)->first();
+		
+		//var_dump($arsip);
+		return View::make('arsip.edit', compact('arsip'));	
 	}
 
 
