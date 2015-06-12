@@ -34,6 +34,11 @@
 				@endforeach
 	            </tbody>
 	        </table>
+	        <div style="text-align: center;">
+			      <div class="form-group col-md-12">  
+			          <a href="user/rekam" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning">Rekam User</a>
+			      </div>
+			    </div> 
 	    </div>
 	</div>
 </div>
