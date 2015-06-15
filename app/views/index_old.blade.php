@@ -2,7 +2,19 @@
 
 @section('content')
 	<div class="row">
-		<div class="col-md-12 col-sm-12">
+		<div class="col-md-8 col-sm-12">
+			<div class="jumbotron">
+			  <h1>Aplikasi Arsip</h1>
+			  @foreach ($kantors as $kantor)
+			  <div class="col-md-4 col-lg-4 " align="left" > {{ HTML::image('arsip/img/logo.png', 'avatar', array('height' => '100')) }} </div>
+			  <h2>{{ $kantor->kanwil->kanwil }}</h2>
+			  <h3>{{ $kantor->kantor }}</h3>
+			  <p>{{ $kantor->alamat }}</p>
+			  <p>{{ $kantor->telpon, $kantor->fax, $kantor->email }}</p>
+			  @endforeach
+			</div>
+		</div>
+		<div class="col-md-4 col-sm-12">
 			<div class="panel panel-default">
 		  <!-- Default panel contents -->
 		  	<div class="panel-heading">Daftar Arsip Terkini</div>

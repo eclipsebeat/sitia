@@ -1605,8 +1605,8 @@ Layout: Topbar
   position: relative;
   z-index: 101;
   padding: 8px;
-  background: #16283a;
-  border-bottom: 1px solid #000000;
+  background: #FFD400;
+  border-bottom: 1px solid #FFAA00;
 }
 #topbar .badge {
   line-height: 11px;
@@ -1680,17 +1680,17 @@ Layout: Topbar
   padding: 0;
   margin: 0 0 0 1.5em;
   list-style: none;
-  color: #ffffff;
+  color: #000;
   font-size: 11px;
 }
 #topbar #top-nav > ul > li:first-child {
   margin-left: 0;
 }
 #topbar #top-nav > ul > li > a {
-  color: #80a7cf;
+  color: #2A2AFF;
 }
 #topbar #top-nav > ul > li > a > .caret {
-  border-top-color: #80a7cf;
+  border-top-color: #FF0000;
 }
 /*------------------------------------------------------------------
  
@@ -1701,10 +1701,10 @@ Layout: Header
   position: relative;
   z-index: 91;
   height: 80px;
-  background: #1d354d;
-  -webkit-box-shadow: inset 0 1px 0 #28496b;
-  -moz-box-shadow: inset 0 1px 0 #28496b;
-  box-shadow: inset 0 1px 0 #28496b;
+  background: #FCED07;
+  -webkit-box-shadow: inset 0 1px 0 #FF7F00;
+  -moz-box-shadow: inset 0 1px 0 #FF7F00;
+  box-shadow: inset 0 1px 0 #FF7F00;
 }
 #header .container {
   position: relative;
@@ -1872,7 +1872,7 @@ Layout: Main Nav
   filter: alpha(opacity=65);
 }
 #main-nav .active .dropdown-toggle .caret {
-  border-top-color: #1d354d;
+  border-top-color: #FFAA00;
 }
 /*------------------------------------------------------------------
  
@@ -1937,8 +1937,9 @@ Layout: Content
 
 ------------------------------------------------------------------- */
 #content {
-  margin-top: 3em;
-  margin-bottom: 8em;
+  margin-top: 0em;
+  margin-bottom: 0em;
+  background-color:#ffffff;
 }
 #content .row {
   margin-top: 5em;
@@ -1953,12 +1954,12 @@ Layout: Footer
 ------------------------------------------------------------------- */
 #footer {
   padding: 3px 0;
-  color: #ffffff;
-  background: #1d354d;
-  border-top: 1px solid #000000;
-  -webkit-box-shadow: inset 0 1px 0 #2b4e72;
-  -moz-box-shadow: inset 0 1px 0 #2b4e72;
-  box-shadow: inset 0 1px 0 #2b4e72;
+  color: #000;
+  background: #FCED07;
+  border-top: 1px solid #FFAA00;
+  -webkit-box-shadow: inset 0 1px 0 #FF7F00;
+  -moz-box-shadow: inset 0 1px 0 #FF7F00;
+  box-shadow: inset 0 1px 0 #FF7F00;
 }
 #footer a {
   color: #80a7cf;
