@@ -26,7 +26,13 @@ Route::group(array('before'=>'auth'), function() {
 	
 	Route::get('user', array('uses' => 'UserController@show'));
 
-	Route::get('user/{id}', array('uses' => 'UserController@edit'));
+	Route::get('user/rekam', array('uses' => 'UserController@rekam'));
+
+	Route::post('user/rekam', array('uses' => 'UserController@store'));
+
+	Route::get('user/{id}', array('uses' => 'UserController@edit'));	
 
 	Route::post('user/{id}', array('uses' => 'UserController@update'));
+
+	
 });

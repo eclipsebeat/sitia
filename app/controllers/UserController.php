@@ -73,6 +73,45 @@ class UserController extends \BaseController {
 
 	}
 
+	public function rekam()
+	{
+		return View::make('user.rekam');
+	}
+
+	public function store()
+	{
+		$rules = array(
+		    'nip'    => 'required|min:17',
+		    'username'    => 'required', // make sure the email is an actual email
+		    'nmdepan'    => 'required|string',
+		    'nmbelakang'    => 'required|string',
+		    'password' => 'required|alphaNum|min:3', // password can only be alphanumeric and has to be greater than 3 characters
+		    'password_confirmation' => 'required|same:password'
+		);
+
+		$validator = Validator::make(Input::all(), $rules);
+
+		if ($validator->fails()) {
+		    return Redirect::to('user/rekam')
+		        ->withErrors($validator) // send back all errors to the login form
+		        ->withInput(Input::except('password')); // send back the input (not the password) so that we can repopulate the form
+		} else {
+
+		    $user = new User;
+		    $user->nip     = Input::get('nip');
+		    $user->username     = Input::get('username');
+		    $user->nmdepan     = Input::get('nmdepan');
+		    $user->nmbelakang     = Input::get('nmbelakang');
+		    $user->password  = Input::get('password');
+			
+
+		    $user->save();
+
+		    return Redirect::to('user');
+
+		}
+	}
+
 	public function edit($id){
 
        $user = User::find($id);

@@ -67,6 +67,7 @@ class ArsipController extends \BaseController {
     			
     		}
 
+    		$arsip = new Arsip;
     		$arsip->arsip = Input::get('arsip');
     		$arsip->files = $filename;
     		$arsip->jenis_arsip_id = Input::get('jenis_arsip_id');
@@ -122,7 +123,48 @@ class ArsipController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		$rules = array(
+			'arsip' => 'required',
+			'jenis_arsip_id' => 'required',
+			'gudang_id' => 'required',
+			'rak_id' => 'required',
+			'box_id' => 'required',
+			'seksi_id' => 'required',
+			'files' => 'mimes:doc,docx,pdf,txt|max:9000'
+			);
+
+		$validator = Validator::make(Input::all(), $rules);
+
+		if ($validator->fails()) {
+        return Redirect::to('forms/create')->withErrors($validator);
+    	} else {
+    		//var_dump(Input::all());
+    		$arsip = new Arsip;
+
+    		if (Input::hasFile('files')){
+    			$doc = Input::file('files');
+
+    			 $filename = $doc->getClientOriginalName();
+    			 $destinationPath = public_path('arsip/doc/');
+    			 $uploadSuccess = Input::file('files')->move($destinationPath, $filename);
+    			
+    		}
+
+    		$arsip = Arsip::find(Input::get('user_id'));
+
+    		$arsip->arsip = Input::get('arsip');
+    		$arsip->files = $filename;
+    		$arsip->jenis_arsip_id = Input::get('jenis_arsip_id');
+    		$arsip->gudang_id = Input::get('gudang_id');
+    		$arsip->rak_id = Input::get('rak_id');
+    		$arsip->box_id = Input::get('box_id');
+    		$arsip->seksi_id = Input::get('seksi_id');
+    		$arsip->user_id = Input::get('user_id');
+    		$arsip->save();
+
+    		return Redirect::to('/arsip');
+        	Session::flash('message', 'Arsip telah tersimpan');
+    	}
 	}
 
 
