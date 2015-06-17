@@ -23,7 +23,7 @@
 	Silahkan hubungi Administrator untuk mendapatkan user dan password.</b></p>
 	</div>
 
-    <div class="col-md-6">
+    <div class="col-md-6"> 
 	<div class="well">
 	    <legend><img alt="" src="{{URL::to('assets/img/App-login-manager-icon.png')}}" /><b>Login</b></legend>
 		{{Form::open(array('url'=>'login'))}}

@@ -1,6 +1,68 @@
 
 {{-- VIEW --}}
- 
+<nav class="navbar navbar-default hidden">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{{URL::to('/')}}">SITIA</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        {{--<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>--}}
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">RUH Arsip <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Surat Masuk</a></li>
+            <li><a href="#">Surat Keluar</a></li>
+            <li><a href="#">SPT Masa</a></li>
+            <li><a href="#">Surat Ketetapan</a></li>
+            <li><a href="#">Identitas Wajib Pajak</a></li>
+			<li><a href="#">Arsip Lainnya</a></li>
+          </ul>
+        </li>
+		<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Peminjaman Arsip <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Peminjaman Arsip</a></li>
+            <li><a href="#">Pengembalian Arsip</a></li>
+          </ul>
+        </li>
+		<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Pencarian Arsip <span class="caret"></span></a>
+        </li>
+		<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Laporan <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Peminjaman Arsip</a></li>
+            <li><a href="#">Status Arsip</a></li>
+          </ul>
+        </li>
+		<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Admin <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+			<li><a href="#">RUH User</a></li>
+            <li><a href="#">Daftar Jenis Arsip</a></li>
+            <li><a href="#">RUH Lokasi</a></li>
+			<li><a href="#">Utility</a></li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">{{Auth::user()->username}}</a></li>
+        <li><a href="#">logout</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
  <div id="masthead">
 	
 	<div class="container">
@@ -21,29 +83,25 @@
 	
 	<div class="container">
 	<div id="top-nav">
-<ul class>
-<?php
-	$my_t=getdate(date("U"));
-	echo "<li>$my_t[weekday], $my_t[mday] - $my_t[month] - $my_t[year]</a>";
-?>
-</ul>			
+			<ul class="size-24">
+			<?php
+				$my_t=getdate(date("U"));
+				echo "<li>$my_t[weekday], $my_t[mday] - $my_t[month] - $my_t[year]</a>";
+			?>
+			</ul>			
 			<ul class="pull-right">
-				<li>Anda Login Sebagai : <i class="icon-user icon-white"></i>
-				<?php
-				
-					echo " Admin ";
+				<li class="size-24">Anda Login Sebagai : <i class="glyphicon glyphicon-user"></i> {{Auth::user()->username}}
 					
-									echo "<li>
-											<font id=\"blink\">
-											<a class=\"btn btn-small btn-danger\" href=\"notifikasi.php\">
-											<i class=\"icon-envelope icon-white\"></i>
-											5 </a></font>
-										 <li>";
-							
-				?> 
+				<li>
+					<font id="blink">
+					<a class="btn btn-small btn-danger" href="{{URL::to('/')}}">
+					<i class="icon-envelope icon-white"></i>
+					5 </a></font>
+				 <li>
+				
 				</li>
 
-				<li><a href="{{URL::to('logout')}}">Logout</a></li>
+				<li class="size-32"><a href="{{URL::to('logout')}}">Logout</a></li>
 			</ul>
 			
 		</div> <!-- /#top-nav -->
@@ -208,8 +266,8 @@
 		<div class="masthead-pad">
 			
 			<div class="masthead-text">
-				<h2>Pencarian Arsip</h2>
-				<p>Gunakan Menu Pencarian Untuk Mencari Arsip Yang Dibutuhkan Dengan Cepat </p>
+				<h2>{{$title}}</h2>
+				<p>{{$description}}</p>
 			</div> <!-- /.masthead-text -->
 			
 		</div>
@@ -219,8 +277,5 @@
 </div> <!-- /#masthead -->
 <div id="content">
 <div class="container">
-	<div id="legend" style="margin-top:5em">
-	  <legend class="">Daftar Arsip</legend>
-	</div>
 {{-- END OF VIEW --}}
 

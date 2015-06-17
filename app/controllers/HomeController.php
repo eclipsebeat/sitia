@@ -8,6 +8,8 @@ class HomeController extends \BaseController {
 		$kantors = Kantor::with('Kanwil')->get();
 		//var_dump($arsips->toArray());
 		// Show the page
-		return View::make('index', compact('arsips', 'kantors'));
+		$title = "Beranda";
+		$description= "Beranda aplikasi";
+		return View::make('index', compact('arsips', 'kantors','title','description'));
 	}
 }

@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" href="{{ asset('/img/favicon.ico') }}" type="image/x-icon" />
-	<title>SITIA</title>
+	<title>SITIA - {{$title}}</title>
 	
 	{{HTML::style('assets/css/bootstrap.css')}}
 	{{HTML::style('assets/css/bootstrap-theme.css')}}
@@ -17,10 +17,10 @@
 	<link href="{{ asset('assets/css/bootstrap-datepicker3.css') }}" rel="stylesheet">--}}
 
 	<!-- Fonts -->
-	{{HTML::style('//fonts.googleapis.com/css?family=Roboto:400,300')}}
-	{{HTML::style('//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css')}}
-	{{HTML::style('//cdn.datatables.net/plug-ins/f2c75b7247b/integration/bootstrap/3/dataTables.bootstrap.css')}}
-	{{--<link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+	{{HTML::style('assets/css/family-Roboto.css')}}
+	{{HTML::style('assets/css/font-awesome.min.css')}}
+	{{HTML::style('assets/css/dataTables.bootstrap.css')}}
+	{{--<link href='//fonts.googleapis.com/css/family=Roboto:400,300' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="//cdn.datatables.net/plug-ins/f2c75b7247b/integration/bootstrap/3/dataTables.bootstrap.css">--}}
 
@@ -42,10 +42,10 @@
 	@include('partials.footer')
 
 	<!-- Scripts -->
-	{{HTML::script('//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js')}}
-	{{HTML::script('//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js')}}
-	{{HTML::script('//cdn.datatables.net/1.10.5/js/jquery.dataTables.min.js')}}
-	{{HTML::script('//cdn.datatables.net/plug-ins/f2c75b7247b/integration/bootstrap/3/dataTables.bootstrap.js')}}
+	{{HTML::script('assets/js/jquery.min.js')}}
+	{{HTML::script('assets/js/bootstrap.min.js')}}
+	{{HTML::script('assets/js/jquery.dataTables.min.js')}}
+	{{HTML::script('assets/js/dataTables.bootstrap.js')}}
 	{{HTML::script('assets/js/bootstrap-datepicker.js')}}
 	
 <script type="text/javascript">
