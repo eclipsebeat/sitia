@@ -18,6 +18,34 @@ Route::post('login', array('uses' => 'UserController@doLogin'));
 
 Route::get('logout', array('uses' => 'UserController@doLogout'));
 
+Route::get('coba', 'TryController@coba');
+
+Route::get('kantor', 'KantorController@listOffice');
+
+Route::get('kantor/create', function()
+	{
+		return View::make('kantor/create');
+		// echo "create_kantor";
+		// $kantor = new Kantor ();
+		// $kantor->createOffice ();
+
+	});
+// Route::post('kantor/simpan', function()
+// 	{
+// 		// return "ini simpan";
+// 		// var_dump($_POST);
+
+
+// 	});
+Route::post('kantor/simpan', array('uses' => 'KantorController@saveOffice'));
+
+
+// Route::get('rekam_kantor', function()
+// 	{
+// 		// echo "dlkasjflkjsaflksa";
+// 		return View::make('kantor/create');
+// 	});
+
 Route::group(array('before'=>'auth'), function() { 
 
 	Route::get('/', 'HomeController@index');
