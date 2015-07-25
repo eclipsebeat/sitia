@@ -33,6 +33,8 @@ Route::group(array('before'=>'auth'), function() {
 	Route::get('user/{id}', array('uses' => 'UserController@edit'));	
 
 	Route::post('user/{id}', array('uses' => 'UserController@update'));
+	
+	Route::get('lokasi','LokasiController@index');
 
 	
 });

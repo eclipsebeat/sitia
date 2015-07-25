@@ -240,7 +240,7 @@
 							</ul>
 						</li>
 						<li class="dropdown-submenu">
-							<a tabindex="-1" href="#">RUH Lokasi</a>
+							<a tabindex="-1" href="{{URL::to('lokasi')}}">RUH Lokasi</a>
 							<ul class="dropdown-menu">
 							<li><a href="ruang.php">Daftar Lokasi</a></li>
 							<li><a href="ruang.php?modul=tambah">Rekam Lokasi</a></li>
@@ -278,4 +278,3 @@
 <div id="content">
 <div class="container">
 {{-- END OF VIEW --}}
-

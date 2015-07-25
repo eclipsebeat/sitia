@@ -23,7 +23,8 @@
 	{{--<link href='//fonts.googleapis.com/css/family=Roboto:400,300' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="//cdn.datatables.net/plug-ins/f2c75b7247b/integration/bootstrap/3/dataTables.bootstrap.css">--}}
-
+	{{HTML::script('assets/js/jquery.min.js')}}
+	{{HTML::script('assets/js/bootstrap.min.js')}}
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -42,8 +43,7 @@
 	@include('partials.footer')
 
 	<!-- Scripts -->
-	{{HTML::script('assets/js/jquery.min.js')}}
-	{{HTML::script('assets/js/bootstrap.min.js')}}
+	
 	{{HTML::script('assets/js/jquery.dataTables.min.js')}}
 	{{HTML::script('assets/js/dataTables.bootstrap.js')}}
 	{{HTML::script('assets/js/bootstrap-datepicker.js')}}

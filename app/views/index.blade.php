@@ -1,8 +1,9 @@
 @extends('layouts.master')
 
 @section('content')
-	<div id="legend" style="margin-top:3em">
+	<div id="legend" style="margin-top:3em;margin-bottom:-20px">
 	  {{--<legend class="">Daftar Arsip</legend>--}}
+	  <a href="{{URL::to('arsip/create')}}"><button class="btn-info btn">rekam</button></a>
 	</div>
 	<div class="row">
 		<div class="col-md-12 col-sm-12">

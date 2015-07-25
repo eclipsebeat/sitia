@@ -14,14 +14,14 @@ class DatabaseSeeder extends Seeder {
 		$this->call('UserTableSeeder');
 		$this->call('JenisArsipTableSeeder');
 		$this->call('GudangTableSeeder');
-		$this->call('RakTableSeeder');
 		$this->call('SeksiTableSeeder');
+		$this->call('RakTableSeeder');
 		$this->call('BoxTableSeeder');
 		$this->call('DepartemenTableSeeder');
 		$this->call('KanwilTableSeeder');
-		$this->call('ArsipTableSeeder');
 		$this->call('KantorTableSeeder');
 		$this->call('RolesTableSeeder');
+		$this->call('ArsipTableSeeder');
 	}
 
 }
@@ -85,21 +85,6 @@ class GudangTableSeeder extends Seeder {
     }
 }
 
-class RakTableSeeder extends Seeder {
-
-	public function run()  
-    {  
-    	$faker = Faker\Factory::create();
-        
-        for ($i = 0; $i < 10; $i++)
-		{
-		  Rak::create(array(
-		    'rak' => $faker->word
-		  ));
-		}
-    }
-}
-
 class SeksiTableSeeder extends Seeder {
 
 	public function run()  
@@ -109,8 +94,26 @@ class SeksiTableSeeder extends Seeder {
         for ($i = 0; $i < 10; $i++)
 		{
 		  Seksi::create(array(
-		    'Seksi' => $faker->word
+		    'Seksi' => $faker->word,
+			'gudang_id' => $faker->numberBetween($min = 1, $max = 10)
 		  ));
+		}
+    }
+}
+
+class RakTableSeeder extends Seeder {
+
+	public function run()  
+    {  
+    	$faker = Faker\Factory::create();
+        
+        for ($i = 0; $i < 10; $i++)
+		{
+		  Rak::create(array(
+		    'rak' => $faker->word,
+			'seksi_id' => $faker->numberBetween($min = 1, $max = 10)
+		  ));
+		  
 		}
     }
 }
@@ -124,7 +127,8 @@ class BoxTableSeeder extends Seeder {
         for ($i = 0; $i < 10; $i++)
 		{
 		  Box::create(array(
-		    'box' => $faker->word
+		    'box' => $faker->word,
+			'rak_id' => $faker->numberBetween($min=1, $max=10)
 		  ));
 		}
     }

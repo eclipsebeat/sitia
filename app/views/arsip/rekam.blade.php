@@ -4,7 +4,8 @@
 <div class="container-fluid">
     <section class="container">
 		<div class="col-md-12">
-			<legend>Rekam Arsip</legend>
+			{{--<legend>Rekam Arsip</legend>--}}
+			<div class="row">
 			@if (count($errors) > 0)
 				<div class="alert alert-danger">
 					<strong>Whoops!</strong> There were some problems with your input.<br><br>
@@ -15,6 +16,7 @@
 					</ul>
 				</div>
 			@endif
+			</div>
 		<div class="row">
 			{{ Form::open(array('action' => 'ArsipController@store', 'class' => 'form', 'files'=>'true')) }}
 		    	<div class="form-group col-lg-6">
@@ -53,15 +55,16 @@
 					{{ Form::select('seksi_id', $seksi, Input::old('seksi'), array('required', 
 				                    		'class'=>'form-control')) }}
 				</div>
-
-				{{ Form::hidden('user_id', '1') }}
-
-				<div style="text-align: center;">
-			      <div class="form-group col-md-12">  
-			          {{ Form::submit('Simpan!', 
-			            array('class'=>'btn btn-primary')) }}
-			      </div>
-			    </div> 
+				<div class="form-group col-lg-6">  
+			    {{ Form::hidden('user_id', '1') }}      
+			    </div>
+				
+				<div class="form-group col-lg-12">  
+				  {{ Form::submit('Simpan!', 
+					array('class'=>'btn btn-primary')) }}
+				</div>
+				  
+			    
 
 			{{ Form::close() }}
 		</div>

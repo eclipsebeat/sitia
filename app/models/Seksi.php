@@ -23,5 +23,10 @@ class Seksi extends Eloquent  {
     {
         return $this->hasMany('Arsip');
     }
+	
+	public function gudang()
+    {
+        return $this->hasOne('Gudang');
+    }
 
 }

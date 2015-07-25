@@ -23,5 +23,10 @@ class Gudang extends Eloquent  {
     {
         return $this->hasMany('Arsip');
     }
+	
+	public function seksi()
+    {
+        return $this->hasMany('Seksi');
+    }
 
 }

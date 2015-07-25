@@ -1,0 +1,48 @@
+page and or use case :
+MAIN [SEGERA DISELESAIKAN]
+- home (informasi : sisa space, most viewed, most borrowed, last created) []
+- RUH arsip 
+  - surat masuk C[],R[],U[],D[]
+  - surat keluar C[],R[],U[],D[]
+  - SPT Masa C[],R[],U[],D[]
+  - surat ketetapan C[],R[],U[],D[]
+  - IWP C[],R[],U[],D[]
+  - arsip lainnya C[],R[],U[],D[]
+- peminjaman arsip
+  - peminjaman arsip C[],R[],U[],D[]
+  - pengembalian arsip C[],R[],U[],D[] 
+- pencarian
+  - pencarian arsip per page (dengan datatable)
+  - pencarian arsip advance R[]
+- laporan
+  - peminjanam R[]
+  - status arsip R[]
+- admin
+  - user C[],R[],U[],D[]
+  - jenis arsip C[],R[],U[],D[]
+  - lokasi arsip (gudang, seksi, rak, box) C[],R[],U[],D[]
+  - retensi arsip C[],R[],U[],D[]
+  - departemen C[],R[],U[],D[]
+  - kantor C[],R[],U[],D[]
+  - utility
+    - backup C[],D[]
+	- restore C[],R[]
+- autentikasi
+  - login C[],R[],D[]
+  - logout D[]
+  
+ADDITION [TAHAP SELANJUTNYA]
+- admin
+  - setting ip publik/kode link unit (untuk share arsip antar kantor) C[],R[],U[],D[]
+  - kategori akses arsip C[],R[],U[],D[]
+- link
+  - list shared arsip R[]
+- notifikasi
+  - notifikasi peminjaman C[],R[],U[]
+  - sms notifikasi C[],R[],U[]
+  - email notifikasi C[],R[],U[]
+- peminjaman
+  - banned dan not banned C[],R[],U[]
+- data mining
+  - hubungan antar arsip C[],R[],U[]
+  

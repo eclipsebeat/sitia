@@ -28,8 +28,9 @@ class ArsipController extends \BaseController {
 		$rak = DB::table('rak')->orderBy('id', 'asc')->lists('rak','id');
 		$box = DB::table('box')->orderBy('id', 'asc')->lists('box','id');
 		$seksi = DB::table('seksi')->orderBy('id', 'asc')->lists('seksi','id');
-
-		return View::make('arsip.rekam', compact('jenisArsip', 'seksi', 'gudang', 'rak', 'box'));
+		$title = "Rekam Arsip";
+		$description= "Rekam Arsip";
+		return View::make('arsip.rekam', compact('jenisArsip', 'seksi', 'gudang', 'rak', 'box','title','description'));
 	}
 
 
