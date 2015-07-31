@@ -63,6 +63,16 @@ Route::group(array('before'=>'auth'), function() {
 	Route::post('user/{id}', array('uses' => 'UserController@update'));
 	
 	Route::get('lokasi','LokasiController@index');
-
 	
+	Route::get('lokasi/create/{target}','LokasiController@create');
+	
+	Route::get('lokasi/create/{target}/{parentid}','LokasiController@create');
+	
+	Route::post('lokasi/store/{target}','LokasiController@store');
+
+	Route::get('lokasi/edit/{target}/{id}','LokasiController@edit');
+	
+	Route::post('lokasi/update','LokasiController@update');
+	
+	Route::get('lokasi/destroy/{target}/{id}','LokasiController@destroy');
 });

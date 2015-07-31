@@ -1,6 +1,5 @@
 <?php
 
-
 class Seksi extends Eloquent  {
 
 
@@ -17,7 +16,7 @@ class Seksi extends Eloquent  {
 	 * @var array
 	 */
 	
-	protected $fillable = array('seksi');
+	protected $fillable = array('seksi','gudang_id');
 	
 	public function arsip()
     {
@@ -26,7 +25,12 @@ class Seksi extends Eloquent  {
 	
 	public function gudang()
     {
-        return $this->hasOne('Gudang');
+        return $this->belongsTo('Gudang');
+    }
+	
+	public function rak()
+    {
+        return $this->hasMany('Arsip');
     }
 
 }

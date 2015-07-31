@@ -17,11 +17,20 @@ class Rak extends Eloquent  {
 	 * @var array
 	 */
 	
-	protected $fillable = array('rak');
+	protected $fillable = array('rak','seksi_id');
 	
 	public function arsip()
     {
         return $this->hasMany('Arsip');
     }
+	
+	public function seksi()
+    {
+        return $this->belongsTo('Seksi');
+    }
+	
+	public function box(){
+		return $this->hasMany('Box');
+	}
 
 }
