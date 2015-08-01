@@ -66,16 +66,19 @@ class UserController extends \BaseController {
 	public function show(){
 
         $users = User::get();
-
+		$title = 'RUH User';
+		$description = 'Halaman pengelolaan user';
         //var_dump($profile);
 
-        return View::make('user.index', compact('users'));
+        return View::make('user.index', compact('users','title','description'));
 
 	}
 
 	public function rekam()
 	{
-		return View::make('user.rekam');
+		$title = 'Rekam User';
+		$description = 'Halaman perekaman user';
+		return View::make('user.rekam',compact('title','description'));
 	}
 
 	public function store()
@@ -102,7 +105,7 @@ class UserController extends \BaseController {
 		    $user->username     = Input::get('username');
 		    $user->nmdepan     = Input::get('nmdepan');
 		    $user->nmbelakang     = Input::get('nmbelakang');
-		    $user->password  = Input::get('password');
+		    $user->password  = Hash::make(Input::get('password'));
 			
 
 		    $user->save();
@@ -115,15 +118,43 @@ class UserController extends \BaseController {
 	public function edit($id){
 
        $user = User::find($id);
-
+		$title = 'Ubah User';
+		$description = 'Halaman ubah data user';
        //var_dump($user);
 
-       return View::make('user.edit', compact('user'));
+       return View::make('user.edit', compact('user','title','description','id'));
 
 	}
 
 	public function update(){
+		$rules = array(
+		    'nip'    => 'required|min:18',
+		    'nmdepan'    => 'required|string',
+		    'nmbelakang'    => 'required|string'
+		);
+		$id = Input::get('id');
+		$validator = Validator::make(Input::all(), $rules);
+		$user = User::find($id);
+		if ($validator->fails()) {
+		    return Redirect::to('user/'.$id)
+		        ->withErrors($validator) // send back all errors to the login form
+		        ->withInput(Input::except('password')); // send back the input (not the password) so that we can repopulate the form
+		} else {
 
+		    $user->nip     = Input::get('nip');
+		    $user->nmdepan     = Input::get('nmdepan');
+		    $user->nmbelakang     = Input::get('nmbelakang');
+		    $user->save();
+
+		    return Redirect::to('user');
+
+		}
+	}
+	
+	public function destroy($id){
+		$user = User::find($id);
+		$user->delete();
+		return Redirect::to('user');
 	}
 
 }

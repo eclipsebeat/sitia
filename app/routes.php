@@ -62,6 +62,8 @@ Route::group(array('before'=>'auth'), function() {
 
 	Route::post('user/{id}', array('uses' => 'UserController@update'));
 	
+	Route::get('user/destroy/{id}', array('uses' => 'UserController@destroy'));	
+	
 	Route::get('lokasi','LokasiController@index');
 	
 	Route::get('lokasi/create/{target}','LokasiController@create');

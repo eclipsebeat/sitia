@@ -47,7 +47,8 @@
 	{{HTML::script('assets/js/jquery.dataTables.min.js')}}
 	{{HTML::script('assets/js/dataTables.bootstrap.js')}}
 	{{HTML::script('assets/js/bootstrap-datepicker.js')}}
-	
+	{{HTML::script('assets/js/bootbox.min.js')}}
+	{{HTML::script('assets/js/sitia.js')}}
 <script type="text/javascript">
 	$(document).ready(function() {
 	    $('#example').dataTable();

@@ -1,10 +1,9 @@
 @extends('layouts.master')
 
 @section('content')
-	<div class="container-fluid">
+	<div class="container-fluid" style="margin-top:3em;margin-bottom:-20px">
     <section class="container">
 		<div class="col-md-12">
-			<legend>Edit User</legend>
 			@if (count($errors) > 0)
 				<div class="alert alert-danger">
 					<strong>Whoops!</strong> There were some problems with your input.<br><br>
@@ -17,6 +16,7 @@
 			@endif
 		<div class="row">
 			{{ Form::model($user, array('action' => 'UserController@update', 'class' => 'form')) }}
+				{{Form::hidden('id',null)}}
 		    	<div class="form-group col-lg-6">
 					{{ Form::label('nip', 'NIP', array('class' => 'control-label')) }}
 					{{ Form::text('nip', null, 
@@ -31,7 +31,7 @@
 				</div>
 				<div class="form-group col-lg-6">
 					{{ Form::label('nmdepan', 'Nama Depan', array('class' => 'control-label')) }}
-					{{ Form::text('nmbelakang', null, 
+					{{ Form::text('nmdepan', null, 
 				              array('required', 
 				                    'class'=>'form-control', 
 				                    'placeholder'=>'Nama Depan')) }}

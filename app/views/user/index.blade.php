@@ -1,13 +1,18 @@
 @extends('layouts.master')
 
 @section('content')
+	<div class="row" style="margin-top:3em;margin-bottom:-20px">
+		<div class="col-md-12 col-sm-12">
+			<a href="{{URL::to('user/rekam')}}"><button class="btn btn-info">Rekam User</button></a>
+		</div>
+	</div>
 	<div class="row">
 		<div class="col-md-12 col-sm-12">
 			<div class="panel panel-default">
 		  <!-- Default panel contents -->
 		  	<div class="panel-heading">Daftar User</div>
 		  
-	            <table id="example" class="table table-striped table-bordered table-hover">
+	            <table id="example1	" class="table table-striped table-bordered table-hover">
 	            <thead>
 	            <tr>
 	                <th>NIP</th>
@@ -28,17 +33,16 @@
 	                <td>{{ $user->nmdepan }}</td>
 	                <td>{{ $user->nmbelakang }}</td>
 	                <td> - </td>
-	                <td><a href="user/{{ $user->id }}" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning">Ubah</a></td>
-	                <td></td>
+	                <td><a href="{{URL::to('user/'.$user->id) }}" ><span><i class="glyphicon glyphicon-edit" title="ubah data user"></i></span></a>
+					@if($user->role!=1)
+						<a href="{{URL::to('user/destroy/'.$user->id) }}"  class='confirm' ><span><i class="glyphicon glyphicon-trash"title="hapus data user"></i></span></a>
+					@endif
+					</td>
 	            </tr>
 				@endforeach
 	            </tbody>
 	        </table>
-	        <div style="text-align: center;">
-			      <div class="form-group col-md-12">  
-			          <a href="user/rekam" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning">Rekam User</a>
-			      </div>
-			    </div> 
+	      
 	    </div>
 	</div>
 </div>

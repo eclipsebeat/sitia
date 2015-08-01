@@ -48,7 +48,7 @@
 		<li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Admin <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-			<li><a href="#">RUH User</a></li>
+			<li><a href="{{URL::to('user')}}">RUH User</a></li>
             <li><a href="#">Daftar Jenis Arsip</a></li>
             <li><a href="#">RUH Lokasi</a></li>
 			<li><a href="#">Utility</a></li>
@@ -226,7 +226,7 @@
 					</a>	
 					<ul class="dropdown-menu">
 						<li class="dropdown-submenu">
-							<a tabindex="-1" href="#">RUH User</a>
+							<a tabindex="-1" href="{{URL::to('user')}}">RUH User</a>
 							<ul class="dropdown-menu">
 							<li><a href="user.php?">Daftar User</a></li>
 							<li><a href="user.php?modul=tambah">Rekam User</a></li>

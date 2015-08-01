@@ -1,10 +1,9 @@
 @extends('layouts.master')
 
 @section('content')
-	<div class="container-fluid">
+	<div class="container-fluid"  style="margin-top:3em;margin-bottom:-20px">
     <section class="container">
 		<div class="col-md-12">
-			<legend>Rekam User</legend>
 			@if (count($errors) > 0)
 				<div class="alert alert-danger">
 					<strong>Whoops!</strong> There were some problems with your input.<br><br>
