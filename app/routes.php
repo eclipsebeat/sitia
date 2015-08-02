@@ -77,4 +77,16 @@ Route::group(array('before'=>'auth'), function() {
 	Route::post('lokasi/update','LokasiController@update');
 	
 	Route::get('lokasi/destroy/{target}/{id}','LokasiController@destroy');
+	
+	Route::get('jenisarsip','JenisArsipController@index');
+	
+	Route::get('jenisarsip/create','JenisArsipController@create');
+	
+	Route::post('jenisarsip/create','JenisArsipController@store');
+	
+	Route::get('jenisarsip/{id}','JenisArsipController@edit');
+	
+	Route::post('jenisarsip/{id}','JenisArsipController@update');
+	
+	Route::get('jenisarsip/destroy/{id}','JenisArsipController@destroy');
 });

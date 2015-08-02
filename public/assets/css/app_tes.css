@@ -2282,3 +2282,12 @@ Layout: Responsive
     border:1px solid #94a0b4;
     color:#000
 }
+
+/*
+ * tambahan
+ */
+
+.rapi{
+	margin-top:3em;
+	margin-bottom:-20px;
+}

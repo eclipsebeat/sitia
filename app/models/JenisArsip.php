@@ -1,6 +1,5 @@
 <?php
 
-
 class Jenis_Arsip extends Eloquent  {
 
 

@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-<div id="legend" style="margin-top:3em;margin-bottom:-20px">
+<div id="legend" class="rapi">
 	  {{--<legend class="">Daftar Arsip</legend>--}}
 	  <a href="{{URL::to('lokasi/create/gudang')}}"><button class="btn-info btn">rekam gudang</button></a>
 	  {{--<a href="{{URL::to('lokasi/create/seksi')}}"><button class="btn-info btn">rekam seksi</button></a>

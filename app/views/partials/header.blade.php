@@ -233,7 +233,7 @@
 							</ul>
 						</li>
 						<li class="dropdown-submenu">
-							<a tabindex="-1" href="jenisarsip.php">Daftar Jenis Arsip</a>
+							<a tabindex="-1" href="{{URL::to('jenisarsip')}}">Daftar Jenis Arsip</a>
 							<ul class="dropdown-menu">
 							<li><a href="jenisarsip.php">Daftar Jenis Arsip</a></li>
 							 <li><a href="jenisarsip.php?modul=tambah">Rekam Jenis Arsip</a></li> 

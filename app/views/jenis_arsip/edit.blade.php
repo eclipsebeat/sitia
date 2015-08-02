@@ -2,15 +2,13 @@
 
 @section('content')
 <div id="legend" class="rapi">
-	  {{--<legend class="">Daftar Arsip</legend>--}}
-	  <a href="{{URL::to('lokasi/create/gudang')}}"><button class="btn-info btn">rekam gudang</button></a>
-	  {{--<a href="{{URL::to('lokasi/create/seksi')}}"><button class="btn-info btn">rekam seksi</button></a>
-	  <a href="{{URL::to('lokasi/create/rak')}}"><button class="btn-info btn">rekam rak</button></a>
-	  <a href="{{URL::to('lokasi/create/box')}}"><button class="btn-info btn">rekam box</button></a>--}}
+	 
+	  <a href="{{URL::to('jenisarsip/create')}}"><button class="btn-info btn">rekam jenis arsip</button></a>
+	  
 </div>
 <div class='row'>
 	<div class='col-md-6'>
-		@include('lokasi.lokasi')
+		@include('jenis_arsip.table')
 	</div>
 	<div class='col-md-6'>
 		@if((count($errors)>0) || Session::has('sukses'))
@@ -35,15 +33,14 @@
 		<div class="row">
 			<div class="col-md-12 col-sm-12">
 				<div class="panel panel-default">
-					{{ Form::open(array('action' => 'LokasiController@store', 'class' => 'form')) }}
+					{{ Form::model($jenisarsip,array('action' => 'JenisArsipController@update', 'class' => 'form')) }}
+					{{Form::hidden('id',$jenisarsip->id)}}
 					<div class="form-group col-lg-12">
-						{{ Form::hidden('target',$target) }}
-						{{ Form::hidden('parentid',$parentid) }}
-						{{ Form::label('lokasi', $target, array('class' => 'control-label')) }}
-						{{ Form::text('lokasi', Form::old('lokasi'), 
+						{{ Form::label('jenis arsip', 'Jenis Arsip', array('class' => 'control-label')) }}
+						{{ Form::text('jenis', Form::old('jenis'), 
 								  array('required', 
 										'class'=>'form-control', 
-										'placeholder'=>'Nama Lokasi '.$target)) }}
+										'placeholder'=>'Nama Jenis Arsip ')) }}
 					</div>
 					<div class="form-group col-lg-12">  
 						{{ Form::submit('Simpan!', 
@@ -54,6 +51,5 @@
 		</div>
 	</div>
 </div>
-{{HTML::script('assets/js/tree.js')}}
 
 @stop
