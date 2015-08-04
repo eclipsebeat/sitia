@@ -247,7 +247,7 @@
 							</ul>
 						</li>
 						<li class="dropdown-submenu">
-							<a tabindex="-1" href="utility.php">Utility</a>
+							<a tabindex="-1" href="{{URL::to('utility')}}">Utility</a>
 						</li>
 					</ul>
 				</li>

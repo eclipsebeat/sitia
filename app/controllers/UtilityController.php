@@ -9,7 +9,9 @@ class UtilityController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		$title = 'Backup and Restore Data';
+		$description = '--';
+		return View::make('utility.index',compact('title','description'));
 	}
 
 

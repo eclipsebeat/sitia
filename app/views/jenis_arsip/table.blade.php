@@ -10,7 +10,6 @@
 			<th>Jenis</th>
 			<th>Aksi</th>
 		</tr>
-		</tr>
 		</thead>
 		<tbody>
 		@foreach ($jenisarsips as $jenisarsip)

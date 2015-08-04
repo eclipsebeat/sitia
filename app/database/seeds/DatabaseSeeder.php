@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder {
 		$this->call('KantorTableSeeder');
 		$this->call('RolesTableSeeder');
 		$this->call('ArsipTableSeeder');
+		$this->call('PinjamTableSeeder');
 	}
 
 }
@@ -40,6 +41,7 @@ class UserTableSeeder extends Seeder {
         $users->nmdepan = 'admin';
         $users->nmbelakang = 'admin';
         $users->password = '$2y$10$XOOz4RxEazfZk8WELZQKGOfa1Xuq48KslhOnHOAQ6tJ7miVZRx1.i';
+		$users->role = 1;
         $users->save();
 
         $users = new User;
@@ -48,6 +50,7 @@ class UserTableSeeder extends Seeder {
         $users->nmdepan = 'staff';
         $users->nmbelakang = 'staff';
         $users->password = '$2y$10$XOOz4RxEazfZk8WELZQKGOfa1Xuq48KslhOnHOAQ6tJ7miVZRx1.i';
+		$users->role = 2;
         $users->save();
 
 		}
@@ -64,7 +67,8 @@ class JenisArsipTableSeeder extends Seeder {
         for ($i = 0; $i < 10; $i++)
 		{
 		  Jenis_Arsip::create(array(
-		    'jenis' => $faker->word
+		    'jenis' => $faker->word,
+			'retensi' => 5
 		  ));
 		}
     }
@@ -194,6 +198,25 @@ class KantorTableSeeder extends Seeder {
 		));
 		
     }
+}
+
+class PinjamSeeder extends Seeder {
+	public function run()
+	{
+		$faker = Faker\Factory::create();
+        
+        for ($i = 0; $i < 10; $i++)
+		{
+		  Pinjam::create(array(
+		  	
+		    'arsip_id' => $faker->numberBetween($min = 1, $max = 10),
+			'user_id' => $faker->numberBetween($min = 1, $max = 2),
+			'status' => $faker->numberBetween($min = 1, $max = 2),
+			'time_pinjam' => $faker->dateTimeThisYear,
+			'time_kembali' => $faker->dateTimeThisYear
+		  ));
+		}
+	}
 }
 
 class RolesTableSeeder extends Seeder {

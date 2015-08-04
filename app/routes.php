@@ -89,4 +89,6 @@ Route::group(array('before'=>'auth'), function() {
 	Route::post('jenisarsip/{id}','JenisArsipController@update');
 	
 	Route::get('jenisarsip/destroy/{id}','JenisArsipController@destroy');
+	
+	Route::get('utility','UtilityController@index');
 });
