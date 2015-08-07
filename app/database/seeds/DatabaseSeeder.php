@@ -41,7 +41,6 @@ class UserTableSeeder extends Seeder {
         $users->nmdepan = 'admin';
         $users->nmbelakang = 'admin';
         $users->password = '$2y$10$XOOz4RxEazfZk8WELZQKGOfa1Xuq48KslhOnHOAQ6tJ7miVZRx1.i';
-		$users->role = 1;
         $users->save();
 
         $users = new User;
@@ -50,7 +49,6 @@ class UserTableSeeder extends Seeder {
         $users->nmdepan = 'staff';
         $users->nmbelakang = 'staff';
         $users->password = '$2y$10$XOOz4RxEazfZk8WELZQKGOfa1Xuq48KslhOnHOAQ6tJ7miVZRx1.i';
-		$users->role = 2;
         $users->save();
 
 		}

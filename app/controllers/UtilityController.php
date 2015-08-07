@@ -2,11 +2,19 @@
 
 class UtilityController extends \BaseController {
 
+	use BackupManager\Manager;
+
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
+
+	public function __construct(Manager $manager) 
+	{
+       	$this->manager = $manager;
+	}
+
 	public function index()
 	{
 		$title = 'Backup and Restore Data';
@@ -22,7 +30,7 @@ class UtilityController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+		$manager->makeBackup()->run('local', 'test/backup.sql');
 	}
 
 
@@ -69,7 +77,7 @@ class UtilityController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		$manager->makeRestore()->run('local', 'storage_path('$id')');
 	}
 
 

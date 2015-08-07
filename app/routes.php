@@ -91,4 +91,6 @@ Route::group(array('before'=>'auth'), function() {
 	Route::get('jenisarsip/destroy/{id}','JenisArsipController@destroy');
 	
 	Route::get('utility','UtilityController@index');
+
+	Route::get('utility/backup','UtilityController@create');
 });
