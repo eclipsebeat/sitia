@@ -19,6 +19,8 @@ class Arsip extends Eloquent  {
 	
 	protected $fillable = array('arsip', 'files', 'jenis_arsip_id', 'gudang_id', 'user_id', 'rak_id', 'seksi_id');
 	
+	protected $with = ['jenis_arsip','gudang','seksi','rak','box','pinjam'];
+	
 	public function jenis_arsip()
     {
         return $this->belongsTo('Jenis_Arsip');
@@ -48,5 +50,10 @@ class Arsip extends Eloquent  {
     {
         return $this->belongsTo('User');
     }
+	
+	public function pinjam()
+	{
+		return $this->hasMany('Pinjam');
+	}
 
 }

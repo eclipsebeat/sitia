@@ -32,6 +32,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     {
         return $this->hasMany('Arsip');
     }
+	
+	public function pinjam()
+	{
+		return $this->hasMany('Pinjam');
+	}
 
     public function getId()
 	{

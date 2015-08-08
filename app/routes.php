@@ -62,7 +62,15 @@ Route::group(array('before'=>'auth'), function() {
 
 	Route::post('user/{id}', array('uses' => 'UserController@update'));
 	
-	Route::get('user/destroy/{id}', array('uses' => 'UserController@destroy'));	
+	Route::get('user/destroy/{id}', array('uses' => 'UserController@destroy'));
+
+	Route::get('pinjam', 'PeminjamanController@index');
+	
+	Route::get('pinjam/create', 'PeminjamanController@create');
+	
+	Route::post('pinjam/create', 'PeminjamanController@store');
+	
+	Route::get('kembali/{id}','PeminjamanController@update');
 	
 	Route::get('lokasi','LokasiController@index');
 	

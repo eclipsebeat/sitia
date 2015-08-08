@@ -199,6 +199,7 @@ class KantorTableSeeder extends Seeder {
 }
 
 class PinjamSeeder extends Seeder {
+
 	public function run()
 	{
 		$faker = Faker\Factory::create();

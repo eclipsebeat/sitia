@@ -5,7 +5,13 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" href="{{ asset('/img/favicon.ico') }}" type="image/x-icon" />
-	<title>SITIA - {{$title}}</title>
+	<title>SITIA - 
+	@if(isset($title))
+		{{$title}}
+	@else
+		Sistem Informasi Arsip
+	@endif
+	</title>
 	
 	{{HTML::style('assets/css/bootstrap.css')}}
 	{{HTML::style('assets/css/bootstrap-theme.css')}}

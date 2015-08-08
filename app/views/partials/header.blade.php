@@ -179,16 +179,16 @@
 				</li>
 				
 				<li class="dropdown <?php if($aktif=='pinjam') { echo "active"; } ?>">					
-					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+					<a href="{{URL::to('pinjam')}}">
 						<i class="glyphicon glyphicon-briefcase"></i>
 						<span>Peminjaman Arsip</span> 
 						<b class="caret"></b>
 					</a>	
 				
-					<ul class="dropdown-menu">							
-						<li><a href="pinjam.php">Peminjaman Arsip</a></li>
-						<li><a href="pinjam.php?modul=kembali">Pengembalian Arsip</a></li>
-					</ul>     				
+					{{--<ul class="dropdown-menu">							
+						<li><a href="{{URL::to('pinjam')}}">Peminjaman Arsip</a></li>
+						<li><a href="{{URL::to('kembali/pinjam')}}">Pengembalian Arsip</a></li>
+					</ul> --}}    				
 				</li>
 				
 				<li class="dropdown <?php if($aktif=='cari') { echo "active"; } ?>">					
@@ -266,8 +266,20 @@
 		<div class="masthead-pad">
 			
 			<div class="masthead-text">
-				<h2>{{$title}}</h2>
-				<p>{{$description}}</p>
+				<h2>
+				@if(isset($title))
+					{{$title}}
+				@else
+					tanpa judul
+				@endif
+				</h2>
+				<p>
+				@if(isset($description))
+					{{$description}}
+				@else
+					no description
+				@endif
+				</p>
 			</div> <!-- /.masthead-text -->
 			
 		</div>
