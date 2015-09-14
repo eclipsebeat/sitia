@@ -1,3 +1,7 @@
+$(function(){
+	
+});
+
 $(document).on("click",".confirm",function(e){
 	var link = $(this).attr("href"); // "get" the intended link in a var
 	e.preventDefault();    
@@ -33,6 +37,11 @@ $(document).on("click",".fileview",function(e){
 	});
 	return false;  
 	e.preventDefault();    
+});
+
+$(document).on('click','.submenu',function(e){
+	var menu = $(this).attr('menu');
+	$.post('active-menu',{active:menu});
 });
 
 $(document).on('click','.pinjamarsip',function(e){

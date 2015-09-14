@@ -1,25 +1,15 @@
 <?php
 
-class UtilityController extends \BaseController {
-
-	use BackupManager\Manager;
+class SearchController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
-
-	public function __construct(Manager $manager) 
-	{
-       	$this->manager = $manager;
-	}
-
 	public function index()
 	{
-		$title = 'Backup and Restore Data';
-		$description = '--';
-		return View::make('utility.index',compact('title','description'));
+		return View::make('cari.index');
 	}
 
 
@@ -30,7 +20,7 @@ class UtilityController extends \BaseController {
 	 */
 	public function create()
 	{
-		$manager->makeBackup()->run('local', 'test/backup.sql');
+		//
 	}
 
 
@@ -41,7 +31,17 @@ class UtilityController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		$validator = Validator::make(Input::all(),array('search'=>'required'));
+		if($validator->passes()){
+			$results = Arsip::where('arsip','like','%'.Input::get('search').'%')
+						->with('jenis_arsip','gudang','seksi','rak','box','pinjam')
+						->get();
+			$no = 1;
+			return View::make('cari.result',compact('results','no'));
+		}else{
+			return Redirect::to('search')
+				->withErrors();
+		}
 	}
 
 
@@ -77,7 +77,7 @@ class UtilityController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		$manager->makeRestore()->run('local', 'storage_path('.$id.')');
+		//
 	}
 
 
@@ -91,11 +91,6 @@ class UtilityController extends \BaseController {
 	{
 		//
 	}
-	
-	public function menu(){
-		$menu = Input::get('active');
-		
-		Session::put('menu',$menu);
-	}
+
 
 }

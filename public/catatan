@@ -2,34 +2,35 @@ page and or use case :
 MAIN [SEGERA DISELESAIKAN]
 - home (informasi : sisa space, most viewed, most borrowed, last created) []
 - RUH arsip 
-  - surat masuk C[],R[],U[],D[]
-  - surat keluar C[],R[],U[],D[]
-  - SPT Masa C[],R[],U[],D[]
-  - surat ketetapan C[],R[],U[],D[]
-  - IWP C[],R[],U[],D[]
-  - arsip lainnya C[],R[],U[],D[]
+  - arsip C[],R[],U[],D[]
 - peminjaman arsip
-  - peminjaman arsip C[],R[],U[],D[]
-  - pengembalian arsip C[],R[],U[],D[] 
+  - peminjaman arsip C[v],R[v],U[x],D[x]
+  - pengembalian arsip C[v],R[v],U[v],D[x] 
 - pencarian
   - pencarian arsip per page (dengan datatable)
-  - pencarian arsip advance R[]
+  - pencarian arsip advance R[] [jenis arsip, dalam file (OCR), gudang, rak, seksi, box, user, tanggal antara, retensi]
 - laporan
   - peminjanam R[]
   - status arsip R[]
 - admin
-  - user C[],R[],U[],D[]
-  - jenis arsip C[],R[],U[],D[]
-  - lokasi arsip (gudang, seksi, rak, box) C[],R[],U[],D[]
-  - retensi arsip C[],R[],U[],D[]
+  - user C[v],R[v],U[v],D[v]
+  - jenis arsip C[v],R[v],U[v],D[v]
+  - lokasi arsip (gudang, seksi, rak, box) C[v],R[v],U[v],D[v]
+  - retensi arsip C[v],R[v],U[v],D[v] -> ada di jenis arsip
   - departemen C[],R[],U[],D[]
   - kantor C[],R[],U[],D[]
   - utility
     - backup C[],D[]
 	- restore C[],R[]
 - autentikasi
-  - login C[],R[],D[]
-  - logout D[]
+  - login C[v],R[v],D[v]
+  - logout D[v]
+- notifikasi
+  - admin
+    - arsip kadaluarsa C[],R[],U[],D[]
+	- due date peminjaman C[],R[],U[],D[]
+  - user
+    - due date peminjaman C[],R[],U[],D[]
   
 ADDITION [TAHAP SELANJUTNYA]
 - admin

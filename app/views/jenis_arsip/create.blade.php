@@ -37,7 +37,14 @@
 						{{ Form::text('jenis', Form::old('jenis'), 
 								  array('required', 
 										'class'=>'form-control', 
-										'placeholder'=>'Nama Jenis Arsip ')) }}
+										'placeholder'=>'Nama Jenis Arsip ')) 
+						}}
+						{{ Form::label('Retensi', 'Masa Berlaku (Retensi)', array('class' => 'control-label')) }}
+						{{ Form::text('retensi',Form::old('retensi'),
+							array('required', 
+										'class'=>'form-control', 
+										'placeholder'=>'Retensi / Masa berlaku arsip ')) 
+						}}
 					</div>
 					<div class="form-group col-lg-12">  
 						{{ Form::submit('Simpan!', 

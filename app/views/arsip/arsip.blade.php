@@ -3,9 +3,9 @@
 @section('content')
 	<div class="row">
 		<div class="col-md-12 col-sm-12">
-			<div class="panel panel-default">
+			<div class="panel panel-default" style="margin:10px 0 10px 0">
 		  <!-- Default panel contents -->
-		  	<div class="panel-heading">Daftar Arsip Terkini</div>
+		  	<div class="panel-heading" >Daftar Arsip Terkini</div>
 		  
 	            <table id="example" class="table table-striped table-bordered table-hover">
 	            <thead>

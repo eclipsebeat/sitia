@@ -7,14 +7,19 @@ class ArsipController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index($alias=null)
 	{
 		$arsips = Arsip::with('seksi', 'gudang', 'rak', 'jenis_arsip', 'user', 'box')->get();
+		if(!is_null($alias)) {
+			$jns_arsip = Jenis_Arsip::where('alias','=',$alias)->first();
+			$arsips = Arsip::with('seksi', 'gudang', 'rak', 'jenis_arsip', 'user', 'box')
+					->where('jenis_arsip_id','=',$jns_arsip->id)
+					->get();
+		}
 		//var_dump($arsips->toArray());
 		// Show the page
 		return View::make('arsip.arsip', compact('arsips'));
 	}
-
 
 	/**
 	 * Show the form for creating a new resource.

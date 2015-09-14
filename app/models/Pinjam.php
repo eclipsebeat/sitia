@@ -28,5 +28,15 @@ class Pinjam extends Eloquent  {
     {
         return $this->belongsTo('User');
     }
+	
+	public static function isPinjam($id_arsip){ //return boolean
+		$pinjam = self::where('arsip_id','=',$id_arsip)
+					->select(DB::raw('MAX(id)'),'status')
+					->get();
+		if($pinjam[0]->status==2){
+			return true;
+		}
+		return false;
+	}
 
 }

@@ -8,6 +8,7 @@
 		<tr>
 			<th>No</th>
 			<th>Jenis</th>
+			<th>Masa Berlaku (th)</th>
 			<th>Aksi</th>
 		</tr>
 		</thead>
@@ -16,6 +17,7 @@
 		<tr>
 			<td>{{ $no++ }}</td>
 			<td>{{ $jenisarsip->jenis }}</td>
+			<td>{{ $jenisarsip->retensi }}</td>
 			<td><a href="{{URL::to('jenisarsip/'.$jenisarsip->id) }}" ><span><i class="glyphicon glyphicon-edit" title="ubah data jenis arsip"></i></span></a>
 			<a href="{{URL::to('jenisarsip/destroy/'.$jenisarsip->id) }}"  class='confirm' ><span><i class="glyphicon glyphicon-trash"title="hapus data jenis arsip"></i></span></a>
 			</td>

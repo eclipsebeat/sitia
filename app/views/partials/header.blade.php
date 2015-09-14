@@ -1,4 +1,8 @@
-
+<?php
+	$menu = new Menu();
+	$menu->menuSurat();	
+	$menus = Session::get('menu');
+?>
 {{-- VIEW --}}
 <nav class="navbar navbar-default hidden">
   <div class="container-fluid">
@@ -118,13 +122,13 @@
 		
 		<div class="nav-collapse">
 			<ul id="main-nav" class="nav pull-right">
-				<li <?php if($aktif=='home') { echo "class=active"; } ?>>
+				<li  class="submenu" menu="home" id="home">
 					<a href="{{URL::to('/')}}">
 						<i class="glyphicon glyphicon-home"></i>
 						<span>Home</span>        					
 					</a>
 				</li>
-				<li class="dropdown <?php if($aktif=='arsip') { echo "active"; } ?>">					
+				<li class="dropdown submenu" menu="arsip" id="arsip">					
 					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
 						<i class="glyphicon glyphicon-file"></i>
 						<span>RUH Arsip</span> 
@@ -132,53 +136,15 @@
 					</a>	
 				
 					<ul class="dropdown-menu">
-						<li class="dropdown-submenu">
-						<a tabindex="-1" href="#">Surat Masuk</a>
-							<ul class="dropdown-menu">
-							<li><a href="suratmasuk.php">Daftar Surat Masuk</a></li>							
-							<li><a href="suratmasuk.php?modul=tambah">Rekam Surat Masuk</a></li>							
-							</ul>
-						</li>
-						<li class="dropdown-submenu">
-						<a tabindex="-1" href="#">Surat Keluar</a>
-							<ul class="dropdown-menu">
-							<li><a href="suratkeluar.php">Daftar Surat Keluar</a></li>							
-							<li><a href="suratkeluar.php?modul=tambah">Rekam Surat Keluar</a></li>							
-							</ul>
-						</li>
-						<li class="dropdown-submenu">
-						<a tabindex="-1" href="#">SPT Masa</a>
-							<ul class="dropdown-menu">
-							<li><a href="spt.php">Daftar SPT Masa</a></li>							
-							<li><a href="spt.php?modul=load_spt">Load SPT Masa</a></li>
-							<li><a href="spt.php?modul=view_spt">Rekam SPT Masa</a></li>							
-							</ul>
-						</li>
-						<li class="dropdown-submenu">
-						<a tabindex="-1" href="#">Surat Ketetapan</a>
-							<ul class="dropdown-menu">
-							<li><a href="skp.php">Daftar Surat Ketetapan</a></li>							
-							<li><a href="skp.php?modul=tambah">Rekam Surat Ketetapan</a></li>							
-							</ul>
-						</li>
-						<li class="dropdown-submenu">
-						<a tabindex="-1" href="#">Identitas Wajib Pajak</a>
-							<ul class="dropdown-menu">
-							<li><a href="iwp.php">Daftar Identitas Wajib Pajak</a></li>							
-							<li><a href="iwp.php?modul=tambah">Rekam Identitas Wajib Pajak</a></li>							
-							</ul>
-						</li>
-						<li class="dropdown-submenu">
-						<a tabindex="-1" href="#">Arsip Lainnya</a>
-							<ul class="dropdown-menu">
-							<li><a href="lain.php">Daftar Arsip Lainnya</a></li>							
-							<li><a href="lain.php?modul=tambah">Rekam Arsip Lainnya</a></li>							
-							</ul>
-						</li>
+						@foreach($menus as $menu)
+							<li class="dropdown-submenu submenu" menu="arsip">
+							<a tabindex="-1" href="{{ URL::to($menu['url'])}}">{{ $menu['menu_name']}}</a>
+							</li>
+						@endforeach
 					</ul> 				
 				</li>
 				
-				<li class="dropdown <?php if($aktif=='pinjam') { echo "active"; } ?>">					
+				<li class="dropdown submenu" id="pinjam" menu="pinjam">					
 					<a href="{{URL::to('pinjam')}}">
 						<i class="glyphicon glyphicon-briefcase"></i>
 						<span>Peminjaman Arsip</span> 
@@ -191,15 +157,15 @@
 					</ul> --}}    				
 				</li>
 				
-				<li class="dropdown <?php if($aktif=='cari') { echo "active"; } ?>">					
-					<a href="search.php">
+				<li class="dropdown submenu" id="cari" menu="cari">					
+					<a href="{{URL::to('search')}}">
 						<i class="glyphicon glyphicon-search"></i>
 						<span>Pencarian Arsip</span> 
 						<b class="caret"></b>
 					</a>	
 				</li>
 				
-				<li class="dropdown <?php if($aktif=='laporan') { echo "active"; } ?>">					
+				<li class="dropdown submenu" id="report" menu="report">					
 					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
 						<i class="glyphicon glyphicon-tasks"></i>
 						<span>Laporan</span> 
@@ -207,7 +173,7 @@
 					</a>	
 				
 					<ul class="dropdown-menu">
-						<li><a href="laporan.php">Peminjaman Arsip</a></li>
+						<li  menu="report"><a href="laporan.php">Peminjaman Arsip</a></li>
 						<li class="dropdown-submenu">
 							<a tabindex="-1" href="#">Status Arsip</a>
 							<ul class="dropdown-menu">
@@ -218,35 +184,35 @@
 						</li>
 					</ul>   				
 				</li>
-				<li class="dropdown <?php if($aktif=='admin') { echo "active"; } ?>">					
+				<li class="dropdown submenu" menu="admin" id="admin">					
 					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
 						<i class="glyphicon glyphicon-th"></i>
 						<span>Admin</span> 
 						<b class="caret"></b>
 					</a>	
 					<ul class="dropdown-menu">
-						<li class="dropdown-submenu">
+						<li class="dropdown-submenu" menu="admin">
 							<a tabindex="-1" href="{{URL::to('user')}}">RUH User</a>
 							<ul class="dropdown-menu">
 							<li><a href="user.php?">Daftar User</a></li>
 							<li><a href="user.php?modul=tambah">Rekam User</a></li>
 							</ul>
 						</li>
-						<li class="dropdown-submenu">
+						<li class="dropdown-submenu" menu="admin">
 							<a tabindex="-1" href="{{URL::to('jenisarsip')}}">Daftar Jenis Arsip</a>
 							<ul class="dropdown-menu">
 							<li><a href="jenisarsip.php">Daftar Jenis Arsip</a></li>
 							 <li><a href="jenisarsip.php?modul=tambah">Rekam Jenis Arsip</a></li> 
 							</ul>
 						</li>
-						<li class="dropdown-submenu">
+						<li class="dropdown-submenu" menu="admin">
 							<a tabindex="-1" href="{{URL::to('lokasi')}}">RUH Lokasi</a>
 							<ul class="dropdown-menu">
 							<li><a href="ruang.php">Daftar Lokasi</a></li>
 							<li><a href="ruang.php?modul=tambah">Rekam Lokasi</a></li>
 							</ul>
 						</li>
-						<li class="dropdown-submenu">
+						<li class="dropdown-submenu" menu="admin">
 							<a tabindex="-1" href="{{URL::to('utility')}}">Utility</a>
 						</li>
 					</ul>

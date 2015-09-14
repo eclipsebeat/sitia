@@ -9,6 +9,7 @@ class LokasiController extends \BaseController {
 	 */
 	public function index()
 	{
+		//echo Session::get('menu');
 		$gudang = Gudang::all();
 		$seksi = Seksi::all();
 		$rak = Rak::all();

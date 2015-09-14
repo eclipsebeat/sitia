@@ -39,13 +39,14 @@ class JenisArsipController extends \BaseController {
 	 */
 	public function store()
 	{
-		$rules = array('jenis'=>'required');
+		$rules = array('jenis'=>'required','retensi'=>'required|numeric');
 		
 		$validator = Validator::make(Input::all(),$rules);
 		
 		if($validator->passes()){
 			$jenisarsip = new Jenis_Arsip();
 			$jenisarsip->jenis = Input::get('jenis');
+			$jenisarsip->retensi = Input::get('retensi');
 			$jenisarsip->save();
 			return Redirect::to('jenisarsip/create')
 				->with('sukses','Rekam jenis arsip berhasil!');
@@ -96,10 +97,11 @@ class JenisArsipController extends \BaseController {
 	{
 		$id = Input::get('id'); 
 		$jenisarsip = Jenis_Arsip::find($id);
-		$rules = array('jenis'=>'required');
+		$rules = array('jenis'=>'required','retensi'=>'required|numeric');
 		$validator = Validator::make(Input::all(),$rules);
 		if($validator->passes()){
 			$jenisarsip->jenis = Input::get('jenis');
+			$jenisarsip->retensi = Input::get('retensi');
 			$jenisarsip->save();
 			return Redirect::to('jenisarsip/'.$id)
 				->with('sukses','Ubah data jenis arsip berhasil!');
