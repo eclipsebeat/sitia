@@ -4,6 +4,13 @@
 	"keywords": ["framework", "laravel"],
 	"license": "MIT",
 	"type": "project",
+	"repositories": [
+    {
+         "type": "composer",
+         "url": "https://packagist.org"
+    },
+    { "packagist": false }
+    ],
 	"require": {
 		"laravel/framework": "4.2.*",
 		"zizaco/entrust": "1.2.*@dev",

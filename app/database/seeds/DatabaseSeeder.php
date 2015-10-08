@@ -40,7 +40,8 @@ class UserTableSeeder extends Seeder {
         $users->username = 'admin';
         $users->nmdepan = 'admin';
         $users->nmbelakang = 'admin';
-        $users->password = '$2y$10$XOOz4RxEazfZk8WELZQKGOfa1Xuq48KslhOnHOAQ6tJ7miVZRx1.i';
+        $users->password = Hash::make('admin');
+        $users->activate = 1;
         $users->save();
 
         $users = new User;
@@ -48,7 +49,8 @@ class UserTableSeeder extends Seeder {
         $users->username = 'staff';
         $users->nmdepan = 'staff';
         $users->nmbelakang = 'staff';
-        $users->password = '$2y$10$XOOz4RxEazfZk8WELZQKGOfa1Xuq48KslhOnHOAQ6tJ7miVZRx1.i';
+        $users->password = Hash::make('staff');
+        $users->activate = 1;
         $users->save();
 
 		}
@@ -66,6 +68,7 @@ class JenisArsipTableSeeder extends Seeder {
 		{
 		  Jenis_Arsip::create(array(
 		    'jenis' => $faker->word,
+		    'alias' => $faker->word,
 			'retensi' => 5
 		  ));
 		}
@@ -93,11 +96,10 @@ class SeksiTableSeeder extends Seeder {
     {  
     	$faker = Faker\Factory::create();
         
-        for ($i = 0; $i < 10; $i++)
+        for ($i = 0; $i < 5; $i++)
 		{
 		  Seksi::create(array(
-		    'Seksi' => $faker->word,
-			'gudang_id' => $faker->numberBetween($min = 1, $max = 10)
+		    'Seksi' => $faker->word
 		  ));
 		}
     }
@@ -113,7 +115,7 @@ class RakTableSeeder extends Seeder {
 		{
 		  Rak::create(array(
 		    'rak' => $faker->word,
-			'seksi_id' => $faker->numberBetween($min = 1, $max = 10)
+			'seksi_id' => $faker->numberBetween($min = 1, $max = 5)
 		  ));
 		  
 		}
@@ -174,7 +176,7 @@ class ArsipTableSeeder extends Seeder {
 			'gudang_id' => $faker->numberBetween($min = 1, $max = 10),
 			'rak_id' => $faker->numberBetween($min = 1, $max = 10),
 			'box_id' => $faker->numberBetween($min = 1, $max = 10),
-			'seksi_id' => $faker->numberBetween($min = 1, $max = 10),
+			'seksi_id' => $faker->numberBetween($min = 1, $max = 5),
 			'user_id' => '2'
 		  ));
 		}
@@ -198,7 +200,7 @@ class KantorTableSeeder extends Seeder {
     }
 }
 
-class PinjamSeeder extends Seeder {
+class PinjamTableSeeder extends Seeder {
 
 	public function run()
 	{

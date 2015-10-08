@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRakTable extends Migration {
+class CreateUtilityTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,10 +12,12 @@ class CreateRakTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('rak', function(Blueprint $table)
+		Schema::create('utility', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('rak', 50);
+			$table->string('backup', 15);
+			$table->unsignedInteger('user_id');
+			$table->foreign('user_id')->references('id')->on('users')->onDelete('no action');
 			$table->timestamps();
 		});
 	}
@@ -27,7 +29,7 @@ class CreateRakTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('rak');
+		Schema::drop('utility');
 	}
 
 }

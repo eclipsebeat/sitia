@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration {
 			$table->string('nmdepan', 50);
 			$table->string('nmbelakang', 50);
 			$table->string('password', 60);
+			$table->unsignedInteger('activate');
 			$table->rememberToken();			
 			$table->timestamps();
 		});

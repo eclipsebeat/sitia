@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddSeksiIdToRakTable extends Migration {
+class CreateRakTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,11 +12,14 @@ class AddSeksiIdToRakTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('rak', function(Blueprint $table)
+		Schema::create('rak', function(Blueprint $table)
 		{
-			$table->integer('seksi_id')->unsigned()->after('rak');
+			$table->increments('id');
+			$table->string('rak', 50);
+			$table->integer('seksi_id')->unsigned();
 			$table->foreign('seksi_id')
 				  ->references('id')->on('seksi')->onDelete('cascade')->onUpdate('no action');
+			$table->timestamps();
 		});
 	}
 
@@ -27,10 +30,7 @@ class AddSeksiIdToRakTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('rak', function(Blueprint $table)
-		{
-			//
-		});
+		Schema::drop('rak');
 	}
 
 }

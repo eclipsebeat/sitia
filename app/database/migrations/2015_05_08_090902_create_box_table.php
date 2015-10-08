@@ -16,6 +16,9 @@ class CreateBoxTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('box');
+			$table->integer('rak_id')->unsigned();
+			$table->foreign('rak_id')
+				  ->references('id')->on('rak')->onDelete('cascade')->onUpdate('no action');
 			$table->timestamps();
 		});
 	}

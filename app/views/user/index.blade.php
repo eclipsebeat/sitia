@@ -20,6 +20,7 @@
 	                <th>Nama Depan</th>
 	                <th>Nama Belakang</th>
 	                <th>Kewenangan</th>
+	                <th>status</th>
 	                <th></th>
 	                <th></th>
 	            </tr>
@@ -32,7 +33,14 @@
 	                <td>{{ $user->username }}</td>
 	                <td>{{ $user->nmdepan }}</td>
 	                <td>{{ $user->nmbelakang }}</td>
-	                <td> - </td>
+	                @foreach($user->roles() as $row)
+	                <td> {{ $row->name }} </td>
+	                @endforeach
+	                @if($user->activate == 1)
+						<td> Aktif </td>
+					@elseif($user->activate == 2)
+						<td> Delete </td>
+					@endif
 	                <td><a href="{{URL::to('user/'.$user->id) }}" ><span><i class="glyphicon glyphicon-edit" title="ubah data user"></i></span></a>
 					@if($user->role!=1)
 						<a href="{{URL::to('user/destroy/'.$user->id) }}"  class='confirm' ><span><i class="glyphicon glyphicon-trash"title="hapus data user"></i></span></a>

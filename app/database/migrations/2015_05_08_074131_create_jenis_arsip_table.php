@@ -16,7 +16,8 @@ class CreateJenisArsipTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('jenis', 50);
-			$table->string('integer')->unsigned();
+			$table->string('alias', 50);
+			$table->integer('retensi')->unsigned();
 			$table->timestamps();
 		});
 	}

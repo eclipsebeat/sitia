@@ -122,7 +122,8 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Zizaco\Entrust\EntrustServiceProvider',
-		'BackupManager\Laravel\Laravel4ServiceProvider',
+		'Coreproc\LaravelDbBackup\LaravelDbBackupServiceProvider',
+		BackupManager\Laravel\Laravel4ServiceProvider::class,
 		
 	),
 

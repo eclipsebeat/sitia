@@ -12,16 +12,16 @@ class CreatePinjamTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('pinjam', function(Blueprint $table)
+		Schema::create('pinjam', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->unsignedInteger('arsip_id');
+			$table->unsignedInteger('arsip_id')->nullable();
 			$table->foreign('arsip_id')->references('id')->on('arsip')->onDelete('set null');
 			$table->unsignedInteger('user_id');
-			$table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
-			$table->insignedInteger('status'); //status 1[pinjam] atau 2 [kembali]
-			$table->timestamps('time_pinjam');
-			$table->timestamps('time_kembali');
+			$table->foreign('user_id')->references('id')->on('users')->onDelete('no action');
+			$table->unsignedInteger('status'); //status 1[pinjam] atau 2 [kembali]
+			$table->datetime('time_pinjam');
+			$table->datetime('time_kembali');
 			$table->timestamps();
 		});
 	}

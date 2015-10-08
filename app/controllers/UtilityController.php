@@ -1,25 +1,26 @@
 <?php
 
-class UtilityController extends \BaseController {
+use BackupManager\Manager;
+use Symfony\Component\Process\Process;
 
-	use BackupManager\Manager;
+class UtilityController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
-
-	public function __construct(Manager $manager) 
-	{
-       	$this->manager = $manager;
+	public function __construct(Manager $manager) {
+	    $this->manager = $manager;
 	}
 
+	
 	public function index()
 	{
 		$title = 'Backup and Restore Data';
-		$description = '--';
-		return View::make('utility.index',compact('title','description'));
+		$utility = Utility::all();
+
+		return View::make('utility.index',compact('title','description', 'utility'));
 	}
 
 
@@ -30,7 +31,25 @@ class UtilityController extends \BaseController {
 	 */
 	public function create()
 	{
-		$manager->makeBackup()->run('local', 'test/backup.sql');
+		$filename = 'backup'.date('YmdHis').'.sql';
+
+
+		$backup = $this->manager->makeBackup()->run('mysql', 'local', $filename, 'null');
+
+		if($backup){			
+			$utility = new Utility;
+			$utility->backup = $filename;
+			$utility->user_id = Auth::user()->id;
+			$utility->save();
+
+			Redirect::back()->with('message', 'Backup telah tersimpan');
+		} else {
+			Redirect::back()->with('message', 'Backup gagal');
+		}
+
+
+		
+
 	}
 
 
@@ -77,6 +96,7 @@ class UtilityController extends \BaseController {
 	 */
 	public function update($id)
 	{
+		$manager = App::make(\BackupManager\Manager::class);
 		$manager->makeRestore()->run('local', 'storage_path('.$id.')');
 	}
 

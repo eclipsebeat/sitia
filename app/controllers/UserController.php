@@ -9,7 +9,7 @@ class UserController extends \BaseController {
 	 */
 	public function index()
 	{
-		$users = User::all();
+		$users = User::all()->with('roles');
 		//var_dump($arsips->toArray());
 		// Show the page
 		return View::make('user.index', compact('users'));
@@ -106,6 +106,7 @@ class UserController extends \BaseController {
 		    $user->nmdepan     = Input::get('nmdepan');
 		    $user->nmbelakang     = Input::get('nmbelakang');
 		    $user->password  = Hash::make(Input::get('password'));
+		    $user->activate = 1;
 			
 
 		    $user->save();
@@ -153,7 +154,9 @@ class UserController extends \BaseController {
 	
 	public function destroy($id){
 		$user = User::find($id);
-		$user->delete();
+		$user->activate = 2;
+		$user->save();
+
 		return Redirect::to('user');
 	}
 
