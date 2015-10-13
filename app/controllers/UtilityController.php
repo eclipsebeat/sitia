@@ -2,6 +2,9 @@
 
 use BackupManager\Manager;
 use Symfony\Component\Process\Process;
+use Illuminate\Console\Command;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputArgument;
 
 class UtilityController extends \BaseController {
 
@@ -31,7 +34,7 @@ class UtilityController extends \BaseController {
 	 */
 	public function create()
 	{
-		$filename = 'backup'.date('YmdHis').'.sql';
+		/*$filename = 'backup'.date('YmdHis').'.sql';
 
 
 		$backup = $this->manager->makeBackup()->run('mysql', 'local', $filename, 'null');
@@ -45,10 +48,28 @@ class UtilityController extends \BaseController {
 			Redirect::back()->with('message', 'Backup telah tersimpan');
 		} else {
 			Redirect::back()->with('message', 'Backup gagal');
+		}*/
+
+		$host = Config::get('database.connections.mysql.host');
+        $database = Config::get('database.connections.mysql.database');
+        $username = Config::get('database.connections.mysql.username');
+        $password = Config::get('database.connections.mysql.password');
+        $backupPath = app_path() . "\storage\backup\\";
+        $backupFileName = $database . "-" . date("Y-m-d-H-i-s") . '.sql';		
+
+        $path = "c:\\lamp\bin\mysql\mariadb-10.0.20\bin\mysqldump"; // dirubah sesuai file mysqldump dimana
+
+        $command = $path . " -u " . $username . " -p " . $password . " " . $database . " > " . $backupPath . $backupFileName;
+        if(system($command)){
+        	$utility = new Utility;
+			$utility->backup = $filename;
+			$utility->user_id = Auth::user()->id;
+			$utility->save();
+
+			Redirect::back()->with('message', 'Backup telah tersimpan');
+        } else {
+			Redirect::back()->with('message', 'Backup gagal');
 		}
-
-
-		
 
 	}
 

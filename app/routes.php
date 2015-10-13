@@ -82,5 +82,7 @@ Route::group(array('before'=>'auth'), function() {
 	
 	Route::post('search/store', 'SearchController@store');
 	
-	Route::post('search/custom', 'SearchController@create');
+	Route::get('search/custom', 'SearchController@custom');
+
+	Route::post('search/custom', 'SearchController@show');
 });

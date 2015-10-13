@@ -17,6 +17,7 @@
 	                <th>Arsip</th>
 	                <th>Jenis Arsip</th>
 	                <th>Seksi</th>
+	                <th>Tanggal Rekam</th>
 	            </tr>
 	            </thead>
 	            <tbody>
@@ -25,6 +26,7 @@
 	                <td>{{ $arsip->arsip }}</td>
 	                <td>{{ $arsip->jenis_arsip->jenis }}</td>
 	                <td>{{ $arsip->seksi->seksi }}</td>
+	                <td>{{ date('d F Y', strtotime($arsip->created_at)) }}</td>
 	            </tr>
 	            @endforeach
 	            </tbody>

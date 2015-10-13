@@ -25,7 +25,7 @@
 	            <tr>
 	                <td>{{ $row->backup }}</td>
 	                <td>{{ $row->users->username }}</td>
-	                <td>{{ {{ date('d F Y', strtotime($row->created_at)) }} }}</td>
+	                <td>{{ date('d F Y', strtotime($row->created_at)) }}</td>
 	                <td><a href="{{URL::to('user/'.$user->id) }}" ><span><i class="glyphicon glyphicon-edit" title="Restore"></i></span></a>
 	                <td><a href="{{URL::to('utility/destroy/'.$user->id) }}"  class='confirm' ><span><i class="glyphicon glyphicon-trash"title="hapus database"></i></span></a></td>
 	            </tr>
